@@ -13,7 +13,7 @@ export async function GET(req) {
         },
     }
     const shipment = await fetch(
-        `https://api-eu.dhl.com/track/shipments?trackingNumber=${trackingNumber}`,
+        `https://api-eu.dhl.com/track/shipments?trackingNumber=${trackingNumber}&language=es`,
         options
     )
     const data = await shipment.json()
