@@ -1,4 +1,3 @@
-import ShipmentsDetails from "../components/ShipmentDetails"
 import TrackInput from "../components/TrackInput"
 import { MainNav } from "@/components/MainNav"
 export default function Home() {
