@@ -15,7 +15,7 @@ import {
 } from "@/components/ui/navigation-menu"
 
 export function MainNav(props) {
-    const {className} = props
+    const { className } = props
     return (
         <NavigationMenu className={className}>
             <NavigationMenuList>
@@ -49,6 +49,7 @@ export function MainNav(props) {
                         </ul>
                     </NavigationMenuContent>
                 </NavigationMenuItem>
+                
             </NavigationMenuList>
         </NavigationMenu>
     )
