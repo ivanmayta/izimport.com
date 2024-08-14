@@ -1,5 +1,5 @@
 import TrackInput from "../components/TrackInput"
-import { MainNav } from "@/components/MainNav"
+import { MainNav } from "../components/MainNav"
 export default function Home() {
     return (
         <main className=" flex flex-col max-w-2xl mx-auto h-screen">

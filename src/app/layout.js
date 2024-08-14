@@ -1,6 +1,6 @@
 import { Inter } from "next/font/google"
-import { ThemeProvider } from "@/components/ui/theme-provider"
-import { ModeToggle } from "@/components/ModeToggle"
+import { ThemeProvider } from "../components/ui/theme-provider"
+import { ModeToggle } from "../components/ModeToggle"
 
 import "./globals.css"
 

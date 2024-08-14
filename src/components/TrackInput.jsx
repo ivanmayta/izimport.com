@@ -1,7 +1,7 @@
 "use client"
 import { useState } from "react"
 import ShipmentsDetails from "./ShipmentDetails"
-import { Button } from "@/components/ui/button"
+import { Button } from "./ui/button"
 import { MagnifyingGlassIcon } from "@radix-ui/react-icons"
 const TrackInput = () => {
     const [trackingNumber, setTrackingNumber] = useState("")
