@@ -1,13 +1,16 @@
-import ShipmentsDetails from "./components/ShipmentDetails"
-import SearchTrackingInput from "./components/SearchTrackingInput"
+import ShipmentsDetails from "../components/ShipmentDetails"
+import TrackInput from "../components/TrackInput"
+import { MainNav } from "@/components/MainNav"
 export default function Home() {
     return (
-        <>
-            <main className="flex min-h-screen flex-col items-center max-w-2xl mx-auto  px-6">
-                <section className="w-full py-24 md:py-36">
-                    <SearchTrackingInput />
-                </section>
-            </main>
-        </>
+        <main className=" flex flex-col max-w-2xl mx-auto h-screen">
+            <section className="">
+                <MainNav />
+            </section>
+
+            <section className=" sticky top-[74px] w-full  border-neutral-300 bg-white p-3 px-11 placeholder-neutral-500 focus:outline-none     focus:ring-1 focus:ring-neutral-300  dark:bg-background dark:focus:ring-neutral-700">
+                <TrackInput />
+            </section>
+        </main>
     )
 }

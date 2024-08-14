@@ -1,5 +1,6 @@
 import { Inter } from "next/font/google"
-import { MainNav } from "@/components/MainNav"
+import { ThemeProvider } from "@/components/ui/theme-provider"
+import { ModeToggle } from "@/components/ModeToggle"
 
 import "./globals.css"
 
@@ -14,12 +15,25 @@ export default function RootLayout({ children }) {
     return (
         <html lang="en">
             <body className={inter.className}>
-                <header className="max-w-2xl mx-auto z-10 top-0 ">
-                    <MainNav className="fixed" />
-                </header>
-                {children}
-                <footer className="flex justify-center">Hecho por izimport.com</footer>
-
+                <ThemeProvider
+                    attribute="class"
+                    defaultTheme="system"
+                    enableSystem
+                    disableTransitionOnChange
+                >
+                    <header className="w-full px-5 py-2 border-b border-neutral-200 dark:border-neutral-800 sticky top-0 z-50 backdrop-blur-md dark:bg-neutral-900/90 bg-white/90">
+                        <nav className="flex items-center justify-between">
+                            <h2 className="bold text-2xl font-extrabold tracking-tight lg:text-2xl">
+                                izimport
+                            </h2>
+                            <ModeToggle />
+                        </nav>
+                    </header>
+                    {children}
+                    <footer className="flex justify-center">
+                        Hecho por izimport.com
+                    </footer>
+                </ThemeProvider>
             </body>
         </html>
     )
