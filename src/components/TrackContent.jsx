@@ -2,10 +2,11 @@
 
 import { getEvents } from "../app/services/getEvents"
 import { useEffect, useState } from "react"
-import Events from "./Events"
+import TrackEvents from "./TrackEvents"
 import { SkeletonCard } from "./SkeletonCard"
+import TrackCard from "./TrackCard"
 
-const ShipmentsDetails = ({ trackingNumber }) => {
+const TrackContent = ({ trackingNumber }) => {
     const [data, setData] = useState({ shipments: [] })
     const [isLoading, setIsLoading] = useState(true)
 
@@ -17,18 +18,27 @@ const ShipmentsDetails = ({ trackingNumber }) => {
     }, [trackingNumber])
 
     const events = data?.shipments[0]?.events || undefined
+    const shipmentDetails = data?.shipments[0] || undefined
 
     return (
         <>
             {isLoading ? (
                 <SkeletonCard />
             ) : (
-                <ul className="relative border-s border-gray-200 dark:border-gray-700 max-w-[600px] ">
-                    {events && <Events events={events} />}
-                </ul>
+                <>
+                    {events && shipmentDetails && (
+                        <>
+                            <TrackCard
+                                className="my-4"
+                                shipmentDetails={shipmentDetails}
+                            />
+                            <TrackEvents events={events} />
+                        </>
+                    )}
+                </>
             )}
         </>
     )
 }
 
-export default ShipmentsDetails
+export default TrackContent

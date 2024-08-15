@@ -22,7 +22,25 @@ export function MainNav(props) {
                 <NavigationMenuItem>
                     <NavigationMenuTrigger>Rastrea</NavigationMenuTrigger>
                     <NavigationMenuContent>
-                        <NavigationMenuLink>Link</NavigationMenuLink>
+                        <ul className="grid w-[400px] gap-3 p-4 md:w-[300px]  lg:w-[300px] ">
+                            <li className="row-span-3">
+                                <NavigationMenuLink asChild>
+                                    <Link
+                                        className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md"
+                                        href="/"
+                                    >
+                                        <div className="mb-2 mt-4 text-lg font-medium">
+                                            Rastrea tu envio
+                                        </div>
+                                        <p className="text-sm leading-tight text-muted-foreground">
+                                            Beautifully designed components
+                                            built with Radix UI and Tailwind
+                                            CSS.
+                                        </p>
+                                    </Link>
+                                </NavigationMenuLink>
+                            </li>
+                        </ul>
                     </NavigationMenuContent>
                 </NavigationMenuItem>
                 <NavigationMenuItem>
@@ -31,25 +49,41 @@ export function MainNav(props) {
                         <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
                             <li className="row-span-3">
                                 <NavigationMenuLink asChild>
-                                    <a
+                                    <Link
                                         className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md"
-                                        href="/"
+                                        href="/exonerado"
                                     >
                                         <div className="mb-2 mt-4 text-lg font-medium">
-                                            shadcn/ui
+                                            Proceso Exonerado
                                         </div>
                                         <p className="text-sm leading-tight text-muted-foreground">
                                             Beautifully designed components
                                             built with Radix UI and Tailwind
                                             CSS.
                                         </p>
-                                    </a>
+                                    </Link>
+                                </NavigationMenuLink>
+                            </li>
+                            <li className="row-span-3">
+                                <NavigationMenuLink asChild>
+                                    <Link
+                                        className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md"
+                                        href="/exonerado"
+                                    >
+                                        <div className="mb-2 mt-4 text-lg font-medium">
+                                            Proceso Simplificado
+                                        </div>
+                                        <p className="text-sm leading-tight text-muted-foreground">
+                                            Beautifully designed components
+                                            built with Radix UI and Tailwind
+                                            CSS.
+                                        </p>
+                                    </Link>
                                 </NavigationMenuLink>
                             </li>
                         </ul>
                     </NavigationMenuContent>
                 </NavigationMenuItem>
-                
             </NavigationMenuList>
         </NavigationMenu>
     )
