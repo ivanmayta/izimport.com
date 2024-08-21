@@ -48,7 +48,7 @@ const TrackInput = () => {
                         type="text"
                         id="simple-search"
                         className="bg-background border border-gray-300 text-gray-900 text-sm rounded-lg  block w-full ps-10 p-2.5  dark:bg-background dark:border-gray-600  dark:text-white focus:bg-background "
-                        placeholder="Search branch name..."
+                        placeholder="Ingrese su numero de seguimiento..."
                         required
                     />
                 </div>
