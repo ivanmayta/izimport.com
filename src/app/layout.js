@@ -1,12 +1,10 @@
-import { Inter } from "next/font/google"
+import { Onest } from "next/font/google"
 import { ThemeProvider } from "../components/ui/theme-provider"
-import { ModeToggle } from "../components/ModeToggle"
 import { MainNav } from "../components/MainNav"
-
+import { NavHeader } from "../components/NavHeader"
 import "./globals.css"
-import Link from "next/link"
 
-const inter = Inter({ subsets: ["latin"] })
+const onest = Onest({ subsets: ["latin"] })
 
 export const metadata = {
     title: "izimport",
@@ -16,23 +14,16 @@ export const metadata = {
 export default function RootLayout({ children }) {
     return (
         <html lang="en">
-            <body className={inter.className}>
+            <body className={onest.className}>
                 <ThemeProvider
                     attribute="class"
                     defaultTheme="system"
                     enableSystem
                     disableTransitionOnChange
                 >
-                    <header className="w-full fixed z-50 backdrop-blur-md dark:bg-background bg-white/90">
-                        <nav className="flex py-2 px-5 dark:bg-background border-b border-neutral-200 dark:border-neutral-800 items-center justify-between">
-                            <h2 className="bold text-2xl font-extrabold tracking-tight lg:text-2xl">
-                                <Link href="/">izimport</Link>
-                            </h2>
-                            <ModeToggle />
-                        </nav>
-                        <section className="max-w-4xl mx-auto">
-                            <MainNav />
-                        </section>
+                    <header className="w-full fixed z-50 backdrop-blur-md ">
+                        <NavHeader />
+                        <MainNav className="mx-auto max-w-4xl flex justify-start bg-transparent" />
                     </header>
                     <main className=" flex flex-col max-w-3xl mx-auto min-h-screen">
                         {children}
@@ -41,6 +32,8 @@ export default function RootLayout({ children }) {
                         Hecho por izimport.com
                     </footer>
                 </ThemeProvider>
+
+                <div className="absolute top-0 z-[-2] h-screen w-full  bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.2),rgba(255,255,255,0))]"></div>
             </body>
         </html>
     )
