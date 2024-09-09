@@ -9,8 +9,11 @@ export default function Exonerado() {
         fob_value: 0,
         international_freight: 0,
         freight_dot_fob: 0,
-        comision_plataforma: 2.99,
-        total_comision: 0,
+        comission_platform: 0,
+        comission_total: 0,
+        total_transfer: 0,
+        cost_administrative: 0,
+        total: 0,
     })
 
     const handleChange = (e) => {
@@ -25,19 +28,24 @@ export default function Exonerado() {
     useEffect(() => {
         const fob_value = formData.unit_price * formData.quantity
         const freight_dot_fob = fob_value + formData.international_freight
-        const total_comision =
-            (freight_dot_fob * formData.comision_plataforma) / 100
+        const comission_total =
+            (freight_dot_fob * formData.comission_platform) / 100
+        const total_transfer = freight_dot_fob + comission_total
+        const total = total_transfer + formData.cost_administrative
         setFormData((prevData) => ({
             ...prevData,
-            fob_value,
-            freight_dot_fob,
-            total_comision,
+            fob_value: fob_value.toFixed(2),
+            freight_dot_fob: freight_dot_fob.toFixed(2),
+            comission_total: comission_total.toFixed(2),
+            total_transfer: total_transfer.toFixed(2),
+            total: total.toFixed(2),
         }))
     }, [
         formData.unit_price,
         formData.quantity,
         formData.international_freight,
-        formData.comision_plataforma,
+        formData.comission_platform,
+        formData.cost_administrative,
     ])
 
     const formatValue = (value) => (value === 0 ? "" : value.toString())
@@ -47,10 +55,10 @@ export default function Exonerado() {
             <section className="mt-40 w-full h-full border-neutral-300 rounded-lg bg-white p-3 px-11 py-7 placeholder-neutral-500 focus:outline-none focus:ring-1 focus:ring-neutral-300 dark:bg-background/50 dark:focus:ring-neutral-700 flex flex-col gap-4">
                 <h1 className="text-xl text-bold">Proceso Exonerado</h1>
                 <p className="text-slate-400">
-                    Importaciones menores a 200 dolares.
+                    Importaciones hasta 200 dolares.
                 </p>
                 <form className="grid grid-cols-3 gap-5 items-center">
-                    <label htmlFor="unit_price">
+                    <label>
                         Precio Unitario:
                         <Input
                             name="unit_price"
@@ -60,7 +68,7 @@ export default function Exonerado() {
                             aria-label="Precio Unitario"
                         />
                     </label>
-                    <label htmlFor="quantity">
+                    <label>
                         Cantidad:
                         <Input
                             name="quantity"
@@ -70,15 +78,11 @@ export default function Exonerado() {
                             aria-label="Cantidad"
                         />
                     </label>
-                    <label htmlFor="resultado">
-                        Valor Fob:
-                        <Input
-                            className="text-center"
-                            value={formatValue(formData.fob_value)}
-                            aria-laber="Valor Fob"
-                            disabled
-                        />
-                    </label>
+
+                    <LabelResults title="Valor FOB: ">
+                        {formatValue(formData.fob_value)}
+                    </LabelResults>
+
                     <label className={"col-span-2"}>
                         Flete Internacional:
                         <Input
@@ -89,41 +93,55 @@ export default function Exonerado() {
                             aria-label="Flete Internacional"
                         />
                     </label>
-                    <label htmlFor="resultado">
-                        Fob + Flete
-                        <Input
-                            className="text-center"
-                            value={formatValue(formData.freight_dot_fob)}
-                            aria-laber="Valor Fob"
-                            disabled
-                        />
-                    </label>
+                    <LabelResults title="Flete + FOB: ">
+                        {formatValue(formData.freight_dot_fob)}
+                    </LabelResults>
                     <label className={"col-span-2"}>
                         Comision de plataforma:
                         <Input
-                            name="comision_plataforma"
+                            name="comission_platform"
                             type="number"
-                            value={formatValue(formData.comision_plataforma)}
+                            value={formatValue(formData.comission_platform)}
                             onChange={handleChange}
                             aria-label="Comision de plataforma"
+                            placeholder="2.99% - alibaba"
                         />
                     </label>
-                    <label htmlFor="resultado">
-                        Total comision
-                        <Input
-                            className="text-center"
-                            value={formatValue(formData.total_comision)}
-                            aria-laber="Valor Fob"
-                            disabled
-                        />
-                    </label>
+                    <LabelResults title="Comisión">
+                        {formatValue(formData.comission_total)}
+                    </LabelResults>
 
-                    <label className="col-start-3 col-end-4">
-                        Total:
-                        <h1 className="text-center">00.00</h1>
+                    <LabelResults title="Transferir">
+                        {formatValue(formData.total_transfer)}
+                    </LabelResults>
+
+                    <label className={"col-span-2"}>
+                        Gastos Administrativos:
+                        <Input
+                            name="cost_administrative"
+                            type="number"
+                            value={formatValue(formData.cost_administrative)}
+                            onChange={handleChange}
+                            aria-label="Gastos Administrativos"
+                            placeholder="11.8 - dhl"
+                        />
                     </label>
+                    <LabelResults title="Costo Total: ">
+                        {formatValue(formData.total)}
+                    </LabelResults>
                 </form>
             </section>
         </>
+    )
+}
+
+const LabelResults = ({ children, title }) => {
+    return (
+        <label className="col-start-3 col-end-4 text-center">
+            {title}
+            <p className="h-10 w-full rounded-md dark:bg-neutral-900/50 px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium ">
+                {children}
+            </p>
+        </label>
     )
 }
