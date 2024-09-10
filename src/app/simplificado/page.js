@@ -14,8 +14,12 @@ export default function Simplificado() {
         total_transfer: 0,
         seguro: 0,
         seguro_total: 0,
-        cost_administrative: 0,
         total: 0,
+        ad_valorem: 0,
+        ipm: 0,
+        igv: 0,
+        total_tributos: 0,
+        cost_administrative: 0,
     })
 
     const handleChange = (e) => {
@@ -34,7 +38,11 @@ export default function Simplificado() {
             (freight_dot_fob * formData.comission_platform) / 100
         const total_transfer = freight_dot_fob + comission_total
         const seguro_total = (fob_value / 100) * formData.seguro
-        const total = total_transfer + formData.cost_administrative
+        const total = freight_dot_fob + seguro_total
+        const ad_valorem = total * 0.04
+        const ipm = (total + ad_valorem) * 0.02
+        const igv = (total + ad_valorem) * 0.16
+        const total_tributos = ad_valorem + ipm + igv
         setFormData((prevData) => ({
             ...prevData,
             fob_value: fob_value.toFixed(2),
@@ -43,14 +51,22 @@ export default function Simplificado() {
             total_transfer: total_transfer.toFixed(2),
             seguro_total: seguro_total.toFixed(2),
             total: total.toFixed(2),
+            ad_valorem: ad_valorem.toFixed(2),
+            ipm: ipm.toFixed(2),
+            igv: igv.toFixed(2),
+            total_tributos: total_tributos.toFixed(2),
         }))
     }, [
         formData.unit_price,
         formData.quantity,
         formData.international_freight,
         formData.comission_platform,
-        formData.cost_administrative,
         formData.seguro,
+        formData.seguro_total,
+        formData.total,
+        formData.ad_valorem,
+        formData.ipm,
+        formData.igv,
     ])
 
     const formatValue = (value) => (value === 0 ? "" : value.toString())
@@ -58,7 +74,7 @@ export default function Simplificado() {
     return (
         <>
             <section className="mt-40 w-full h-full border-neutral-300 rounded-lg bg-white p-3 px-11 py-7 placeholder-neutral-500 focus:outline-none focus:ring-1 focus:ring-neutral-300 dark:bg-background/50 dark:focus:ring-neutral-700 flex flex-col gap-4">
-                <h1 className="text-xl text-bold">Proceso Simplificado</h1>
+                <h1 className="text-xl text-bold">Proceso Simplificao</h1>
                 <p className="text-slate-400">
                     Importaciones entre 200 a 2000 dolares.
                 </p>
@@ -134,10 +150,45 @@ export default function Simplificado() {
                     <LabelResults title="Total Seguro">
                         {formatValue(formData.seguro_total)}
                     </LabelResults>
-                    <h1 className="col-start-1 col-end-3 text-right">Valor Aduanas (CIF): </h1>
+                    <h1 className="col-start-1 col-end-3 text-right">
+                        Valor Aduanas (CIF):{" "}
+                    </h1>
                     <LabelResults title="Total">
                         {formatValue(formData.total)}
                     </LabelResults>
+
+                    <h1 className="col-start-1 col-end-4 text-left">
+                        Tributos Aduaneros:{" "}
+                    </h1>
+                    <h1>AD. VALOREM</h1>
+                    <p>4%</p>
+                    <LabelResults>{formData.ad_valorem}</LabelResults>
+                    <h1>IPM</h1>
+                    <p>2%</p>
+                    <LabelResults>{formData.ipm}</LabelResults>
+                    <p>IGV</p>
+                    <p>16%</p>
+                    <LabelResults>{formData.igv}</LabelResults>
+                    <h1 className="col-start-1 col-end-3 text-right">
+                        Total Tributos:
+                    </h1>
+                    <LabelResults>
+                        {formatValue(formData.total_tributos)}
+                    </LabelResults>
+                    <h1>Gastos Administrativos</h1>
+
+                    <label className={"col-span-2"}>
+                        <Input
+                            name="cost_administrative"
+                            type="number"
+                            value={formatValue(formData.cost_administrative)}
+                            onChange={handleChange}
+                            aria-label="Gastos Administrativos"
+                        />
+                    </label>
+
+                    <h1>Costo total</h1>
+                    <LabelResults>{formatValue(formData.total)}</LabelResults>
                 </form>
             </section>
         </>
@@ -146,7 +197,7 @@ export default function Simplificado() {
 
 const LabelResults = ({ children, title }) => {
     return (
-        <label className="col-start-3 col-end-4 text-center">
+        <label className="col-start-3 col-end-4 text-center place-items-center">
             {title}
             <p className="h-10 w-full rounded-md dark:bg-neutral-900/50 px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium ">
                 {children}
