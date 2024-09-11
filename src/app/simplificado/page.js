@@ -2,6 +2,8 @@
 import { Input } from "../../components/ui/input"
 import { useState, useEffect } from "react"
 
+//todo: include useMemo to avoid re-rendering
+
 export default function Simplificado() {
     const [formData, setFormData] = useState({
         unit_price: 0,
@@ -14,12 +16,13 @@ export default function Simplificado() {
         total_transfer: 0,
         seguro: 0,
         seguro_total: 0,
-        total: 0,
+        valor_aduanas: 0,
         ad_valorem: 0,
         ipm: 0,
         igv: 0,
         total_tributos: 0,
         cost_administrative: 0,
+        total:0
     })
 
     const handleChange = (e) => {
@@ -38,11 +41,12 @@ export default function Simplificado() {
             (freight_dot_fob * formData.comission_platform) / 100
         const total_transfer = freight_dot_fob + comission_total
         const seguro_total = (fob_value / 100) * formData.seguro
-        const total = freight_dot_fob + seguro_total
-        const ad_valorem = total * 0.04
-        const ipm = (total + ad_valorem) * 0.02
-        const igv = (total + ad_valorem) * 0.16
+        const valor_aduanas = freight_dot_fob + seguro_total
+        const ad_valorem = valor_aduanas * 0.04
+        const ipm = (valor_aduanas + ad_valorem) * 0.02
+        const igv = (valor_aduanas + ad_valorem) * 0.16
         const total_tributos = ad_valorem + ipm + igv
+        const total = total_transfer + total_tributos + formData.cost_administrative
         setFormData((prevData) => ({
             ...prevData,
             fob_value: fob_value.toFixed(2),
@@ -50,11 +54,12 @@ export default function Simplificado() {
             comission_total: comission_total.toFixed(2),
             total_transfer: total_transfer.toFixed(2),
             seguro_total: seguro_total.toFixed(2),
-            total: total.toFixed(2),
+            valor_aduanas: total_tributos.toFixed(2),
             ad_valorem: ad_valorem.toFixed(2),
             ipm: ipm.toFixed(2),
             igv: igv.toFixed(2),
             total_tributos: total_tributos.toFixed(2),
+            total: total.toFixed(2)
         }))
     }, [
         formData.unit_price,
@@ -63,10 +68,12 @@ export default function Simplificado() {
         formData.comission_platform,
         formData.seguro,
         formData.seguro_total,
-        formData.total,
+        formData.valor_aduanas,
         formData.ad_valorem,
         formData.ipm,
         formData.igv,
+        formData.cost_administrative,
+        formData.total_tributos,
     ])
 
     const formatValue = (value) => (value === 0 ? "" : value.toString())
@@ -154,7 +161,7 @@ export default function Simplificado() {
                         Valor Aduanas (CIF):{" "}
                     </h1>
                     <LabelResults title="Total">
-                        {formatValue(formData.total)}
+                        {formatValue(formData.valor_aduanas)}
                     </LabelResults>
 
                     <h1 className="col-start-1 col-end-4 text-left">
