@@ -7,6 +7,7 @@ import {
     CardTitle,
 } from "../components/ui/card"
 import { PaperPlaneIcon } from "@radix-ui/react-icons"
+
 export default function TrackCard({ shipmentDetails }) {
     const { id, service, origin, destination, status } = shipmentDetails
     return (
