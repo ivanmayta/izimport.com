@@ -1,40 +1,23 @@
-"use client"
-
-import { getEvents } from "../app/services/getEvents"
-import { useEffect, useState } from "react"
 import TrackEvents from "./TrackEvents"
-import { SkeletonCard } from "./SkeletonCard"
 import TrackCard from "./TrackCard"
 
-const TrackContent = ({ trackingNumber }) => {
-    const [data, setData] = useState({ shipments: [] })
-    const [isLoading, setIsLoading] = useState(true)
+const TrackContent = ({ data }) => {
+    const events = data?.shipments?.[0]?.events || []
+    const shipmentDetails = data?.shipments?.[0] || {}
 
-    useEffect(() => {
-        getEvents(trackingNumber).then((data) => {
-            setData(data)
-            setIsLoading(false)
-        })
-    }, [trackingNumber])
-
-    const events = data?.shipments[0]?.events || undefined
-    const shipmentDetails = data?.shipments[0] || undefined
-
+    if ("error" in data) {
+        return (
+            <section className="text-center">
+                No se pudo obtener los datos de Dhl
+            </section>
+        )
+    }
     return (
         <>
-            {isLoading ? (
-                <SkeletonCard />
-            ) : (
+            {events.length !== 0 && (
                 <>
-                    {events && shipmentDetails && (
-                        <>
-                            <TrackCard
-                                className="my-4"
-                                shipmentDetails={shipmentDetails}
-                            />
-                            <TrackEvents events={events} />
-                        </>
-                    )}
+                    <TrackCard shipmentDetails={shipmentDetails} />
+                    <TrackEvents events={events} />
                 </>
             )}
         </>

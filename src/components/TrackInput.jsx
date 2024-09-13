@@ -1,17 +1,17 @@
 "use client"
 import { useState } from "react"
-import TrackContent from "./TrackContent"
 import { Button } from "./ui/button"
 import { MagnifyingGlassIcon } from "@radix-ui/react-icons"
 import { IconPackageSearch } from "../icons/icon-pkg-search"
+import { useRouter } from "next/navigation"
 
 const TrackInput = () => {
     const [trackingNumber, setTrackingNumber] = useState("")
-    const [submiteed, setSubmited] = useState(false)
+    const router = useRouter()
 
     const handleSubmit = (event) => {
         event.preventDefault()
-        setSubmited(true)
+        router.push(`/rastrea?trackingNumber=${trackingNumber}`)
     }
 
     const handleChange = (event) => {
@@ -31,6 +31,7 @@ const TrackInput = () => {
                     <input
                         onChange={handleChange}
                         type="text"
+                        name="simple-search"
                         id="simple-search"
                         className="bg-background rounded-full  border border-gray-300 text-gray-900 text-sm block w-full ps-10 p-3  dark:bg-background dark:border-gray-400  dark:text-white focus:bg-background "
                         placeholder="Ingrese su numero de seguimiento..."
@@ -42,8 +43,6 @@ const TrackInput = () => {
                     <MagnifyingGlassIcon className="h-4 w-4" />
                 </Button>
             </form>
-
-            {submiteed && <TrackContent trackingNumber={trackingNumber} />}
         </>
     )
 }
