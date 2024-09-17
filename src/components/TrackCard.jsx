@@ -10,10 +10,10 @@ import { PaperPlaneIcon } from "@radix-ui/react-icons"
 
 export default function TrackCard({ shipmentDetails }) {
     const { id, origin, destination, status } = shipmentDetails
-
     const origen = origin.address.addressLocality
     const destino = destination.address.addressLocality
     const { description } = status
+
     return (
         <Card>
             <CardHeader>
