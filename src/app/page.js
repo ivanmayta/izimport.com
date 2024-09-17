@@ -1,6 +1,5 @@
-import TrackInput from "../components/TrackInput"
+import Tracking from "../components/Tracking"
 import { Epilogue } from "next/font/google"
-import { IconDhl } from "../icons/icon-dhl"
 
 const epilogue = Epilogue({ subsets: ["latin"], weight: "500" })
 export default function Home() {
@@ -22,7 +21,7 @@ export default function Home() {
                 </span>
                 tus envios de forma rapida y sencilla
             </h1>
-            <TrackInput />
+            <Tracking />    
         </section>
     )
 }
