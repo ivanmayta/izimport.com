@@ -25,7 +25,7 @@ export default function RootLayout({ children }) {
                         <NavHeader />
                         <MainNav className="mx-auto max-w-4xl flex justify-start bg-transparent" />
                     </header>
-                    <main className=" flex flex-col max-w-4xl mx-auto min-h-screen">
+                    <main className=" flex flex-col max-w-4xl mx-auto min-h-screen min-w-96">
                         {children}
                     </main>
                     <footer className="flex justify-center">
