@@ -1,5 +1,6 @@
 import Tracking from "../components/Tracking"
 import { Epilogue } from "next/font/google"
+import { Suspense } from "react"
 
 const epilogue = Epilogue({ subsets: ["latin"], weight: "500" })
 export default function Home() {
@@ -21,7 +22,9 @@ export default function Home() {
                 </span>
                 tus envios de forma rapida y sencilla
             </h1>
-            <Tracking />    
+            <Suspense fallback={<div>Loading...</div>}>
+                <Tracking />
+            </Suspense>
         </section>
     )
 }
