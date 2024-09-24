@@ -1,5 +1,5 @@
-import TrackEvents from "./TrackEvents"
-import TrackCard from "./TrackCard"
+import ShipmentEvents from "./shipment-events"
+import ShipmentDetails from "./shipment-details"
 
 const TrackContent = ({ data }) => {
     const events = data?.shipments?.[0]?.events || []
@@ -16,8 +16,8 @@ const TrackContent = ({ data }) => {
         <>
             {events.length !== 0 && (
                 <>
-                    <TrackCard shipmentDetails={shipmentDetails} />
-                    <TrackEvents events={events} />
+                    <ShipmentDetails shipmentDetails={shipmentDetails} />
+                    <ShipmentEvents  events={events} />
                 </>
             )}
         </>

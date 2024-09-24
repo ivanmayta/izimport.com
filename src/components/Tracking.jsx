@@ -1,16 +1,18 @@
 "use client"
-import { useRef, useEffect, Children } from "react"
+import { useRef, useEffect } from "react"
 import { Button } from "./ui/button"
 import { MagnifyingGlassIcon } from "@radix-ui/react-icons"
 import { useRouter, useSearchParams } from "next/navigation"
 import { useShipment } from "../hooks/useShipment"
-import TrackContent from "./TrackContent"
-import SkeletonCard from "./SkeletonCard"
+import TrackContent from "./track-content"
+import SkeletonCard from "./skeleton-card"
 import SearchForm from "./search-form"
 import SearchInput from "./search-input"
 
-const TrackForm = () => {
-    const trackParam = useSearchParams()
+const Tracking = () => {
+    const params = useSearchParams()
+    const MIN_TRACK_NUMBER_CHARS = 4
+    const trackingNumber = params.get("trackingNumber") ?? ""
     const router = useRouter()
     const inputRef = useRef(null)
 
@@ -18,21 +20,25 @@ const TrackForm = () => {
 
     const handleSubmit = (event) => {
         event.preventDefault()
-        getShipment(trackParam.get("trackingNumber"))
+        getShipment(trackingNumber)
     }
+
     useEffect(() => {
-        
+        if (trackingNumber?.length > MIN_TRACK_NUMBER_CHARS) {
+            getShipment(trackingNumber)
+        }
         inputRef.current.focus()
     }, [])
 
     const handleChange = (event) => {
-        const params = new URLSearchParams(trackParam)
-        if (event.target.value) {
-            params.set("trackingNumber", event.target.value)
+        const param = new URLSearchParams(params)
+        const { value } = event.target
+        if (value) {
+            param.set("trackingNumber", value)
         } else {
-            params.delete("trackingNumber")
+            param.delete("trackingNumber")
         }
-        router.replace(`/rastrea?${params.toString()}`)
+        router.replace(`/rastrea?${param.toString()}`)
     }
 
     return (
@@ -40,7 +46,7 @@ const TrackForm = () => {
             <SearchForm onSubmit={handleSubmit}>
                 <SearchInput
                     inputRef={inputRef}
-                    defaultValue={trackParam.get("trackingNumber")}
+                    defaultValue={trackingNumber}
                     handleChange={handleChange}
                 />
                 <Button variant="outline" size="icon">
@@ -52,4 +58,4 @@ const TrackForm = () => {
     )
 }
 
-export default TrackForm
+export default Tracking

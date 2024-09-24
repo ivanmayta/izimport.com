@@ -1,6 +1,5 @@
-import { Card, CardContent, CardHeader, CardTitle } from "../components/ui/card"
-const TrackEvents = ({ events }) => {
-    
+import { Card, CardContent, CardHeader, CardTitle } from "./ui/card"
+function ShipmentEvents({ events }) {
     return (
         <>
             <Card>
@@ -32,4 +31,4 @@ const TrackEvents = ({ events }) => {
     )
 }
 
-export default TrackEvents
+export default ShipmentEvents

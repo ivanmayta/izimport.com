@@ -14,7 +14,7 @@ import {
     navigationMenuTriggerStyle,
 } from "./ui/navigation-menu"
 
-export function MainNav(props) {
+export default function MenuNavigation(props) {
     const { className } = props
     return (
         <NavigationMenu className={className}>
