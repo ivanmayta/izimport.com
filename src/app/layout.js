@@ -1,7 +1,7 @@
 import { Onest } from "next/font/google"
 import { ThemeProvider } from "../components/ui/theme-provider"
-import { MainNav } from "../components/MainNav"
-import { NavHeader } from "../components/NavHeader"
+import MenuNavigation from "../components/menu-navigation"
+import MenuBar from "../components/menu-bar"
 import "./globals.css"
 
 const onest = Onest({ subsets: ["latin"] })
@@ -14,7 +14,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
     return (
         <html lang="en">
-            <body className={onest.className}>
+            <body className={`${onest.className} relative`}>
                 <ThemeProvider
                     attribute="class"
                     defaultTheme="system"
@@ -22,19 +22,18 @@ export default function RootLayout({ children }) {
                     disableTransitionOnChange
                 >
                     <header className="w-full fixed z-50 backdrop-blur-md ">
-                        <NavHeader />
-                        <MainNav className="mx-auto max-w-4xl flex justify-start bg-transparent" />
+                        <MenuBar />
+                        <MenuNavigation className="mx-auto max-w-4xl flex justify-start bg-transparent" />
                     </header>
                     <main className=" flex flex-col max-w-4xl mx-auto min-h-screen min-w-96">
                         {children}
                     </main>
-                    <footer className="flex justify-center">
+                    <footer className="bg-trans flex justify-center">
                         Hecho por izimport.com
                     </footer>
                 </ThemeProvider>
-
-                <div className="absolute top-0 z-[-2] h-screen w-full  bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.1),rgba(255,255,255,0))]"></div>
             </body>
+            
         </html>
     )
 }
