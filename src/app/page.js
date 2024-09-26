@@ -1,4 +1,4 @@
-import Tracking from "../components/tracking"
+import { Tracking } from "../components/tracking"
 import { Poppins } from "next/font/google"
 import { Suspense } from "react"
 

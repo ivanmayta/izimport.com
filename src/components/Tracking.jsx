@@ -9,7 +9,7 @@ import SkeletonCard from "./skeleton-card"
 import SearchForm from "./search-form"
 import SearchInput from "./search-input"
 
-const Tracking = () => {
+export const Tracking = () => {
     const params = useSearchParams()
     const MIN_TRACK_NUMBER_CHARS = 4
     const trackingNumber = params.get("trackingNumber") ?? ""
@@ -57,5 +57,3 @@ const Tracking = () => {
         </>
     )
 }
-
-export default Tracking
