@@ -1,12 +1,5 @@
 import { ModeToggle } from "./mode-togglee"
 import Link from "next/link"
-import { Button } from "./ui/button"
-import {
-    Dropdown,
-    DropdownTrigger,
-    DropdownMenu,
-    DropdownItem,
-} from "@nextui-org/dropdown"
 
 export default function MenuBar() {
     return (
