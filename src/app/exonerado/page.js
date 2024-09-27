@@ -87,7 +87,7 @@ export default function Exonerado() {
                         Flete Internacional:
                         <Input
                             name="international_freight"
-                            type="number"
+                                type="number"
                             value={formatValue(formData.international_freight)}
                             onChange={handleChange}
                             aria-label="Flete Internacional"

@@ -20,5 +20,5 @@ export const useShipment = () => {
         }
     }
 
-    return { shipment, isLoading, error,    getShipment }
+    return { shipment, isLoading, error, getShipment }
 }

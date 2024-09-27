@@ -6,7 +6,7 @@ import {
     CardHeader,
     CardTitle,
 } from "../components/ui/card"
-import { PaperPlaneIcon } from "@radix-ui/react-icons"
+import { PlaneIcon } from "lucide-react"
 
 function shipmentDetails({ shipmentDetails }) {
     const { id, origin, destination, status } = shipmentDetails
@@ -29,7 +29,7 @@ function shipmentDetails({ shipmentDetails }) {
                             </span>
                             {origen}
                         </p>
-                        <PaperPlaneIcon className="w-6 h-6" />
+                        <PlaneIcon className="w-6 h-6" />
                         <p className="font-bold self-end">
                             <span className="text-black dark:text-white">
                                 Destino:{" "}
@@ -42,6 +42,5 @@ function shipmentDetails({ shipmentDetails }) {
         </Card>
     )
 }
-
 
 export default shipmentDetails
