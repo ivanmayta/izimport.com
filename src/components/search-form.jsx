@@ -1,5 +1,4 @@
-import { IconPackageSearch } from "../icons/icon-pkg-search"
-
+import { PackageSearch } from "lucide-react"
 function SearchForm({ children, onSubmit }) {
     return (
         <form
@@ -8,7 +7,7 @@ function SearchForm({ children, onSubmit }) {
         >
             <div className="relative">
                 <div className="absolute inset-y-0 start-0 flex items-center ps-6 pointer-events-none">
-                    <IconPackageSearch className="w-5 h-5 text-gray-500 dark:text-gray-300" />
+                    <PackageSearch className="w-5 h-5 text-gray-500 dark:text-gray-300" />
                 </div>
             </div>
             {children}
