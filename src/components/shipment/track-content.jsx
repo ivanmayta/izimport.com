@@ -17,7 +17,7 @@ const TrackContent = ({ data }) => {
             {events.length !== 0 && (
                 <>
                     <ShipmentDetails shipmentDetails={shipmentDetails} />
-                    <ShipmentEvents  events={events} />
+                    <ShipmentEvents events={events} />
                 </>
             )}
         </>

@@ -1,16 +1,15 @@
 "use client"
 import { useRef, useEffect } from "react"
-import { Button } from "./ui/button"
+import { Button } from "../ui/button"
 import { Search } from "lucide-react"
 import { useRouter, useSearchParams } from "next/navigation"
-import { useShipment } from "../hooks/useShipment"
+import { useShipment } from "../../hooks/useShipment"
 import TrackContent from "./track-content"
-import SkeletonCard from "./skeleton-card"
-import SearchForm from "./search-form"
-import SearchInput from "./search-input"
+import SkeletonCard from "../skeleton-card"
+import SearchForm from "../search-form"
+import SearchInput from "../search-input"
 
 export const Tracking = () => {
-    //const MIN_TRACK_NUMBER_CHARS = 4
     const params = useSearchParams()
     const trackingNumber = params.get("trackingNumber") ?? ""
     const router = useRouter()
