@@ -11,7 +11,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
     return (
         <html lang="es">
-            <body>
+            <body className="min-w-[420px]">
                 <ThemeProvider
                     attribute="class"
                     defaultTheme="system"
