@@ -15,7 +15,7 @@ export default function Home() {
     return (
         <>
             <section className="my-20 lg:flex lg:items-center lg:justify-between lg:space-x-12 space-y-8 lg:space-y-0">
-                <h2 className="lg:w-3/5 text-4xl sm:text-5xl font-bold">
+                <h2 className="lg:w-3/5 text-4xl sm:text-5xl font-bold text-pretty">
                     {highlightedText(text, keywords, styles)}
                 </h2>
                 <Exchange />
