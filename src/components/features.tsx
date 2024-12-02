@@ -35,7 +35,7 @@ function Features() {
                         <h3 className="text-lg font-bold mb-1 mt-4">
                             {feature.title}
                         </h3>
-                        <p className="opacity-80">{feature.description}</p>
+                        <p className="opacity-80 text-balance">{feature.description}</p>
                     </li>
                 ))}
             </ul>
