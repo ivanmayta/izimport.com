@@ -16,8 +16,11 @@ function Exchange() {
             </CardHeader>
             <CardContent className="relative flex flex-col gap-2 ">
                 <div className=" h-12 border-2 rounded-lg flex">
-                    <input value={1} className="h-full rounded-l-lg flex-grow pl-6"></input>
-                    <label className="w-1/3 h-full bg-black text-white px-2 rounded-r-lg flex items-center justify-center">
+                    <input
+                        value={2}
+                        className="h-full rounded-l-lg flex-grow pl-6 "
+                    ></input>
+                    <label className=" w-1/3 h-full bg-black text-white px-2 rounded-r-lg flex items-center justify-center">
                         Dolares
                     </label>
                 </div>
@@ -27,7 +30,10 @@ function Exchange() {
                     </div>
                 </div>
                 <div className="h-12 border-2 rounded-lg flex">
-                    <input value={3.84} className="h-full rounded-l-lg flex-grow pl-6"></input>
+                    <input
+                        value={3.84}
+                        className="h-full rounded-l-lg flex-grow pl-6"
+                    ></input>
                     <label className="w-1/3 h-full bg-black text-white px-2 rounded-r-lg flex items-center justify-center">
                         Soles
                     </label>
