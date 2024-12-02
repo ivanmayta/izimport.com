@@ -3,11 +3,16 @@ import Link from "next/link"
 
 export default function MenuBar() {
     return (
-        <div className="flex py-2 px-5 bg-background/50 border-b border-neutral-400 dark:border-neutral-800 items-center justify-between">
-            <h2 className="bold text-2xl font-extrabold tracking-tight lg:text-2xl">
+        <section className="flex py-2 px-5 bg-background/50 border-b border-neutral-400 dark:border-neutral-800 items-center justify-between">
+            <h1 className="bold text-2xl font-extrabold tracking-tight lg:text-2xl">
                 <Link href="/">izimport</Link>
-            </h2>
+            </h1>
+            <nav>
+                <a href="">Inicio</a>
+                <a href="">Rastreo</a>
+                <a href="">Cotización</a>
+            </nav>
             <ModeToggle />
-        </div>
+        </section>
     )
 }

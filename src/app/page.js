@@ -1,7 +1,7 @@
-import { Tracking } from "../components/tracking-dhl"
+import { Tracking } from "@components/shipment/tracking-dhl"
 import { Poppins } from "next/font/google"
 import { Suspense } from "react"
-import { highlightedText } from "../lib/utils"
+import { highlightedText } from "@/lib/utils"
 const poppins = Poppins({ subsets: ["latin"], weight: "700" })
 
 const highlighText = {

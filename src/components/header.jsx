@@ -1,11 +1,20 @@
-import MenuNavigation from "@components/menu-navigation"
-import MenuBar from "@components/menu-bar"
-
+import Link from "next/link"
+import { ModeToggle } from "./mode-togglee"
 function Header() {
     return (
-        <header className="w-full fixed z-50 backdrop-blur-md ">
-            <MenuBar />
-            <MenuNavigation className="mx-auto max-w-4xl flex justify-start bg-transparent" />
+        <header className="border-b">
+            <div className="max-w-5xl mx-auto flex justify-between items-center h-16">
+                <nav className="flex gap-8 items-center">
+                    <h1 className="bold text-2xl font-extrabold tracking-tight lg:text-2xl">
+                        <Link href="/">izimport</Link>
+                    </h1>
+                    <a href="">Inicio</a>
+                    <a href="">Rastreo</a>
+                    <a href="">Cotización</a>
+                </nav>
+
+                <ModeToggle />
+            </div>
         </header>
     )
 }

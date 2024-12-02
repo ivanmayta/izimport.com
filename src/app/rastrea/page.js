@@ -1,4 +1,4 @@
-import { Tracking } from "../../components/tracking-dhl"
+import { Tracking } from "@components/shipment/tracking-dhl"
 import { Suspense } from "react"
 export default function Rastrea() {
     return (

@@ -1,5 +1,5 @@
 "use client"
-import { Input } from "../../components/ui/input"
+import { Input } from "@components/ui/input"
 import { useState, useEffect } from "react"
 
 export default function Exonerado() {
@@ -87,7 +87,7 @@ export default function Exonerado() {
                         Flete Internacional:
                         <Input
                             name="international_freight"
-                                type="number"
+                            type="number"
                             value={formatValue(formData.international_freight)}
                             onChange={handleChange}
                             aria-label="Flete Internacional"
