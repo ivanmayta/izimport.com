@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 
-// Delete js, jsx when finished the migration 
+// Delete js, jsx when finished the migration
 module.exports = {
     darkMode: ["class"],
     content: [
@@ -24,6 +24,7 @@ module.exports = {
                 input: "hsl(var(--input))",
                 ring: "hsl(var(--ring))",
                 background: "hsl(var(--background))",
+                exchange: "var(--exchange)",
                 foreground: "hsl(var(--foreground))",
                 primary: {
                     DEFAULT: "hsl(var(--primary))",

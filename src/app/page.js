@@ -1,8 +1,13 @@
 import { Tracking } from "@components/shipment/tracking-dhl"
-import { Poppins } from "next/font/google"
 import { Suspense } from "react"
 import { highlightedText } from "@/lib/utils"
-const poppins = Poppins({ subsets: ["latin"], weight: "700" })
+import {
+    Card,
+    CardDescription,
+    CardHeader,
+    CardContent,
+} from "@/components/ui/card"
+import { ExchangeFill } from "@/icons/exchange-fill"
 
 const highlighText = {
     text: "Cotiza y Rastrea tus envios de forma rapida y sencilla",
@@ -14,16 +19,46 @@ export default function Home() {
 
     return (
         <>
-            <section className="relative mt-40 w-full h-full border-neutral-300 p-3 px-12 placeholder-neutral-500 focus:outline-none   focus:ring-1 focus:ring-neutral-300 dark:focus:ring-neutral-700 flex flex-col gap-4">
-                <h1
-                    className={`${poppins.className} mb-10 sm:mb-20 text-3xl text-center sm:text-6xl dark:text-white text-stone-800`}
-                >
+            <section className="my-20 lg:flex lg:items-center lg:justify-between lg:space-x-12 space-y-8 lg:space-y-0">
+                <h2 className="lg:w-3/5 text-4xl sm:text-5xl font-bold">
                     {highlightedText(text, keywords, styles)}
-                </h1>
-                <Suspense fallback={<div>Loading...</div>}>
-                    <Tracking />
-                </Suspense>
+                </h2>
+                <Card className="dark:bg-exchange lg:w-2/5 border-[0px]">
+                    <CardHeader>
+                        <CardDescription className="text-center">
+                            Tipo de cambio
+                        </CardDescription>
+                    </CardHeader>
+                    <CardContent className="relative flex flex-col gap-2 ">
+                        <div className=" h-12 border-2 rounded-lg flex">
+                            <input
+                                className="h-full rounded-l-lg flex-grow"
+                                text=""
+                            ></input>
+                            <label className="w-1/3 h-full bg-black text-white px-2 rounded-r-lg flex items-center justify-center">
+                                Dolares
+                            </label>
+                        </div>
+                        <div className="absolute top-[40%] right-[30%] -translate-y-1/3 -translate-x-1/3">
+                            <div className="bg-background/40 w-6 h-6 rounded-full">
+                                <ExchangeFill  />
+                            </div>
+                        </div>
+                        <div className="h-12 border-2 rounded-lg flex">
+                            <input
+                                className="h-full rounded-l-lg flex-grow"
+                                text=""
+                            ></input>
+                            <label className="w-1/3 h-full bg-black text-white px-2 rounded-r-lg flex items-center justify-center">
+                                Soles
+                            </label>
+                        </div>
+                    </CardContent>
+                </Card>
             </section>
+            <Suspense fallback={<div>Loading...</div>}>
+                <Tracking />
+            </Suspense>
         </>
     )
 }
