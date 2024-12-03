@@ -1,8 +1,8 @@
 import { Tracking } from "@components/shipment/tracking-dhl"
-import { Poppins } from "next/font/google"
 import { Suspense } from "react"
 import { highlightedText } from "@/lib/utils"
-const poppins = Poppins({ subsets: ["latin"], weight: "700" })
+import Exchange from "@/components/exchange"
+import Features from "@/components/features"
 
 const highlighText = {
     text: "Cotiza y Rastrea tus envios de forma rapida y sencilla",
@@ -14,16 +14,16 @@ export default function Home() {
 
     return (
         <>
-            <section className="relative mt-40 w-full h-full border-neutral-300 p-3 px-12 placeholder-neutral-500 focus:outline-none   focus:ring-1 focus:ring-neutral-300 dark:focus:ring-neutral-700 flex flex-col gap-4">
-                <h1
-                    className={`${poppins.className} mb-10 sm:mb-20 text-3xl text-center sm:text-6xl dark:text-white text-stone-800`}
-                >
+            <section className="my-20 lg:flex lg:items-center lg:justify-between lg:space-x-12 space-y-8 lg:space-y-0">
+                <h2 className="lg:w-3/5 text-4xl sm:text-5xl font-bold text-pretty">
                     {highlightedText(text, keywords, styles)}
-                </h1>
-                <Suspense fallback={<div>Loading...</div>}>
-                    <Tracking />
-                </Suspense>
+                </h2>
+                <Exchange />
             </section>
+            <Suspense fallback={<div>Loading...</div>}>
+                <Tracking />
+            </Suspense>
+            <Features />
         </>
     )
 }

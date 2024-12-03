@@ -11,7 +11,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
     return (
         <html lang="es">
-            <body>
+            <body className="min-w-[420px]">
                 <ThemeProvider
                     attribute="class"
                     defaultTheme="system"
@@ -19,7 +19,7 @@ export default function RootLayout({ children }) {
                     disableTransitionOnChange
                 >
                     <Header />
-                    <main className=" flex flex-col max-w-5xl mx-auto min-h-screen min-w-96">
+                    <main className=" flex flex-col max-w-5xl mx-auto min-h-screen min-w-96 px-4 md:px-0">
                         {children}
                     </main>
                     <Footer />

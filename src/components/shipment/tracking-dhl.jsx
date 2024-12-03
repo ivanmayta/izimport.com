@@ -7,7 +7,6 @@ import { useShipment } from "../../hooks/useShipment"
 import TrackContent from "./track-content"
 import SkeletonCard from "../skeleton-card"
 import SearchForm from "../search-form"
-import SearchInput from "../search-input"
 
 export const Tracking = () => {
     const params = useSearchParams()
@@ -43,12 +42,12 @@ export const Tracking = () => {
 
     return (
         <>
-            <SearchForm onSubmit={handleSubmit}>
-                <SearchInput
-                    inputRef={inputRef}
-                    defaultValue={trackingNumber}
-                    handleChange={handleChange}
-                />
+            <SearchForm
+                onSubmit={handleSubmit}
+                inputRef={inputRef}
+                defaultValue={trackingNumber}
+                handleChange={handleChange}
+            >
                 <Button variant="outline" size="icon">
                     <Search className="h-4 w-4" />
                 </Button>
