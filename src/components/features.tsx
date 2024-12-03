@@ -26,7 +26,7 @@ function Features() {
         },
     ]
     return (
-        <section className="relative left-[50%] right-[50%] -mx-[50vw] w-screen my-32">
+        <section className=" w-full my-32">
             <ul className="grid grid-cols-1 text-center gap-12 md:gap-6 md:grid-cols-3 max-w-6xl mx-auto">
                 {features.map((feature, index) => (
                     <li key={index} className="flex flex-col items-center">
