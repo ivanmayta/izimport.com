@@ -1,9 +1,11 @@
 import { NextResponse } from "next/server"
+import { unstable_noStore as noStore } from "next/cache"
 
 interface ErrorResponse {
     error: string
 }
 export async function GET() {
+    noStore()
     const baseUrl = "https://openexchangerates.org"
     const pathName = "/api/latest.json"
     const url = new URL(pathName, baseUrl)
