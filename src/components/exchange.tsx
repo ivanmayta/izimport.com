@@ -8,15 +8,7 @@ import {
 } from "@/components/ui/card"
 import { ExchangeFill } from "@/icons/exchange-fill"
 import { useState, useEffect } from "react"
-
-const getConversion = async () => {
-    const appId = ""
-    const response = await fetch(
-        `https://openexchangerates.org/api/latest.json?app_id=${appId}`
-    )
-    const data = await response.json()
-    return data
-}
+import { getRates } from "@/services/getRates"
 
 function Exchange() {
     const SUPPORTED_CURRENCIES = {
@@ -29,7 +21,7 @@ function Exchange() {
         console.log(e)
     }
     useEffect(() => {
-        getConversion().then((data) => {
+        getRates().then((data) => {
             setExchange((prevState) => ({
                 ...prevState,
                 USD: data?.rates?.USD || 1,
