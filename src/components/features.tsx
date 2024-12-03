@@ -26,8 +26,8 @@ function Features() {
         },
     ]
     return (
-        <section className="w-full my-32 ">
-            <ul className="grid grid-cols-1 text-center gap-12 md:gap-6 md:grid-cols-3">
+        <section className="relative left-[50%] right-[50%] -mx-[50vw] w-screen my-32">
+            <ul className="grid grid-cols-1 text-center gap-12 md:gap-6 md:grid-cols-3 max-w-6xl mx-auto">
                 {features.map((feature, index) => (
                     <li key={index} className="flex flex-col items-center">
                         {feature.icon}
@@ -35,7 +35,9 @@ function Features() {
                         <h3 className="text-lg font-bold mb-1 mt-4">
                             {feature.title}
                         </h3>
-                        <p className="opacity-80 text-balance">{feature.description}</p>
+                        <p className="opacity-80 text-balance">
+                            {feature.description}
+                        </p>
                     </li>
                 ))}
             </ul>
