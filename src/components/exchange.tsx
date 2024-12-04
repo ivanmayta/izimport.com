@@ -42,7 +42,7 @@ function Exchange() {
                         disabled
                         onChange={handleExchange}
                         value={exchange.USD || ""}
-                        className="h-full rounded-l-lg flex-grow pl-6 "
+                        className="h-full rounded-l-lg flex-grow pl-6 bg-transparent"
                     ></input>
                     <label className=" w-1/3 h-full bg-black text-white px-2 rounded-r-lg flex items-center justify-center">
                         Dolares
@@ -58,7 +58,7 @@ function Exchange() {
                         disabled
                         onChange={handleExchange}
                         value={exchange.PEN || ""}
-                        className="h-full rounded-l-lg flex-grow pl-6"
+                        className="h-full rounded-l-lg flex-grow pl-6 bg-transparent"
                     ></input>
                     <label className="w-1/3 h-full bg-black text-white px-2 rounded-r-lg flex items-center justify-center">
                         Soles
