@@ -1,6 +1,6 @@
 import { ThemeProvider } from "../components/ui/theme-provider"
-import Header from "@components/header"
-import Footer from "@components/footer"
+import Header from "@/components/sections/header"
+import Footer from "@/components/sections/footer"
 import "./globals.css"
 
 export const metadata = {
@@ -11,7 +11,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
     return (
         <html lang="es">
-            <body className="min-w-[420px]">
+            <body className="min-w-[480px] ">
                 <ThemeProvider
                     attribute="class"
                     defaultTheme="system"
@@ -19,9 +19,7 @@ export default function RootLayout({ children }) {
                     disableTransitionOnChange
                 >
                     <Header />
-                    <main className=" flex flex-col max-w-6xl mx-auto min-h-screen min-w-96 px-4 md:px-0">
-                        {children}
-                    </main>
+                    <main className="min-h-screen">{children}</main>
                     <Footer />
                 </ThemeProvider>
             </body>

@@ -3,8 +3,8 @@ import { ArrowUpRight, Github } from "lucide-react"
 
 function Footer() {
     return (
-        <footer className="bg-trans border-t">
-            <ul className="max-w-5xl mx-auto flex flex-col md:flex-row gap-4 justify-between items-center py-4">
+        <footer className=" border-t">
+            <ul className="max-w-7xl mx-auto flex flex-col md:flex-row gap-4 justify-between items-center py-4">
                 <li className="flex gap-4 flex-col">
                     <h3 className="font-bold">Descarga Disponible</h3>
                     <a

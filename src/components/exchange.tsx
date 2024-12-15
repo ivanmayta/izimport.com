@@ -30,7 +30,7 @@ function Exchange() {
         })
     }, [])
     return (
-        <Card className="dark:bg-exchange lg:w-2/5 border-[0px]">
+        <Card className="dark:bg-exchange  border-[0px]">
             <CardHeader>
                 <CardDescription className="text-center">
                     Tipo de cambio

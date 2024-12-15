@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { ModeToggle } from "./mode-togglee"
+import { ModeToggle } from "@/components/ui/mode-togglee"
 import {
     NavigationMenu,
     NavigationMenuContent,
@@ -9,10 +9,11 @@ import {
     NavigationMenuTrigger,
     navigationMenuTriggerStyle,
 } from "@components/ui/navigation-menu"
+import Container from "../custom/container"
 function Header() {
     return (
-        <header className="border-b">
-            <div className="max-w-5xl mx-auto flex justify-between items-center h-16">
+        <header className="border-b h-16">
+            <Container className=" h-full flex items-center justify-between">
                 <nav className="flex gap-8 items-center">
                     <h1 className="bold text-2xl font-extrabold tracking-tight lg:text-2xl">
                         <Link href="/">izimport</Link>
@@ -69,7 +70,7 @@ function Header() {
                 </nav>
 
                 <ModeToggle />
-            </div>
+            </Container>
         </header>
     )
 }
