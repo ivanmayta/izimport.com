@@ -8,7 +8,7 @@ import { useShipment } from "@/hooks/useShipment"
 import { Button } from "@/components/ui/button"
 import { PackageSearch } from "lucide-react"
 
-function SearchForm({ initialValue }) {
+function SearchForm({ initialValue }: { initialValue: string }) {
     const router = useRouter()
     const pathname = usePathname()
     const isInSearchPage = pathname === "/search"
