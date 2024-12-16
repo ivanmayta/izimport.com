@@ -30,7 +30,7 @@ function Exchange() {
         })
     }, [])
     return (
-        <Card className="dark:bg-exchange  border-[0px]">
+        <Card className="border-[0px]">
             <CardHeader>
                 <CardDescription className="text-center">
                     Tipo de cambio
@@ -44,7 +44,7 @@ function Exchange() {
                         value={exchange.USD || ""}
                         className="h-full rounded-l-lg flex-grow pl-6 bg-transparent"
                     ></input>
-                    <label className=" w-1/3 h-full bg-black text-white px-2 rounded-r-lg flex items-center justify-center">
+                    <label className=" w-1/3 h-full bg-black text-white px-2 rounded-r-lg flex items-center justify-center border-l-2 ">
                         Dolares
                     </label>
                 </div>
@@ -60,7 +60,7 @@ function Exchange() {
                         value={exchange.PEN || ""}
                         className="h-full rounded-l-lg flex-grow pl-6 bg-transparent"
                     ></input>
-                    <label className="w-1/3 h-full bg-black text-white px-2 rounded-r-lg flex items-center justify-center">
+                    <label className="w-1/3 h-full bg-black text-white px-2 rounded-r-lg flex items-center justify-center border-l-2">
                         Soles
                     </label>
                 </div>
