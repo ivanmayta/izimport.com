@@ -1,47 +1,50 @@
 "use client"
 
-import { useState } from "react"
 import { useRouter } from "next/navigation"
-import { usePathname } from "next/navigation"
 import { useSearchParams } from "next/navigation"
 import { useShipment } from "@/hooks/useShipment"
 import { Button } from "@/components/ui/button"
 import { PackageSearch } from "lucide-react"
+import { useEffect, useRef } from "react"
+import SkeletonTrackResponse from "@components/tracking/skeleton-track-response"
+import TrackResponse from "./track-response"
 
-function SearchForm({ initialValue }: { initialValue: string }) {
+function SearchForm() {
+    const QUERY = "tracking_number"
+    const SEARCH_PAGE = "/search"
     const router = useRouter()
-    const pathname = usePathname()
-    const isInSearchPage = pathname === "/search"
     const params = useSearchParams()
-    const trackingNumber = params.get("trackingNumber") ?? ""
+    const param = new URLSearchParams(params)
+    const trackingNumber = params.get(QUERY) ?? ""
     const { shipment, isLoading, error, getShipment } = useShipment()
-    const [inputValue, setInputValue] = useState(initialValue)
 
+    const inputRef = useRef<HTMLInputElement>(null)
+    useEffect(() => {
+        inputRef.current.focus()
+        inputRef.current.setSelectionRange(
+            inputRef.current.value.length,
+            inputRef.current.value.length
+        )
+    }, [])
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const param = new URLSearchParams(params)
         const { value } = e.target
-        setInputValue(value)
-
-        if (value && isInSearchPage) {
-            param.set("trackingNumber", value)
-            router.replace(`/search?${param.toString()}`)
+        if (value) {
+            param.set(QUERY, value)
+        } else {
+            param.delete(QUERY)
         }
-        if (!value && isInSearchPage) {
-            param.delete("trackingNumber")
-            router.replace(`/search?${param.toString()}`)
-        }
+        router.replace(`${SEARCH_PAGE}?${param.toString()}`)
     }
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
-        router.push(`/search?trackingNumber=${inputValue}`)
         try {
-            getShipment(inputValue)
+            getShipment(trackingNumber)
         } catch (error) {
             console.error(error)
         }
     }
     return (
-        <>
+        <div>
             <form
                 className=" w-full h-12 border-2 rounded-lg max-w-3xl mx-auto flex items-center  gap-x-2 border-foreground/70 dark:border-foreground/20"
                 onSubmit={handleSubmit}
@@ -51,20 +54,25 @@ function SearchForm({ initialValue }: { initialValue: string }) {
                         <PackageSearch className="w-5 h-5 text-gray-500 dark:text-gray-300" />
                     </div>
                 </div>
+
                 <input
                     className="w-full h-full bg-background text-sm block  ps-10  focus:outline-none focus:ring-0 focus:ring-offset-0 focus:border-input"
                     placeholder="Ingrese su numero de seguimiento..."
                     onChange={handleChange}
-                    value={inputValue || trackingNumber}
+                    value={trackingNumber}
+                    ref={inputRef}
                     type="text"
                 />
                 <Button className="mr-1 rounded-sm">Rastrear envío</Button>
             </form>
-            {inputValue}
-            {isLoading && <p>Loading...</p>}
-            {shipment && <p>{JSON.stringify(shipment)}</p>}
-            {error}
-        </>
+            {isLoading ? (
+                <SkeletonTrackResponse />
+            ) : (
+                shipment && <TrackResponse data={shipment} />
+            )}
+
+            {error ? <p>{error.message}</p> : null}
+        </div>
     )
 }
 export default SearchForm

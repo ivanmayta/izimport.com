@@ -5,13 +5,13 @@ import {
     CardFooter,
     CardHeader,
     CardTitle,
-} from "../ui/card"
+} from "@/components/ui/card"
 import { PlaneIcon } from "lucide-react"
+import type { Shipment } from "@/types/tracking-response.type"
 
-function shipmentDetails({ shipmentDetails }) {
-    const { id, origin, destination, status } = shipmentDetails
-    const origen = origin.address.addressLocality
-    const destino = destination.address.addressLocality
+function shipmentDetails({ id, origin, destination, status }: Shipment) {
+    const origen = origin?.address?.addressLocality
+    const destino = destination?.address?.addressLocality
     const { description } = status
 
     return (

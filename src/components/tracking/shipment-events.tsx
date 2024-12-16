@@ -1,23 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card"
 import { Package } from "lucide-react"
+import { formatDateTimeToSpanish } from "@/lib/utils"
 
-function formatDateTimeToSpanish(dateString) {
-    const date = new Date(dateString)
-
-    const options = {
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-        hour: "numeric",
-        minute: "numeric",
-        hour12: true,
-        timeZone: "America/Lima", // Ajuste a la zona horaria UTC -05:00
-    }
-
-    // Convierte la fecha y hora con Intl.DateTimeFormat y le agrega el formato solicitado
-    const formattedDate = new Intl.DateTimeFormat("es-PE", options).format(date)
-    return `${formattedDate} (UTC -05:00)`
-}
 function ShipmentEvents({ events }) {
     return (
         <>

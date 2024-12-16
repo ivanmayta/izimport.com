@@ -1,48 +1,49 @@
-type Address = {
+export type Address = {
     countryCode: string
     postalCode: string
     addressLocality: string
 }
 
-type Location = {
+export type Location = {
     address?: Address
 }
 
-type Status = {
+export type Status = {
     timestamp: string
     location?: Location
     statusCode: string
     status: string
+    description: string
 }
 
-type ProductDetails = {
+export type ProductDetails = {
     productName: string
 }
 
-type Weight = {
+export type Weight = {
     value: number
     unitText: string
 }
 
-type Reference = {
+export type Reference = {
     number: string
     type: string
 }
 
-type ShipmentDetails = {
+export type ShipmentDetails = {
     product: ProductDetails
     weight: Weight
     references: Reference[]
 }
 
-type Event = {
+export type Event = {
     timestamp: string
     location?: Location
     statusCode: string
     status: string
 }
 
-type Shipment = {
+export type Shipment = {
     id: string
     service: string
     origin: {
@@ -52,8 +53,8 @@ type Shipment = {
         address: Address
     }
     status: Status
-    details: ShipmentDetails
-    events: Event[]
+    details?: ShipmentDetails
+    events?: Event[]
 }
 
 export type TrackingResponse = {

@@ -22,7 +22,7 @@ function SearchForm({ onSubmit, inputRef, defaultValue, handleChange }) {
                     defaultValue={defaultValue}
                     type="search"
                 />
-                <Button className="mr-1 rounded-sm">Rastrear envío</Button>
+                <Button className="mr-1 rounded-sm">Rastre ar envío</Button>
             </form>
         </Container>
     )
