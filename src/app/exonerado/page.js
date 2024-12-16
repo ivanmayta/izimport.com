@@ -52,7 +52,7 @@ export default function Exonerado() {
 
     return (
         <>
-            <section className="mt-40 w-full h-full border-neutral-300 rounded-lg bg-white p-3 px-11 py-7 placeholder-neutral-500 focus:outline-none focus:ring-1 focus:ring-neutral-300 dark:bg-background/50 dark:focus:ring-neutral-700 flex flex-col gap-4">
+            <section className=" w-full h-full max-w-4xl mx-auto py-16 border-neutral-300 rounded-lg bg-white p-3 px-11  placeholder-neutral-500 focus:outline-none focus:ring-1 focus:ring-neutral-300 dark:bg-background/50 dark:focus:ring-neutral-700 flex flex-col gap-4">
                 <h1 className="text-xl text-bold">Proceso Exonerado</h1>
                 <p className="text-slate-400">
                     Importaciones hasta 200 dolares.

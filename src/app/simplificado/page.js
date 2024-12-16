@@ -22,7 +22,7 @@ export default function Simplificado() {
         igv: 0,
         total_tributos: 0,
         cost_administrative: 0,
-        total:0
+        total: 0,
     })
 
     const handleChange = (e) => {
@@ -46,7 +46,8 @@ export default function Simplificado() {
         const ipm = (valor_aduanas + ad_valorem) * 0.02
         const igv = (valor_aduanas + ad_valorem) * 0.16
         const total_tributos = ad_valorem + ipm + igv
-        const total = total_transfer + total_tributos + formData.cost_administrative
+        const total =
+            total_transfer + total_tributos + formData.cost_administrative
         setFormData((prevData) => ({
             ...prevData,
             fob_value: fob_value.toFixed(2),
@@ -59,7 +60,7 @@ export default function Simplificado() {
             ipm: ipm.toFixed(2),
             igv: igv.toFixed(2),
             total_tributos: total_tributos.toFixed(2),
-            total: total.toFixed(2)
+            total: total.toFixed(2),
         }))
     }, [
         formData.unit_price,
@@ -80,7 +81,7 @@ export default function Simplificado() {
 
     return (
         <>
-            <section className="mt-40 w-full h-full border-neutral-300 rounded-lg bg-white p-3 px-11 py-7 placeholder-neutral-500 focus:outline-none focus:ring-1 focus:ring-neutral-300 dark:bg-background/50 dark:focus:ring-neutral-700 flex flex-col gap-4">
+            <section className=" max-w-4xl  mx-auto my-16 w-full h-full border-neutral-300 rounded-lg bg-white p-3 px-11 py-7 placeholder-neutral-500 focus:outline-none focus:ring-1 focus:ring-neutral-300 dark:bg-background/50 dark:focus:ring-neutral-700 flex flex-col gap-4">
                 <h1 className="text-xl text-bold">Proceso Simplificao</h1>
                 <p className="text-slate-400">
                     Importaciones entre 200 a 2000 dolares.
