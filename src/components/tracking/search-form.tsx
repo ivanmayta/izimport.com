@@ -44,7 +44,7 @@ function SearchForm() {
         }
     }
     return (
-        <div>
+        <div className="flex flex-col gap-8">
             <form
                 className=" w-full h-12 border-2 rounded-lg max-w-3xl mx-auto flex items-center  gap-x-2 border-foreground/70 dark:border-foreground/20"
                 onSubmit={handleSubmit}

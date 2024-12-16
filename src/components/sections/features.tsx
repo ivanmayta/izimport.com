@@ -26,7 +26,7 @@ const features = [
 ]
 function Features() {
     return (
-        <section className=" w-full my-32">
+        <section className=" w-full py-32">
             <Container>
                 <ul className="w-full flex md:flex-row flex-col items-center justify-center text-center  gap-8 ">
                     {features.map((feature, index) => (
