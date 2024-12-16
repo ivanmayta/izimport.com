@@ -1,12 +1,16 @@
 import { useState } from "react"
 import { getEvents } from "../services/getEvents"
-import type { Shipment, TrackingResponse } from "@/types/tracking-response.type"
+import type { TrackingResponse } from "@/types/tracking-response.type"
 
 export const useShipment = () => {
     const [shipment, setShipment] = useState<TrackingResponse | null>(null)
     const [isLoading, setIsLoading] = useState(false)
     const [error, setError] = useState<Error | null>(null)
-
+    const resetStates = () => {
+        setShipment(null)
+        setIsLoading(false)
+        setError(null)
+    }
     const getShipment = async (trackingNumber) => {
         if (trackingNumber) {
             setIsLoading(true)
@@ -25,5 +29,5 @@ export const useShipment = () => {
         }
     }
 
-    return { shipment, isLoading, error, getShipment }
+    return { shipment, isLoading, error, getShipment, resetStates }
 }

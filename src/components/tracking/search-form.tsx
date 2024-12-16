@@ -4,10 +4,12 @@ import { useRouter } from "next/navigation"
 import { useSearchParams } from "next/navigation"
 import { useShipment } from "@/hooks/useShipment"
 import { Button } from "@/components/ui/button"
+import Container from "@/components/custom/container"
 import { PackageSearch } from "lucide-react"
 import { useEffect, useRef } from "react"
 import SkeletonTrackResponse from "@components/tracking/skeleton-track-response"
 import TrackResponse from "./track-response"
+import TrackErrorResponse from "./track-error-response"
 
 function SearchForm() {
     const QUERY = "tracking_number"
@@ -16,7 +18,8 @@ function SearchForm() {
     const params = useSearchParams()
     const param = new URLSearchParams(params)
     const trackingNumber = params.get(QUERY) ?? ""
-    const { shipment, isLoading, error, getShipment } = useShipment()
+    const { shipment, isLoading, error, getShipment, resetStates } =
+        useShipment()
 
     const inputRef = useRef<HTMLInputElement>(null)
     useEffect(() => {
@@ -37,6 +40,7 @@ function SearchForm() {
     }
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
+        resetStates()
         try {
             getShipment(trackingNumber)
         } catch (error) {
@@ -44,7 +48,7 @@ function SearchForm() {
         }
     }
     return (
-        <div className="flex flex-col gap-8">
+        <Container className="flex flex-col gap-8">
             <form
                 className=" w-full h-12 border-2 rounded-lg max-w-3xl mx-auto flex items-center  gap-x-2 border-foreground/70 dark:border-foreground/20"
                 onSubmit={handleSubmit}
@@ -71,8 +75,8 @@ function SearchForm() {
                 shipment && <TrackResponse data={shipment} />
             )}
 
-            {error ? <p>{error.message}</p> : null}
-        </div>
+            {error ? <TrackErrorResponse text={error.message} /> : null}
+        </Container>
     )
 }
 export default SearchForm
