@@ -1,16 +1,22 @@
 import Exchange from "@components/exchange"
-import { ReactNode } from "react"
-import Container from "../custom/container"
+import { ReactNode, Suspense } from "react"
+import Container from "@/components/custom/container"
+import SearchForm from "../tracking/search-form"
 
 function Hero() {
     return (
-        <section className=" ">
-            <Container className="flex flex-col items-center justify-center pt-20 pb-10 lg:py-20 lg:flex-row">
-                <h2 className="lg:w-3/5  text-center text-5xl lg:text-left md:text-6xl  font-bold text-pretty pb-8">
-                    <HighlightText>Cotiza</HighlightText> y
-                    <HighlightText> Rastrea </HighlightText>
-                    Tus Envios de Forma Rapida y Sencilla
-                </h2>
+        <section>
+            <Container className="flex flex-col lg:flex-row  py-20 gap-8">
+                <div>
+                    <h1 className=" text-5xl text-pretty md:text-6xl  font-bold sm:text-balance pb-10">
+                        <HighlightText>Cotiza</HighlightText> y
+                        <HighlightText> rastrea </HighlightText>
+                        tus envíos de forma rápida y sencilla
+                    </h1>
+                    <Suspense fallback={<p>Loading...</p>}>
+                        <SearchForm />
+                    </Suspense>
+                </div>
                 {
                     <Exchange />
                     //
@@ -22,7 +28,7 @@ function Hero() {
 
 const HighlightText = ({ children }: { children: ReactNode }) => {
     return (
-        <span className="text-transparent bg-clip-text bg-gradient-to-tr from-yellow-500 to-orange-500">
+        <span className="text-transparent bg-clip-text bg-[#F0B90B]">
             {children}
         </span>
     )

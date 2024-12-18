@@ -7,9 +7,12 @@ export default function Home() {
     return (
         <>
             <Hero />
+
+            {/* Lazy load the search form
             <Suspense fallback={<div>Loading...</div>}>
-                <SearchForm />
+            <SearchForm />
             </Suspense>
+            */}
             <Features />
         </>
     )

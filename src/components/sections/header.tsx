@@ -28,11 +28,11 @@ const components: { title: string; href: string; description: string }[] = [
 ]
 export default function Header() {
     return (
-        <header className="border-b h-16">
+        <header className=" h-16 sticky top-0 bg-background z-50">
             <Container className=" h-full flex items-center justify-between">
                 <nav className="flex gap-8 items-center">
-                    <h1 className="bold text-2xl font-extrabold tracking-tight lg:text-2xl">
-                        <Link href="/">izimport</Link>
+                    <h1 className=" text-3xl font-extrabold tracking-tight lg:text-2xl">
+                        <Link href="/">izimport.com</Link>
                     </h1>
                     <NavigationMenu>
                         <NavigationMenuList>
@@ -41,7 +41,7 @@ export default function Header() {
                                     <NavigationMenuLink
                                         className={navigationMenuTriggerStyle()}
                                     >
-                                        inicio
+                                        Inicio
                                     </NavigationMenuLink>
                                 </Link>
                             </NavigationMenuItem>

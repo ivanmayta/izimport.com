@@ -30,11 +30,10 @@ function Exchange() {
         })
     }, [])
     return (
-        <Card className="border-[0px]">
+        <Card className="border max-w-xl w-full lg:w-auto  mx-auto">
             <CardHeader>
-                <CardDescription className="text-center">
-                    Tipo de cambio
-                </CardDescription>
+                <CardDescription>Tipo de cambio</CardDescription>
+                <hr className="w-10 border-yellow-500 border-1" />
             </CardHeader>
             <CardContent className="relative flex flex-col gap-2 ">
                 <div className=" h-12 border-2 rounded-lg flex">

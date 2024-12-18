@@ -1,7 +1,6 @@
 import Container from "@/components/custom/container"
 import SearchForm from "@/components/tracking/search-form"
 import { Suspense } from "react"
-import { Metadata } from "next"
 export default function Search() {
     return (
         <Container className="py-20 flex flex-col gap-8">
