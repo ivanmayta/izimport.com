@@ -7,7 +7,7 @@ export default function TrackResponse({ data }: { data: TrackingResponse }) {
     const { events, id, destination, origin, status, service } = shipments[0]
 
     return (
-        <div className="flex flex-col gap-4 w-full max-w-3xl mx-auto">
+        <div className="flex flex-col gap-4 w-full max-w-3xl mx-auto pt-3">
             <ShipmentDetails
                 id={id}
                 destination={destination}

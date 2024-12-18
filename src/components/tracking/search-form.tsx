@@ -11,7 +11,7 @@ import SkeletonTrackResponse from "@components/tracking/skeleton-track-response"
 import TrackResponse from "./track-response"
 import TrackErrorResponse from "./track-error-response"
 
-function SearchForm() {
+function SearchForm({ className }: { className?: string }) {
     const QUERY = "tracking_number"
     const SEARCH_PAGE = "/search"
     const router = useRouter()
@@ -48,7 +48,7 @@ function SearchForm() {
         }
     }
     return (
-        <div>
+        <div className={className}>
             <form
                 className="max-w-3xl h-12 border-2 rounded-md bg-white flex border-foreground/30 dark:border-0"
                 onSubmit={handleSubmit}
