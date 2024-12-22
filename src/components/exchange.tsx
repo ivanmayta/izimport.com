@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/card"
 import { ExchangeFill } from "@/icons/exchange-fill"
 import { useState, useEffect } from "react"
-import { getRates } from "@/services/getRates"
+import { getRates } from "@/actions/loaders"
 
 function Exchange() {
     const SUPPORTED_CURRENCIES = {
@@ -21,13 +21,16 @@ function Exchange() {
         console.log(e)
     }
     useEffect(() => {
-        getRates().then((data) => {
+        const getRatesAction = async () => {
+            const data = await getRates()
             setExchange((prevState) => ({
                 ...prevState,
                 USD: data?.rates?.USD || 1,
                 PEN: data?.rates?.PEN || "No disponible",
             }))
-        })
+        }
+        getRatesAction()
+        
     }, [])
     return (
         <Card className="border max-w-xl w-full lg:w-auto  mx-auto">
