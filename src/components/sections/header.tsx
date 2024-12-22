@@ -87,8 +87,10 @@ export default function Header() {
                         </NavigationMenuList>
                     </NavigationMenu>
                 </nav>
-                <ExchangeBadge />
-                <ModeToggle />
+                <div className="flex gap-4 items-center">
+                    <ExchangeBadge />
+                    <ModeToggle />
+                </div>
             </Container>
         </header>
     )

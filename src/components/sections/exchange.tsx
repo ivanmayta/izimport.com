@@ -14,9 +14,7 @@ import { useEffect } from "react"
 import {
     Select,
     SelectContent,
-    SelectGroup,
     SelectItem,
-    SelectLabel,
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select"
@@ -37,13 +35,6 @@ export default function Exchange({ data }: { data: ratesResponse }) {
         <Card className="border max-w-xl w-full lg:w-auto  mx-auto">
             <CardHeader>
                 <CardDescription>Tipo de cambio</CardDescription>
-                <button
-                    onClick={() => {
-                        changeCurrentRate("MXN")
-                    }}
-                >
-                    Change
-                </button>
 
                 <hr className="w-10 border-yellow-500 border-1" />
             </CardHeader>
