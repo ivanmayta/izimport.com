@@ -1,9 +1,11 @@
-import Exchange from "@components/exchange"
+import Exchange from "@components/sections/exchange"
 import { ReactNode, Suspense } from "react"
 import Container from "@/components/custom/container"
 import SearchForm from "../tracking/search-form"
+import { getRates } from "@/actions/loaders"
 
-function Hero() {
+async function Hero() {
+    const data = await getRates()
     return (
         <section>
             <Container className="flex flex-col lg:flex-row  py-20 gap-8">
@@ -18,7 +20,8 @@ function Hero() {
                     </Suspense>
                 </div>
                 {
-                    <Exchange />
+                    <Exchange data={data} />
+
                     //
                 }
             </Container>

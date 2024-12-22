@@ -7,15 +7,15 @@ export const getRates = async () => {
     const pathName = "/api/latest.json"
     const url = new URL(pathName, baseUrl)
     url.search = `app_id=${AppId}`
-    //console.log(url, "fetching data from ")
 
-    const response = await fetch(url)
+    const response = await fetch(url, { cache: "no-store" })
+
     if (!response.ok) {
         console.log(response)
         return { error: response.statusText }
     }
 
     const data = await response.json()
-    //console.log(data)
+
     return data
 }

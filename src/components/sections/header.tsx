@@ -13,6 +13,7 @@ import {
     navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu"
 import Container from "../custom/container"
+import { ExchangeBadge } from "@components/exchange/exchange-badge"
 
 const components: { title: string; href: string; description: string }[] = [
     {
@@ -86,7 +87,7 @@ export default function Header() {
                         </NavigationMenuList>
                     </NavigationMenu>
                 </nav>
-
+                <ExchangeBadge />
                 <ModeToggle />
             </Container>
         </header>
