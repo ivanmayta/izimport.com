@@ -1,6 +1,5 @@
 import Link from "next/link"
 import * as React from "react"
-
 import { cn } from "@/lib/utils"
 import { ModeToggle } from "@/components/ui/mode-togglee"
 import {
@@ -14,6 +13,9 @@ import {
 } from "@/components/ui/navigation-menu"
 import Container from "../custom/container"
 import { ExchangeBadge } from "@components/exchange/exchange-badge"
+import { Button } from "../ui/button"
+import { signInWithGoole, logout } from "@/actions/auth"
+import { createClient } from "@/utils/supabase/server"
 
 const components: { title: string; href: string; description: string }[] = [
     {
@@ -27,7 +29,10 @@ const components: { title: string; href: string; description: string }[] = [
         description: "Para importaciones menores a 200$",
     },
 ]
-export default function Header() {
+export default async function Header() {
+    const supabase = await createClient()
+    const { data } = await supabase.auth.getUser()
+    console.log("Render Home", data)
     return (
         <header className=" h-16 sticky top-0 bg-background z-50">
             <Container className=" h-full flex items-center justify-between">
@@ -88,6 +93,15 @@ export default function Header() {
                     </NavigationMenu>
                 </nav>
                 <div className="flex gap-4 items-center">
+                    <form className="flex gap-4 items-center flex-col sm:flex-row">
+                        {data.user == null ? (
+                            <Button variant="outline" formAction={signInWithGoole}>
+                                Iniciar sesión con google
+                            </Button>
+                        ) : (
+                            <Button variant="link" formAction={logout}>Cerrar sesión</Button>
+                        )}
+                    </form>
                     <ExchangeBadge />
                     <ModeToggle />
                 </div>

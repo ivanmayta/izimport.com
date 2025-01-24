@@ -12,7 +12,7 @@ const inter = Inter({ subsets: ["latin"] })
 
 export default function RootLayout({ children }) {
     return (
-        <html lang="es">
+        <html lang="es" suppressHydrationWarning>
             <body className={`${inter.className} min-w-[480px]`}>
                 <ThemeProvider
                     attribute="class"
