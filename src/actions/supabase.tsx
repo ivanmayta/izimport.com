@@ -176,8 +176,14 @@ export const createProfile = async (
         errors: {},
     }
 }
-
-export const addProduct = async () => {
+//TODO make zod validation with optional fields
+const productFormSchema = z.object({
+    name: z.string().min(2).max(100),
+    description: z.string().min(2).max(500),
+    price: z.number().min(0),
+    image_url: z.string().url(),
+})
+export const addProduct = async (formData: FormData) => {
     const supabase = await createClient()
     const { data: userData, error: userError } = await supabase.auth.getUser()
     if (userError) {
@@ -202,10 +208,10 @@ export const addProduct = async () => {
     const productData = {
         perfil_id: perfil_id,
 
-        name: "Product Name",
-        description: "Product Description",
-        price: 100,
-        image_url: "url_to_image",
+        name: formData.get("name"),
+        description: formData.get("description"),
+        price: formData.get("price"),
+        image_url: formData.get("image_url"),
     }
     // Insert the product
 
@@ -214,7 +220,15 @@ export const addProduct = async () => {
         .insert([productData])
     if (productError) {
         console.error("Error creating product:", productError.message)
+        return {
+            message: "Error creating product",
+            errors: {},
+        }
     } else {
         console.log("Product created successfully:", productDataResponse)
+        return {
+            message: "Product created successfully!",
+            errors: {},
+        }
     }
 }

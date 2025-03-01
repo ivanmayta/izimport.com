@@ -46,7 +46,7 @@ export default function ProfileForm({ profile }) {
             <div className="flex gap-2 flex-col">
                 <Label>Username</Label>
                 <div className="relative w-full">
-                    <div className="text-sm text-white/60 absolute inset-y-0 start-0 top-0 flex items-center ps-3.5 pointer-events-none">
+                    <div className="text-sm dark:text-white/60 absolute inset-y-0 start-0 top-0 flex items-center ps-3.5 pointer-events-none">
                         izimport.com/b2b/
                     </div>
                     <Input
