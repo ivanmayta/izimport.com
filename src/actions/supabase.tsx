@@ -3,28 +3,12 @@
 import { z } from "zod"
 import { createClient } from "@/utils/supabase/server"
 import { revalidatePath } from "next/cache"
-const profileFormSchema = z.object({
-    username: z
-        .string()
-        .min(2, {
-            message: "Username must be at least 2 characters.",
-        })
-        .max(30, {
-            message: "Username must not be longer than 30 characters.",
-        }),
-    whatsapp: z
-        .string()
-        .min(9, { message: "Phone Number must  be a leat 9 digits" })
-        .max(9, "Phone number must not be longer than 9 digits"),
-    address: z.string().max(160).min(4),
-    social_urls: z
-        .record(z.string().url({ message: "Please enter a valid URL." }))
-        .optional(),
-})
 
 export type State = {
     errors?: {
+        name?: string[]
         username?: string[]
+        description?: string[]
         RUC?: string[]
         whatsapp?: string[]
         address?: string[]
@@ -36,102 +20,85 @@ export type State = {
     }
     message?: string | null
 }
-export async function updateProfile(prevState: State, formData: FormData) {
-    const socialUrls: Record<string, string> = {}
-    formData.forEach((value, key) => {
-        if (key.startsWith("social_urls[")) {
-            const socialKey = key.slice(12, -1) // Extrae la clave del nombre del input
-            socialUrls[socialKey] = value as string
-        }
-    })
-
-    const validatedFields = profileFormSchema.safeParse({
-        username: formData.get("username"),
-        whatsapp: formData.get("whatsapp"),
-        address: formData.get("address"),
-        social_urls: socialUrls,
-    })
-
-    console.log(validatedFields)
-
-    if (!validatedFields.success) {
-        return {
-            errors: validatedFields.error.flatten().fieldErrors,
-            message: "There was a problem updating your profile.",
-        }
-    }
-
-    const supabase = await createClient() // Asegúrate de inicializar correctamente
-    const { data: userData, error: userError } = await supabase.auth.getUser()
-
-    if (userError) {
-        console.error("Error al obtener el usuario:", userError)
-        return {
-            errors: { user: "Unable to retrieve user." },
-            message: "There was a problem updating your profile.",
-        }
-    }
-
-    const user_id = userData.user.id
-    console.log(user_id)
-
-    // Realiza la actualización del perfil
-    const { data, error } = await supabase
-        .from("perfiles")
-        .update({
-            ...validatedFields.data, // Asegúrate de incluir todos los campos validados
-            user_id: user_id, // Incluye el user_id si es necesario
+const createProfileFormSchema = z.object({
+    name: z
+        .string()
+        .min(2, { message: "El nombre debe ser de al menos 2 caracteres" })
+        .max(60, { message: "El nombre no debe ser mayor a 60 caracteres" }),
+    description: z
+        .string()
+        .min(3, {
+            message: "La descripción debe ser de al menos 2 caracteres.",
         })
-        .eq("user_id", user_id) // Filtra por el user_id del usuario autenticado
-
-    if (error) {
-        console.error("Error al actualizar el perfil:", error.message) // Cambia a error.message si error.details no está disponible
-        return {
-            errors: { update: "Error updating profile." },
-            message: "There was a problem updating your profile.",
-        }
-    } else {
-        console.log("Perfil actualizado:", data)
-    }
-
-    return {
-        message: "Profile updated successfully!",
-        errors: {},
-    }
-}
+        .max(160, {
+            message: "La descripción no debe ser mayor a 160 caracteres.",
+        }),
+    username: z
+        .string()
+        .min(2, {
+            message: "El nombre de usuario debe ser de al menos 2 caracteres.",
+        })
+        .max(30, {
+            message: "El nombre de usuario no debe ser mayor a 30 caracteres.",
+        })
+        .regex(
+            /^[a-z0-9]+(-[a-z0-9]+)*$/,
+            "El Nombre de usuario solo puede contener letras, números y guiones, sin espacios ni guiones al inicio o final."
+        ),
+    whatsapp: z
+        .string()
+        .min(9, {
+            message: "El numero de telefono debe tener al menos 9 digitos",
+        })
+        .max(9, "El numero de telefono no debe ser mayor a 9 digitos"),
+    address: z
+        .string()
+        .max(160, {
+            message: "La dirección no debe ser mayor a 160 caracteres.",
+        })
+        .min(4, {
+            message: "La dirección debe ser de al menos 4 caracteres.",
+        }),
+})
 //TODO make zod validation with optional fields
-const profileFormSchemas = z.object({})
-export const updateProfileWithoudValidation = async (
+
+export const updateProfile = async (
     prevState: State,
     formData: FormData
 ): Promise<State> => {
     const supabase = await createClient()
     const { data: userData, error: userError } = await supabase.auth.getUser()
     const user_id = userData.user.id
-    const { error, statusText, status } = await supabase
+    const validatedFields = createProfileFormSchema.safeParse({
+        name: formData.get("name"),
+        username: formData.get("username"),
+        description: formData.get("description"),
+        RUC: formData.get("RUC"),
+        whatsapp: formData.get("whatsapp"),
+        address: formData.get("address"),
+        social_urls: {
+            facebook: formData.get("social_urls[facebook]"),
+            instagram: formData.get("social_urls[instagram]"),
+            tiktok: formData.get("social_urls[tiktok]"),
+        },
+    })
+    if (!validatedFields.success) {
+        return {
+            message: "There was a problem creating your profile.",
+            errors: validatedFields.error.flatten().fieldErrors,
+        }
+    }
+    const { error, status, data, statusText } = await supabase
         .from("profile")
-        .update({
-            username: formData.get("username"),
-            whatsapp: formData.get("whatsapp"),
-            address: formData.get("address"),
-            RUC: formData.get("RUC"),
-            social_urls: {
-                facebook: formData.get("social_urls[facebook]"),
-                instagram: formData.get("social_urls[instagram]"),
-                tiktok: formData.get("social_urls[tiktok]"),
-            },
-        })
+        .update(validatedFields.data)
         .eq("user_id", user_id)
     console.log(status)
     console.log(statusText)
-    if (error) {
-        console.log("-------ocurrio un error")
-        console.log(error)
-    }
+
     if (status === 409) {
         // 409 es el código de estado para conflictos
         return {
-            message: "Already Exist",
+            message: "Nombre de usuario ya existe",
             errors: {
                 username: [
                     `El nombre de usuario "${formData?.get(
@@ -141,7 +108,13 @@ export const updateProfileWithoudValidation = async (
             },
         }
     }
-
+    if (error) {
+        console.error("Error updating profile:", error.message)
+        return {
+            message: error.message,
+            errors: {},
+        }
+    }
     revalidatePath("/dasboard")
     return {
         message: "Profile updated successfully!",
@@ -156,21 +129,54 @@ export const createProfile = async (
     const supabase = await createClient()
     const { data: userData, error: userError } = await supabase.auth.getUser()
     const user_id = userData.user.id
+
+    const validatedFields = createProfileFormSchema.safeParse({
+        name: formData.get("name"),
+        username: formData.get("username"),
+        description: formData.get("description"),
+        RUC: formData.get("RUC"),
+        whatsapp: formData.get("whatsapp"),
+        address: formData.get("address"),
+        social_urls: {
+            facebook: formData.get("social_urls[facebook]"),
+            instagram: formData.get("social_urls[instagram]"),
+            tiktok: formData.get("social_urls[tiktok]"),
+        },
+    })
+    if (!validatedFields.success) {
+        return {
+            message: "There was a problem creating your profile.",
+            errors: validatedFields.error.flatten().fieldErrors,
+        }
+    }
     const { error, statusText, status } = await supabase
         .from("profile")
         .insert({
-            username: formData.get("username"),
-            whatsapp: formData.get("whatsapp"),
-            address: formData.get("address"),
-            RUC: formData.get("RUC"),
-            social_urls: {
-                facebook: formData.get("social_urls[facebook]"),
-                instagram: formData.get("social_urls[instagram]"),
-                tiktok: formData.get("social_urls[tiktok]"),
-            },
+            ...validatedFields.data,
             user_id: user_id,
         })
-    if (error) console.log(error)
+    if (status === 409) {
+        // 409 es el código de estado para conflictos
+        return {
+            message: "Nombre de usuario ya existe",
+            errors: {
+                username: [
+                    `El nombre de usuario "${formData?.get(
+                        "username"
+                    )}" ya existe`,
+                ],
+            },
+        }
+    }
+    if (error) {
+        console.log(error)
+
+        return {
+            message: error.message,
+            errors: {},
+        }
+    }
+    revalidatePath("/dashboard")
     return {
         message: "Profile created successfully!",
         errors: {},
