@@ -34,7 +34,7 @@ export default async function Header() {
     const { data } = await supabase.auth.getUser()
     console.log("Render Home", data)
     return (
-        <header className=" h-16 sticky top-0 bg-background z-50">
+        <header className=" h-16 sticky top-0  z-50">
             <Container className=" h-full flex items-center justify-between">
                 <nav className="flex gap-8 items-center">
                     <h1 className=" text-3xl font-extrabold tracking-tight lg:text-2xl">
@@ -95,11 +95,16 @@ export default async function Header() {
                 <div className="flex gap-4 items-center">
                     <form className="flex gap-4 items-center flex-col sm:flex-row">
                         {data.user == null ? (
-                            <Button variant="outline" formAction={signInWithGoole}>
+                            <Button
+                                variant="outline"
+                                formAction={signInWithGoole}
+                            >
                                 Iniciar sesión con google
                             </Button>
                         ) : (
-                            <Button variant="link" formAction={logout}>Cerrar sesión</Button>
+                            <Button variant="link" formAction={logout}>
+                                Cerrar sesión
+                            </Button>
                         )}
                     </form>
                     <ExchangeBadge />
