@@ -7,7 +7,9 @@ export const metadata = {
 export default function RootLayout({ children }) {
     return (
         <html lang="es" suppressHydrationWarning>
-            <body className={`min-w-[480px]`}>{children}</body>
+            <body className="flex min-h-screen w-full flex-col">
+                {children}
+            </body>
         </html>
     )
 }

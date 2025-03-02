@@ -1,4 +1,3 @@
-import Footer from "@/components/sections/footer"
 import Header from "@/components/sections/header"
 import { ThemeProvider } from "@/components/ui/theme-provider"
 import { Inter } from "next/font/google"
@@ -11,12 +10,11 @@ export default function MainLayout({ children }) {
         <>
             <ThemeProvider
                 attribute="class"
-                defaultTheme="system"
+                defaultTheme="light"
                 enableSystem
                 disableTransitionOnChange
             >
-                <Header />
-                <main className={`${inter.className} min-h-screen`}>
+                <main className={`${inter.className}`}>
                     {children}
                     <Toaster
                         toastOptions={{
@@ -26,7 +24,6 @@ export default function MainLayout({ children }) {
                         }}
                     />
                 </main>
-                <Footer />
             </ThemeProvider>
         </>
     )
