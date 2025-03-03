@@ -3,7 +3,7 @@ import { Instagram } from "@/icons/instagram"
 import { Tiktok } from "@/icons/tiktok"
 import { Whatsapp } from "@/icons/whatsapp"
 
-export default function ProfileHero({ username }) {
+export default async function ProfileHero({ username, name, description }) {
     return (
         <section className="pt-12 max-w-[1420px] mx-auto w-full py-6">
             <div className="flex md:flex-row flex-col items-center gap-3 ">
@@ -13,10 +13,10 @@ export default function ProfileHero({ username }) {
                     alt=""
                 />
                 <div className="flex flex-col gap-2 w-full">
-                    <h1 className="font-extrabold text-4xl">{username}</h1>
+                    <h1 className="font-extrabold text-4xl">{name}</h1>
+                    <p>@{username}</p>
                     <p className="text-pretty text-sm font-medium max-w-[75ch] leading-tight text-zinc-800 ">
-                        Productos principales:OTG, adaptador, lector de
-                        tarjetas, bolígrafo táctil, cable de datos
+                        {description}
                     </p>
                     <strong className="text-sm text-zinc-900">
                         <span>Perú</span> • <span>Direccion lt. 93</span>
