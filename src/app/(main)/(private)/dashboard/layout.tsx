@@ -29,7 +29,7 @@ export default async function SettingsLayout({
     }
     return (
         <>
-            <div className="space-y-6 pb-16 md:block max-w-[1320px] mx-auto">
+            <div className="space-y-6 md:px-0 px-6 pb-16 md:block max-w-[1320px] mx-auto">
                 <header className="flex items-center py-4 justify-between ">
                     <Link
                         className="text-3xl font-extrabold tracking-tight lg:text-2xl"
@@ -57,7 +57,7 @@ export default async function SettingsLayout({
                     </div>
                 </header>
                 <div className="flex flex-col space-y-8 lg:flex-row lg:space-x-12 lg:space-y-0">
-                    <aside className=" lg:w-1/5 sticky top-0 h-full">
+                    <aside className=" lg:w-1/5 sticky top-0 h-ful bg-background">
                         <div className="space-y-0.5 ">
                             <h2 className="text-2xl font-bold tracking-tight">
                                 Dashboard
@@ -67,6 +67,7 @@ export default async function SettingsLayout({
                             </p>
                         </div>
                         <hr className="my-2" />
+
                         <SidebarNav />
                     </aside>
                     <div className="flex-1 lg:max-w-2xl">{children}</div>
