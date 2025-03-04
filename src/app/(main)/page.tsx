@@ -3,6 +3,7 @@ import Features from "@/components/sections/features"
 import Hero from "@/components/sections/hero"
 import SearchForm from "@/components/tracking/search-form"
 import Header from "@/components/sections/header"
+import Footer from "@/components/sections/footer"
 
 export default function Home() {
     return (
@@ -16,6 +17,7 @@ export default function Home() {
             </Suspense>
             */}
             <Features />
+            <Footer />
         </>
     )
 }

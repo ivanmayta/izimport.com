@@ -22,18 +22,17 @@ export default async function SettingsProfilePage() {
                     target="_blank"
                     hidden={!username}
                 >
-                    <button className=" bg-orange-600/30 text-orange-600 flex py-1 px-2 justify-center items-center rounded-md">
+                    <button className=" bg-orange-600/30 text-orange-600 flex py-1 px-2 justify-center items-center rounded-md  hover:scale-105 transition-transform">
                         Ver sitio
                         <ArrowUpRightFromSquareIcon className="h-4 w-4" />
                     </button>
                 </Link>
             </header>
-            
-                <p className="text-sm text-muted-foreground">
-                    {JSON.stringify(profile, null, 2)}
-                </p>
-                
-                
+
+            <p className="text-sm text-muted-foreground">
+                {JSON.stringify(profile, null, 2)}
+            </p>
+
             {/* <p>{JSON.stringify(data, null, 2)}</p> */}
             <ProfileForm profile={profile} />
         </div>

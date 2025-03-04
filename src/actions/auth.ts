@@ -17,7 +17,6 @@ export async function signInWithGoole() {
     if (error) {
         console.log(error)
     }
-
     redirect(`${data.url}`)
 }
 
