@@ -2,7 +2,9 @@ import ProfileForm from "./profile-form"
 import { createClient } from "@/utils/supabase/server"
 import Link from "next/link"
 import { ArrowUpRightFromSquareIcon } from "lucide-react"
+import { getFrontEndUrl } from "@/lib/utils"
 
+const BASE_URL = getFrontEndUrl()
 export default async function SettingsProfilePage() {
     const supabase = await createClient()
     const { data, error } = await supabase.auth.getUser()
@@ -18,7 +20,7 @@ export default async function SettingsProfilePage() {
             <header className="flex items-center justify-between pb-8">
                 <h3 className="text-2xl font-bold">Informacion del Negocio</h3>
                 <Link
-                    href={`http://localhost:3000/b2b/${username}`}
+                    href={`${BASE_URL}b2b/${username}`}
                     target="_blank"
                     hidden={!username}
                 >
