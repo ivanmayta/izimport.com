@@ -1,15 +1,8 @@
 import { Metadata } from "next"
-import Image from "next/image"
 
 import { SidebarNav } from "@/components/dashboard/sidebar-nav"
 import { createClient } from "@/utils/supabase/server"
 import { redirect } from "next/navigation"
-import Link from "next/link"
-import { ExchangeBadge } from "@/components/exchange/exchange-badge"
-import { ModeToggle } from "@/components/ui/mode-togglee"
-import { Button } from "@/components/ui/button"
-import { logout, signInWithGoole } from "@/actions/auth"
-import Header from "@/components/sections/header"
 
 export const metadata: Metadata = {
     title: "Dashboard-izimport.com| Administra tu cuenta",
