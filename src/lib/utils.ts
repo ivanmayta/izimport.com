@@ -1,16 +1,16 @@
-import { clsx } from "clsx"
+import { type ClassValue, clsx } from "clsx"
 import { twMerge } from "tailwind-merge"
 
 export function getFrontEndUrl() {
     return process.env.FRONT_URL ?? "http://localhost:3000"
 }
-export function cn(...inputs) {
+export function cn(...inputs: ClassValue[]) {
     return twMerge(clsx(inputs))
 }
-export function formatDateTimeToSpanish(dateString) {
+export function formatDateTimeToSpanish(dateString: string): string {
     const date = new Date(dateString)
 
-    const options = {
+    const options: Intl.DateTimeFormatOptions = {
         year: "numeric",
         month: "long",
         day: "numeric",
@@ -21,7 +21,10 @@ export function formatDateTimeToSpanish(dateString) {
     }
 
     // Convierte la fecha y hora con Intl.DateTimeFormat y le agrega el formato solicitado
-    const formattedDate = new Intl.DateTimeFormat("es-PE", options).format(date)
+    const formattedDate: string = new Intl.DateTimeFormat(
+        "es-PE",
+        options
+    ).format(date)
     return `${formattedDate} (UTC -05:00)`
 }
 
