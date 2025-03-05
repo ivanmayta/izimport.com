@@ -4,6 +4,7 @@ import Container from "@/components/custom/container"
 import SearchForm from "../tracking/search-form"
 import { getRates } from "@/actions/loaders"
 import { IconDhl } from "@/icons/icon-dhl"
+import { signInWithGoole } from "@/actions/auth"
 
 async function Hero() {
     const data = await getRates()
@@ -22,7 +23,10 @@ async function Hero() {
                         Importa, Vende y Expande Tu Negocio
                     </p>
                     <div className="w-full md:flex items-center justify-center lg:justify-start md:space-x-5">
-                        <button className="lg:mx-0 bg-[#FCD535] text-zinc-800 text-xl font-bold rounded-xl py-3.5 px-8 focus:outline-none transform transition hover:scale-110 duration-300 ease-in-out">
+                        <button
+                            onClick={signInWithGoole}
+                            className="lg:mx-0 bg-[#FCD535] text-zinc-800 text-xl font-bold rounded-xl py-3.5 px-8 focus:outline-none transform transition hover:scale-110 duration-300 ease-in-out"
+                        >
                             ¡Empezar gratis!
                         </button>
                     </div>
