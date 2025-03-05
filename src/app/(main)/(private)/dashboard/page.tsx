@@ -20,7 +20,7 @@ export default async function SettingsProfilePage() {
             <header className="flex items-center justify-between pb-8">
                 <h3 className="text-2xl font-bold">Informacion del Negocio</h3>
                 <Link
-                    href={`${BASE_URL}b2b/${username}`}
+                    href={`${BASE_URL}/b2b/${username}`}
                     target="_blank"
                     hidden={!username}
                 >
