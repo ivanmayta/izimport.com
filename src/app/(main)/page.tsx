@@ -8,7 +8,6 @@ import Footer from "@/components/sections/footer"
 export default function Home() {
     return (
         <>
-            <Header />
             <Hero />
 
             {/* Lazy load the search form

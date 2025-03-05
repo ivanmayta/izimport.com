@@ -12,8 +12,8 @@ import { logout, signInWithGoole } from "@/actions/auth"
 import Header from "@/components/sections/header"
 
 export const metadata: Metadata = {
-    title: "Forms",
-    description: "Advanced form example using react-hook-form and Zod.",
+    title: "Dashboard-izimport.com| Administra tu cuenta",
+    description: "Administra tu cuenta en izimport.com",
 }
 
 interface SettingsLayoutProps {
@@ -30,10 +30,9 @@ export default async function SettingsLayout({
     }
     return (
         <>
-            <div className="space-y-6 md:px-0 px-6 pb-16 md:block  mx-auto">
-                <Header />
+            <div className="space-y-6 md:px-0 px-6 pb-16 md:block pt-11 mx-auto">
                 <div className=" container flex flex-col space-y-8 lg:flex-row lg:space-x-12 lg:space-y-0">
-                    <aside className=" lg:w-1/5 sticky top-16 h-full bg-background">
+                    <aside className=" lg:w-1/5 sticky top-20 h-full bg-background">
                         <div className="space-y-0.5 ">
                             <h2 className="text-2xl font-bold tracking-tight">
                                 Dashboard

@@ -15,6 +15,7 @@ export default function MainLayout({ children }) {
                 disableTransitionOnChange
             >
                 <main className={`${inter.className}`}>
+                    <Header />
                     {children}
                     <Toaster
                         toastOptions={{

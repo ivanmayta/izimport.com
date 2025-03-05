@@ -29,9 +29,12 @@ export default async function SettingsProfilePage() {
                 </Link>
             </header>
 
-            <p className="text-sm text-muted-foreground">
-                {JSON.stringify(profile, null, 2)}
-            </p>
+            {/*
+    <p className="text-sm text-muted-foreground">
+    {JSON.stringify(profile, null, 2)}
+    
+    </p>
+    */}
 
             {/* <p>{JSON.stringify(data, null, 2)}</p> */}
             <ProfileForm profile={profile} />
