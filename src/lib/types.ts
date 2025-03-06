@@ -6,3 +6,13 @@ export type DBUser = {
 }
 
 export type User = SupabaseUser & DBUser
+
+export type Product = {
+    id: string
+    name: string
+    description: string
+    image_url: string
+    price: number
+
+    perfil_id: string
+}
