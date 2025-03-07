@@ -7,6 +7,9 @@ export function getAuth() {
     return auth
 }
 
+{
+    /*
+    }
 export function useGetUser() {
     const [user, setUser] = useState<User | null>(null)
 
@@ -29,4 +32,7 @@ export function useGetUser() {
     })
 
     return user
+}
+
+    */
 }

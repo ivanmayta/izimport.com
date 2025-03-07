@@ -23,9 +23,9 @@ export default async function SettingsLayout({
     }
     return (
         <>
-            <div className="space-y-6 md:px-0 px-6 pb-16 md:block pt-11 mx-auto">
+            <div className="space-y-6 md:px-0  pb-16 md:block pt-11 mx-auto">
                 <div className=" container flex flex-col space-y-8 lg:flex-row lg:space-x-12 lg:space-y-0">
-                    <aside className=" lg:w-1/5 sticky top-20 h-full bg-background">
+                    <aside className=" lg:w-1/5 sticky top-16 h-full bg-background z-50">
                         <div className="space-y-0.5 ">
                             <h2 className="text-2xl font-bold tracking-tight">
                                 Dashboard
@@ -38,7 +38,7 @@ export default async function SettingsLayout({
 
                         <SidebarNav />
                     </aside>
-                    <div className="flex-1 lg:max-w-2xl">{children}</div>
+                    <div className="flex-1 lg:max-w-3xl">{children}</div>
                 </div>
             </div>
         </>

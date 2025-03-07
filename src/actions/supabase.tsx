@@ -288,9 +288,107 @@ export const addProduct = async (
         }
     } else {
         console.log("Product created successfully:", productDataResponse)
+        revalidatePath("/dashboard/products")
         return {
             message: "Product created successfully!",
             errors: {},
         }
+    }
+}
+
+export const addProduct2 = async (
+    prevState: ProductState,
+    formData: FormData
+): Promise<ProductState> => {
+    const supabase = await createClient()
+    const { data: userData, error: userError } = await supabase.auth.getUser()
+    if (userError) {
+        console.error("Error getting user:", userError.message)
+
+        return {
+            message: "Error getting user",
+            errors: {},
+        }
+    }
+    const user_id = userData.user.id
+    const {
+        data: perfilData,
+        error: perfilError,
+        status,
+    } = await supabase
+        .from("profile")
+        .select("id")
+        .eq("user_id", user_id)
+        .single()
+    if (perfilError) {
+        console.error("Error getting profile:", perfilError.message)
+
+        return {
+            message: "Profile not found",
+            errors: {},
+        }
+    }
+    const perfil_id = perfilData.id
+
+    // Validate with the schema
+    const validatedFields = productFormSchema.safeParse({
+        name: formData.get("name"),
+        description: formData.get("description"),
+        price: Number(formData.get("price")),
+        image_url: formData.get("image_url"),
+    })
+
+    if (!validatedFields.success) {
+        return {
+            message: "Hubo un problema al crear el producto.",
+            errors: validatedFields.error.flatten().fieldErrors,
+        }
+    }
+
+    // Insert the product with validated data and the profile ID
+    const { data: productDataResponse, error: productError } = await supabase
+        .from("product")
+        .insert({ ...validatedFields.data, perfil_id: perfil_id })
+
+    if (productError) {
+        console.error("Error creating product:", productError.message)
+        return {
+            message: "Error creating product",
+            errors: {},
+        }
+    } else {
+        console.log("Product created successfully:", productDataResponse)
+        return {
+            message: "Product created successfully!",
+            errors: {},
+        }
+    }
+}
+
+export const deleteProductAction = async (
+    id: string
+): Promise<ProductState> => {
+    const supabase = await createClient()
+    const { error, data, statusText, status } = await supabase
+        .from("product")
+        .delete()
+        .eq("id", id)
+
+    console.log("id", id)
+    console.log("error", error)
+    console.log("data", data)
+    console.log("statusText", statusText)
+
+    if (error) {
+        console.error("Error deleting product:", error.message)
+        return {
+            message: "Error deleting product",
+            errors: {},
+        }
+    }
+    revalidatePath("/dashboard/products")
+    return {
+        message: "Product deleted successfully!",
+        errors: {},
     }
 }
