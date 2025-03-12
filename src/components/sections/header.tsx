@@ -1,6 +1,6 @@
 import Link from "next/link"
 import * as React from "react"
-import { cn } from "@/lib/libs"
+import { cn } from "@/lib/utils"
 import { ModeToggle } from "@/components/ui/mode-togglee"
 import {
     NavigationMenu,
@@ -15,7 +15,7 @@ import Container from "../custom/container"
 import { ExchangeBadge } from "@components/exchange/exchange-badge"
 import { Button } from "../ui/button"
 import { signInWithGoole, logout } from "@/actions/auth"
-import { createClient } from "@/utils/supabase/server"
+import { createClient } from "@/lib/supabase/server"
 import { LogosGoogleIcon } from "@/icons/google"
 import {
     Sheet,

@@ -1,4 +1,4 @@
-import { createClient } from "@/utils/supabase/server"
+import { createClient } from "@/lib/supabase/server"
 export default async function SettingsAccountPage() {
     const supabase = await createClient()
     const user = await supabase.auth.getUser()

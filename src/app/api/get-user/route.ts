@@ -1,4 +1,4 @@
-import { getUser } from "@/utils/supabase/auth/server"
+import { getUser } from "@/lib/supabase/auth/server"
 
 export async function GET(req: Request) {
     const user = await getUser()

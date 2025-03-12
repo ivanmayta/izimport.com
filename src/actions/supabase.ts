@@ -1,76 +1,28 @@
 "use server"
 
-import { z } from "zod"
-import { createClient } from "@/utils/supabase/server"
+import { createClient } from "@/lib/supabase/server"
 import { revalidatePath } from "next/cache"
+import {
+    PROFILE_FORM_SCHEMA,
+    PRODUCT_FORM_SCHEMA,
+} from "@/lib/scheme/validations"
+import { getUser } from "@/lib/supabase/auth/server"
+import { ProfileState, ProductState } from "@/types/supabase"
 
-export type State = {
-    errors?: {
-        name?: string[]
-        username?: string[]
-        description?: string[]
-        RUC?: string[]
-        whatsapp?: string[]
-        address?: string[]
-        social_urls?: {
-            facebool?: string[]
-            instagram?: string[]
-            tiktok?: string[]
-        }
-    }
-    message?: string | null
-}
-const createProfileFormSchema = z.object({
-    name: z
-        .string()
-        .min(2, { message: "El nombre debe ser de al menos 2 caracteres" })
-        .max(60, { message: "El nombre no debe ser mayor a 60 caracteres" }),
-    description: z
-        .string()
-        .min(3, {
-            message: "La descripción debe ser de al menos 2 caracteres.",
-        })
-        .max(160, {
-            message: "La descripción no debe ser mayor a 160 caracteres.",
-        }),
-    RUC: z.string().optional(),
-    username: z
-        .string()
-        .min(2, {
-            message: "El nombre de usuario debe ser de al menos 2 caracteres.",
-        })
-        .max(30, {
-            message: "El nombre de usuario no debe ser mayor a 30 caracteres.",
-        })
-        .regex(
-            /^[a-z0-9]+(-[a-z0-9]+)*$/,
-            "El Nombre de usuario solo puede contener letras, números y guiones, sin espacios ni guiones al inicio o final."
-        ),
-    whatsapp: z
-        .string()
-        .min(9, {
-            message: "El numero de telefono debe tener al menos 9 digitos",
-        })
-        .max(9, "El numero de telefono no debe ser mayor a 9 digitos"),
-    address: z
-        .string()
-        .max(160, {
-            message: "La dirección no debe ser mayor a 160 caracteres.",
-        })
-        .min(4, {
-            message: "La dirección debe ser de al menos 4 caracteres.",
-        }),
-})
 //[x]TODO make zod validation for update and create profile
 
 export const updateProfile = async (
-    prevState: State,
+    prevState: ProfileState,
     formData: FormData
-): Promise<State> => {
+): Promise<ProfileState> => {
+    // create a supabase client and get the user
     const supabase = await createClient()
-    const { data: userData, error: userError } = await supabase.auth.getUser()
-    const user_id = userData.user.id
-    const validatedFields = createProfileFormSchema.safeParse({
+    const { id: user_id } = await getUser()
+    //console.log(user_id)
+
+    //Validate form fields with zod
+
+    const validatedFields = PROFILE_FORM_SCHEMA.safeParse({
         name: formData.get("name"),
         username: formData.get("username"),
         description: formData.get("description"),
@@ -83,13 +35,14 @@ export const updateProfile = async (
             tiktok: formData.get("social_urls[tiktok]"),
         },
     })
-    //console.log(validatedFields.data)
+    //If form validation fails, return errors early. Otherwise, continue.
     if (!validatedFields.success) {
         return {
             message: "There was a problem creating your profile.",
             errors: validatedFields.error.flatten().fieldErrors,
         }
     }
+    //Prepare the data to be updated and update the profile
     const { error, status, data, statusText } = await supabase
         .from("profile")
         .update(validatedFields.data)
@@ -97,8 +50,9 @@ export const updateProfile = async (
     console.log(status)
     console.log(statusText)
 
+    // if the status is 409, it means there is a conflict
+    // in this case, the username already exists
     if (status === 409) {
-        // 409 es el código de estado para conflictos
         return {
             message: "Nombre de usuario ya existe",
             errors: {
@@ -119,20 +73,19 @@ export const updateProfile = async (
     }
     revalidatePath("/dasboard")
     return {
-        message: "Profile updated successfully!",
+        message: "Perfil actualizado exitosamente!",
         errors: {},
     }
 }
 
 export const createProfile = async (
-    prevState: State,
+    prevState: ProfileState,
     formData: FormData
-): Promise<State> => {
+): Promise<ProfileState> => {
     const supabase = await createClient()
-    const { data: userData, error: userError } = await supabase.auth.getUser()
-    const user_id = userData.user.id
+    const { id: user_id } = await getUser()
 
-    const validatedFields = createProfileFormSchema.safeParse({
+    const validatedFields = PROFILE_FORM_SCHEMA.safeParse({
         name: formData.get("name"),
         username: formData.get("username"),
         description: formData.get("description"),
@@ -187,38 +140,7 @@ export const createProfile = async (
 }
 //TODO make zod validation for add product
 //TODO [ ] fix price error
-const productFormSchema = z.object({
-    name: z
-        .string()
-        .min(4, {
-            message: "El nombre debe ser de al menos 4 caracteres",
-        })
-        .max(100, {
-            message: "El nombre no debe ser mayor a 100 caracteres",
-        }),
-    description: z
-        .string()
-        .min(2, {
-            message: "La descripción debe ser de al menos 2 caracteres",
-        })
-        .max(230, {
-            message: "La descripción no debe ser mayor a 230 caracteres",
-        }),
-    price: z.number().min(0, { message: "El precio debe ser mayor a 0" }),
-    image_url: z.string().url({
-        message: "La URL de la imagen no es válida",
-    }),
-})
 
-export type ProductState = {
-    errors?: {
-        name?: string[]
-        description?: string[]
-        price?: string[]
-        image_url?: string[]
-    }
-    message?: string | null
-}
 export const addProduct = async (
     prevState: ProductState,
     formData: FormData
@@ -253,7 +175,7 @@ export const addProduct = async (
     }
     const perfil_id = perfilData.id
     // Prepare product data
-    const validatedFields = productFormSchema.safeParse({
+    const validatedFields = PRODUCT_FORM_SCHEMA.safeParse({
         name: formData.get("name"),
         description: formData.get("description"),
         price: Number(formData.get("price")),
@@ -331,7 +253,7 @@ export const addProduct2 = async (
     const perfil_id = perfilData.id
 
     // Validate with the schema
-    const validatedFields = productFormSchema.safeParse({
+    const validatedFields = PRODUCT_FORM_SCHEMA.safeParse({
         name: formData.get("name"),
         description: formData.get("description"),
         price: Number(formData.get("price")),
@@ -374,10 +296,15 @@ export const deleteProductAction = async (
         .delete()
         .eq("id", id)
 
-    console.log("id", id)
-    console.log("error", error)
-    console.log("data", data)
-    console.log("statusText", statusText)
+    {
+        /*
+        console.log("id", id)
+        console.log("error", error)
+        console.log("data", data)
+        console.log("statusText", statusText)
+        
+        */
+    }
 
     if (error) {
         console.error("Error deleting product:", error.message)

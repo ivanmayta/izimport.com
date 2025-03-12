@@ -66,7 +66,7 @@ export default function ProductDashboard({ user, products = [] }) {
 
     // Filtrar productos según la búsqueda
     const filteredProducts =
-        products.length > 0
+        products?.length > 0
             ? products.filter(
                   (product) =>
                       product.name

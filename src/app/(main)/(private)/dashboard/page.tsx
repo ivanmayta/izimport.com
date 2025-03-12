@@ -1,8 +1,8 @@
 import ProfileForm from "./profile-form"
-import { createClient } from "@/utils/supabase/server"
+import { createClient } from "@/lib/supabase/server"
 import Link from "next/link"
 import { ArrowUpRightFromSquareIcon } from "lucide-react"
-import { getFrontEndUrl } from "@/lib/libs"
+import { getFrontEndUrl } from "@/lib/utils"
 
 const BASE_URL = getFrontEndUrl()
 export default async function SettingsProfilePage() {

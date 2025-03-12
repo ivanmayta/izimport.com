@@ -1,5 +1,5 @@
 import ProfileHero from "@/components/b2b/hero-profile"
-import { createClient } from "@/utils/supabase/server"
+import { createClient } from "@/lib/supabase/server"
 import Image from "next/image"
 
 export default async function Page({
@@ -39,23 +39,6 @@ export default async function Page({
             />
             {/* <section>{JSON.stringify(data, null, 2)}</section> */}
             {/* <section>{JSON.stringify(products, null, 2)}</section> */}
-            {/* 
-            {products &&
-                products.map((product) => {
-                    return (
-                        <div key={product.id}>
-                            <h2>{product.name}</h2>
-                            <p>{product.description}</p>
-                            <Image
-                                width={200}
-                                height={200}
-                                src={product.image_url}
-                                alt={`Image-${product.name}`}
-                            />
-                        </div>
-                    )
-                })}
-            */}
         </div>
     )
 }

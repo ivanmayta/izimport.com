@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation"
 
 import { Button } from "@/components/ui/button"
 import { LayoutDashboardIcon, Package2Icon, UsersIcon } from "lucide-react"
-import { cn } from "@/lib/libs"
+import { cn } from "@/lib/utils"
 const navItems = [
     { icon: LayoutDashboardIcon, label: "Perfil", href: "/dashboard" },
     { icon: UsersIcon, label: "Cuenta", href: "/dashboard/account" },

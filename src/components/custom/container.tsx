@@ -1,4 +1,4 @@
-import { cn } from "@/lib/libs"
+import { cn } from "@/lib/utils"
 import { ReactNode } from "react"
 
 function Container({

@@ -1,4 +1,4 @@
-import { createClient } from "@/utils/supabase/client"
+import { createClient } from "@/lib/supabase/client"
 import imageCompression from "browser-image-compression"
 import { v4 as uuidv4 } from "uuid"
 

@@ -5,7 +5,7 @@ import {
 } from "lucide-react"
 import Container from "@/components/custom/container"
 import { Whatsapp } from "@/icons/whatsapp"
-import { cn } from "@/lib/libs"
+import { cn } from "@/lib/utils"
 
 const features = [
     {

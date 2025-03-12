@@ -4,7 +4,7 @@ import { addProduct } from "@/actions/supabase"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { cn, convertBlobUrlToFile } from "@/lib/libs"
+import { cn, convertBlobUrlToFile } from "@/lib/utils"
 import { FileImageIcon, X } from "lucide-react"
 import Image from "next/image"
 import {
