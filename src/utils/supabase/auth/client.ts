@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { createClient } from "../client"
-import { User } from "@/lib/types"
+import { User } from "@/types/types"
 
 export function getAuth() {
     const { auth } = createClient()

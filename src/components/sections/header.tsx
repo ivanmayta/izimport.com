@@ -1,6 +1,6 @@
 import Link from "next/link"
 import * as React from "react"
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/libs"
 import { ModeToggle } from "@/components/ui/mode-togglee"
 import {
     NavigationMenu,
@@ -25,7 +25,7 @@ import {
     SheetTitle,
     SheetTrigger,
 } from "../ui/sheet"
-import { Menu } from "lucide-react"
+import { LogOut, Menu } from "lucide-react"
 
 const components: { title: string; href: string; description: string }[] = [
     {
@@ -45,7 +45,7 @@ export default async function Header() {
     console.log("Render Home", data)
 
     return (
-        <header className="h-16 sticky top-0 bg-background z-50 border-b" >
+        <header className="h-16 sticky top-0 bg-background z-50 border-b">
             <div className="container h-full flex items-center justify-between">
                 {/* Left side: Logo and Desktop Navigation */}
                 <div className="flex items-center gap-8">
@@ -139,6 +139,7 @@ export default async function Header() {
                             ) : (
                                 <>
                                     <Button variant="link" formAction={logout}>
+                                        <LogOut className="size-6" />
                                         Cerrar sesión
                                     </Button>
                                     <Link

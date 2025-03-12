@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation"
 
 import { Button } from "@/components/ui/button"
 import { LayoutDashboardIcon, Package2Icon, UsersIcon } from "lucide-react"
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/libs"
 const navItems = [
     { icon: LayoutDashboardIcon, label: "Perfil", href: "/dashboard" },
     { icon: UsersIcon, label: "Cuenta", href: "/dashboard/account" },
@@ -22,9 +22,9 @@ export function SidebarNav() {
                     <Button
                         variant={pathname === item.href ? "secondary" : "ghost"}
                         className={cn(
-                            "justify-start gap-2 w-full border-b border-zinc-500 md:border-transparent",
+                            "justify-start rounded-none lg:rounded-md gap-2 w-full border-b border-zinc-500 lg:border-transparent",
                             {
-                                "border-b border-orange-500":
+                                "border-b  border-orange-500":
                                     pathname === item.href,
                             }
                         )}

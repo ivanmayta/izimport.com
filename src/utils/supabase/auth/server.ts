@@ -1,4 +1,4 @@
-import { User } from "@/lib/types"
+import { User } from "@/types/types"
 import { createClient } from "../server"
 
 export async function getAuth() {

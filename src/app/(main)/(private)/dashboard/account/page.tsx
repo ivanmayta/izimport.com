@@ -4,13 +4,14 @@ export default async function SettingsAccountPage() {
     const user = await supabase.auth.getUser()
     console.dir(user, { depth: null })
     return (
-        <div className="space-y-6">
+        <div>
             <div>
                 <h3 className="text-2xl font-bold">Información de la Cuenta</h3>
                 <p className="text-sm text-muted-foreground">
                     Información de inicio de sesión
                 </p>
             </div>
+            <hr className="mb-6 mt-4" />
 
             <div className="flex flex-col gap-2">
                 <div>

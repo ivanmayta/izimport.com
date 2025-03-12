@@ -4,7 +4,7 @@ import { addProduct } from "@/actions/supabase"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { cn, convertBlobUrlToFile } from "@/lib/utils"
+import { cn, convertBlobUrlToFile } from "@/lib/libs"
 import { FileImageIcon, X } from "lucide-react"
 import Image from "next/image"
 import {
@@ -17,7 +17,7 @@ import {
 } from "react"
 import toast from "react-hot-toast"
 
-export default function ProductForm({ user }) {
+export default function ProductForm({ user, setActiveView }) {
     const [imageUrls, setImageUrls] = useState<string[]>([])
     const [imageUrlUploaded, setImageUrlUploaded] = useState<string[]>([])
     const [uploadingIndex, setUploadingIndex] = useState<number | null>(null)
@@ -125,7 +125,8 @@ export default function ProductForm({ user }) {
 
         if (state.message === "Product created successfully!") {
             toast.success(state.message)
-
+            //change to list
+            setActiveView("list")
             // Clear images after successful product creation
             setImageUrlUploaded([])
         } else if (state.message === "Profile not found") {
@@ -133,16 +134,16 @@ export default function ProductForm({ user }) {
         } else if (state.message.includes("Error")) {
             toast.error(state.message)
         } else {
-            toast.success(state.message)
+            toast.error(state.message)
         }
     }, [state?.message])
 
     // Calculate total images
     const totalImages = imageUrls.length + imageUrlUploaded.length
-    const canAddMoreImages = totalImages < 3
+    const canAddMoreImages = totalImages < 1
 
     return (
-        <form className="flex gap-3 flex-col pt-8" action={handleSubmit}>
+        <form className="flex gap-3 flex-col" action={handleSubmit}>
             <ul className="flex flex-col gap-3">
                 <li>
                     <input
@@ -167,12 +168,19 @@ export default function ProductForm({ user }) {
                                 <span>
                                     {isPending
                                         ? "Subiendo..."
-                                        : `Seleccionar Imágenes (${totalImages}/3)`}
+                                        : `Seleccionar Imágenes (${totalImages}/1)`}
                                 </span>
                             </button>
                         ) : (
-                            <div className="w-full text-center text-sm text-gray-500 py-2">
-                                Límite de 3 imágenes alcanzado
+                            <div className=" flex flex-col items-center w-full text-center text-sm text-gray-500 py-2">
+                                <FileImageIcon className="h-8 w-8 text-gray-400" />
+
+                                <span>
+                                    {isPending
+                                        ? "Subiendo..."
+                                        : `Seleccionar Imágenes (${totalImages}/1)`}
+                                </span>
+                                <span>Límite de 1 imágenes alcanzado</span>
                             </div>
                         )}
 
@@ -273,7 +281,7 @@ export default function ProductForm({ user }) {
                     >
                         {state?.errors?.image_url
                             ? state.errors?.image_url
-                            : "SVG, PNG, JPG (MAX. 800x400px). Máximo 3 imágenes."}
+                            : "SVG, PNG, JPG (MAX. 800x400px). Máximo 1 imágenes."}
                     </p>
                 </li>
                 <li>

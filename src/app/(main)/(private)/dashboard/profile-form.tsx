@@ -8,7 +8,7 @@ import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
 import { SpinnerButton } from "@/components/custom/button-spinner"
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/libs"
 import toast from "react-hot-toast"
 
 export default function ProfileForm({ profile }) {
@@ -26,9 +26,9 @@ export default function ProfileForm({ profile }) {
     console.log("estado", state)
     useEffect(() => {
         if (state?.message) {
-          toast.custom(`${state.message}`)
+            toast.custom(`${state.message}`)
         }
-      }, [state])
+    }, [state])
 
     return (
         <form action={formAction} className="space-y-6">

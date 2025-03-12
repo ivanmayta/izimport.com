@@ -4,28 +4,52 @@ import ProductDashboard from "./product-dashboard"
 
 export default async function ProductsPage() {
     const supabase = await createClient()
-    const { data } = await supabase.auth.getUser()
-    const perfil = await supabase
+    const { data: dataUser } = await supabase.auth.getUser()
+    const { data: dataProfile, error: errorProfile } = await supabase
         .from("profile")
         .select("*")
-        .eq("user_id", data.user.id)
+        .eq("user_id", dataUser.user.id)
         .single()
+
     const products = await supabase
         .from("product")
         .select("*")
-        .eq("perfil_id", perfil.data.id)
+        .eq("perfil_id", dataProfile?.data?.id)
         .order("created_at", { ascending: false })
-    
-    console.log("PERFIL", perfil)
+
+    console.log("PERFIL", dataProfile)
     console.log("PRODUCTS", products)
+
     return (
-        <div className="space-y-6">
-            <div>
-                {/* 
-                    <ProductForm user={data.user} />
-                */}
-                <ProductDashboard user={data.user} products={products.data} />
-            </div>
-        </div>
+        <>
+            {dataProfile ? (
+                <div>
+                    <div>
+                        <h3 className="text-2xl font-bold">
+                            Gestión de Productos
+                        </h3>
+                        <p className="text-sm text-muted-foreground">
+                            Gestiona tu catálogo de productos desde aquí.
+                        </p>
+                    </div>
+                    <hr className="mb-6 mt-4" />
+                    <div>
+                        {/* 
+                <ProductForm user={data.user} />
+            */}
+                        <ProductDashboard
+                            user={dataUser.user}
+                            products={products.data}
+                        />
+                    </div>
+                </div>
+            ) : (
+                <div className="text-center">
+                    <h3 className=" text-lg">
+                        Necesitas crear un Perfil de Negocio antes.
+                    </h3>
+                </div>
+            )}
+        </>
     )
 }

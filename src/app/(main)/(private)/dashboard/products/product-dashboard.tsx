@@ -60,8 +60,6 @@ import {
 import ProductForm from "./product-form"
 import { deleteProductAction } from "@/actions/supabase"
 
-// Mock data para visualización
-
 export default function ProductDashboard({ user, products = [] }) {
     const [searchQuery, setSearchQuery] = useState("")
     const [activeView, setActiveView] = useState("list") // "list" o "add"
@@ -92,9 +90,6 @@ export default function ProductDashboard({ user, products = [] }) {
                             Productos
                         </span>
                     </div>
-                    <h1 className="text-2xl font-bold tracking-tight mt-1">
-                        Gestión de Productos
-                    </h1>
                 </div>
                 {activeView === "add" && (
                     <Button
@@ -187,7 +182,8 @@ export default function ProductDashboard({ user, products = [] }) {
                         <CardHeader className="px-0">
                             <CardTitle>Productos</CardTitle>
                             <CardDescription>
-                                Gestiona tu catálogo de productos desde aquí.
+                                Todos tus productos disponibles en el
+                                inventario.
                             </CardDescription>
                         </CardHeader>
                         <CardContent className="px-0">
@@ -374,19 +370,19 @@ export default function ProductDashboard({ user, products = [] }) {
             )}
 
             {activeView === "add" && (
-                <Card>
-                    <CardHeader>
+                <Card className="border-0">
+                    <CardHeader className="px-0">
                         <CardTitle>Añadir nuevo producto</CardTitle>
                         <CardDescription>
                             Completa el formulario para añadir un nuevo producto
                             a tu inventario.
                         </CardDescription>
                     </CardHeader>
-                    <CardContent>
-                        {/* Aquí iría tu componente ProductForm */}
-                        <div className="py-6 text-muted-foreground">
-                            <ProductForm user={user} />
-                        </div>
+                    <CardContent className="px-0">
+                        <ProductForm
+                            user={user}
+                            setActiveView={setActiveView}
+                        />
                     </CardContent>
                     <CardFooter className="flex justify-end">
                         <Button
@@ -394,7 +390,7 @@ export default function ProductDashboard({ user, products = [] }) {
                             className="mr-2"
                             onClick={() => setActiveView("list")}
                         >
-                            Cancelar
+                            Cancerlar
                         </Button>
                     </CardFooter>
                 </Card>

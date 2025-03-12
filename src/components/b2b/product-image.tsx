@@ -1,5 +1,5 @@
 import Image from "next/image"
-import { Product } from "@/lib/types"
+import { Product } from "@/types/types"
 
 interface ProductImageProps {
     product: Product

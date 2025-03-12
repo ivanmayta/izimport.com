@@ -1,6 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card"
 import { Package } from "lucide-react"
-import { formatDateTimeToSpanish } from "@/lib/utils"
+import { formatDateTimeToSpanish } from "@/lib/libs"
 
 function ShipmentEvents({ events }) {
     return (
