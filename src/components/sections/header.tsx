@@ -26,6 +26,8 @@ import {
     SheetTrigger,
 } from "../ui/sheet"
 import { LogOut, Menu } from "lucide-react"
+import { MenuHeader } from "../dashboard/menu-header"
+import { getUser } from "@/lib/supabase/auth/server"
 
 const components: { title: string; href: string; description: string }[] = [
     {
@@ -40,10 +42,7 @@ const components: { title: string; href: string; description: string }[] = [
     },
 ]
 export default async function Header() {
-    const supabase = await createClient()
-    const { data } = await supabase.auth.getUser()
-    console.log("Render Home", data)
-
+    const user = await getUser()
     return (
         <header className="h-16 sticky top-0 bg-background z-50 border-b">
             <div className="container h-full flex items-center justify-between">
@@ -128,28 +127,7 @@ export default async function Header() {
                     <div className="hidden md:flex items-center gap-4">
                         <form className="flex gap-4 items-center">
                             <ExchangeBadge />
-                            {data.user == null ? (
-                                <Button
-                                    variant="outline"
-                                    formAction={signInWithGoole}
-                                >
-                                    <LogosGoogleIcon className="h-5 w-5 mr-2" />
-                                    Iniciar sesión
-                                </Button>
-                            ) : (
-                                <>
-                                    <Button variant="link" formAction={logout}>
-                                        <LogOut className="size-6" />
-                                        Cerrar sesión
-                                    </Button>
-                                    <Link
-                                        className="text-zinc-700 hover:bg-yellow-300 font-semibold px-3 py-1 rounded-md bg-[#FCD535]"
-                                        href="/dashboard"
-                                    >
-                                        Dashboard
-                                    </Link>
-                                </>
-                            )}
+                            <MenuHeader user={user} />
                         </form>
                         <ModeToggle />
                     </div>
@@ -215,34 +193,8 @@ export default async function Header() {
                                 <div className="mt-4 px-4">
                                     <form className="flex flex-col gap-4">
                                         <ExchangeBadge />
-                                        {data.user == null ? (
-                                            <Button
-                                                variant="outline"
-                                                formAction={signInWithGoole}
-                                                className="w-full justify-start"
-                                            >
-                                                <LogosGoogleIcon className="h-5 w-5 mr-2" />
-                                                Iniciar sesión
-                                            </Button>
-                                        ) : (
-                                            <div className="flex flex-col gap-2">
-                                                <Button
-                                                    variant="link"
-                                                    formAction={logout}
-                                                    className="justify-start px-0"
-                                                >
-                                                    Cerrar sesión
-                                                </Button>
-                                                <SheetClose asChild>
-                                                    <a
-                                                        className="text-zinc-700 hover:bg-yellow-300 font-semibold px-3 py-1 rounded-md bg-[#FCD535] text-center"
-                                                        href="/dashboard"
-                                                    >
-                                                        Dashboard
-                                                    </a>
-                                                </SheetClose>
-                                            </div>
-                                        )}
+
+                                        <MenuHeader user={user} />
                                     </form>
                                     <div className="mt-4 flex justify-start">
                                         <ModeToggle />
