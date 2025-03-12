@@ -31,6 +31,10 @@ export default function ProfileForm({ profile }) {
     )
 
     useEffect(() => {
+        if (state?.message == "Perfil actualizado exitosamente!") {
+            toast.success(`${state.message}`)
+            return
+        }
         if (state?.message) {
             toast.custom(`${state.message}`)
         }
