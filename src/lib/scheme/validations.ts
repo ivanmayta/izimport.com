@@ -39,6 +39,29 @@ const createProfileFormSchema = z.object({
         .min(4, {
             message: "La dirección debe ser de al menos 4 caracteres.",
         }),
+    social_urls: z.object({
+        facebook: z
+            .string()
+            .url({
+                message: "La URL de Facebook no es válida",
+            })
+            .optional()
+            .or(z.literal("")),
+        instagram: z
+            .string()
+            .url({
+                message: "La URL de Instagram no es válida",
+            })
+            .optional()
+            .or(z.literal("")),
+        tiktok: z
+            .string()
+            .url({
+                message: "La URL de TikTok no es válida",
+            })
+            .optional()
+            .or(z.literal("")),
+    }),
 })
 
 const productFormSchema = z.object({

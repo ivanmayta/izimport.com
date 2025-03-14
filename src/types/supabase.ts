@@ -6,11 +6,13 @@ export type ProfileState = {
         RUC?: string[]
         whatsapp?: string[]
         address?: string[]
-        social_urls?: {
-            facebool?: string[]
-            instagram?: string[]
-            tiktok?: string[]
-        }
+        social_urls?:
+            | string[]
+            | {
+                  facebook?: string[]
+                  instagram?: string[]
+                  tiktok?: string[]
+              }
     }
     message?: string | null
 }

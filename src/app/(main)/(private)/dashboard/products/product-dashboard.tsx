@@ -1,6 +1,6 @@
 "use client"
 
-import { act, useState } from "react"
+import { useState } from "react"
 import {
     ChevronRight,
     Plus,
@@ -8,8 +8,6 @@ import {
     Search,
     Trash2,
     Package,
-    Filter,
-    ArrowUpDown,
     ArrowLeft,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"

@@ -21,7 +21,7 @@ export const updateProfile = async (
     //console.log(user_id)
 
     //Validate form fields with zod
-
+    console.log("Form data", formData)
     const validatedFields = PROFILE_FORM_SCHEMA.safeParse({
         name: formData.get("name"),
         username: formData.get("username"),
@@ -30,11 +30,12 @@ export const updateProfile = async (
         whatsapp: formData.get("whatsapp"),
         address: formData.get("address"),
         social_urls: {
-            facebook: formData.get("social_urls[facebook]"),
-            instagram: formData.get("social_urls[instagram]"),
-            tiktok: formData.get("social_urls[tiktok]"),
+            facebook: formData.get("facebook"),
+            instagram: formData.get("instagram"),
+            tiktok: formData.get("tiktok"),
         },
     })
+    //console.dir(validatedFields.error, { depth: null }, )
     //If form validation fails, return errors early. Otherwise, continue.
     if (!validatedFields.success) {
         return {
@@ -93,9 +94,9 @@ export const createProfile = async (
         whatsapp: formData.get("whatsapp"),
         address: formData.get("address"),
         social_urls: {
-            facebook: formData.get("social_urls[facebook]"),
-            instagram: formData.get("social_urls[instagram]"),
-            tiktok: formData.get("social_urls[tiktok]"),
+            facebook: formData.get("facebook"),
+            instagram: formData.get("instagram"),
+            tiktok: formData.get("tiktok"),
         },
     })
     if (!validatedFields.success) {
@@ -317,5 +318,25 @@ export const deleteProductAction = async (
     return {
         message: "Product deleted successfully!",
         errors: {},
+    }
+}
+
+export async function updateUserAvatarAction(avatarUrl: string | null) {
+    try {
+        const user = await getUser()
+        if (!user) throw new Error("Must be logged in to update avatar")
+
+        const supabase = await createClient()
+
+        const { error } = await supabase
+            .from("profile")
+            .update({ image_url: avatarUrl })
+            .eq("user_id", user.id)
+
+        if (error) throw error
+        revalidatePath("/dashboard")
+        return { errorMessage: null }
+    } catch (error) {
+        return { errorMessage: "Something went wrong" }
     }
 }

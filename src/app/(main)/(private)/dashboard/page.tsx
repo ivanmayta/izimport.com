@@ -3,6 +3,7 @@ import { createClient } from "@/lib/supabase/server"
 import Link from "next/link"
 import { ArrowUpRightFromSquareIcon } from "lucide-react"
 import { getFrontEndUrl } from "@/lib/utils"
+import ProfileImageUploader from "@/components/dashboard/profile-image-uploader"
 
 const BASE_URL = getFrontEndUrl()
 export default async function SettingsProfilePage() {
@@ -45,6 +46,7 @@ export default async function SettingsProfilePage() {
             */}
 
             {/* <p>{JSON.stringify(data, null, 2)}</p> */}
+            <ProfileImageUploader user={data.user} profile={profile} />
             <ProfileForm profile={profile} />
         </div>
     )

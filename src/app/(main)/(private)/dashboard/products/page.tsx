@@ -14,10 +14,8 @@ export default async function ProductsPage() {
     const products = await supabase
         .from("product")
         .select("*")
-        .eq("perfil_id", dataProfile?.data?.id)
+        .eq("perfil_id", dataProfile?.id)
         .order("created_at", { ascending: false })
-
-    console.log("PERFIL", dataProfile)
     console.log("PRODUCTS", products)
 
     return (

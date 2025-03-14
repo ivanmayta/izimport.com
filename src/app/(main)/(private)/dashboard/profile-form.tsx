@@ -17,6 +17,8 @@ import {
 } from "@/components/ui/card"
 import { Label } from "@/components/ui/label"
 import { cn } from "@/lib/utils"
+import { LoaderCircle } from "lucide-react"
+import { json } from "stream/consumers"
 
 export default function ProfileForm({ profile }) {
     const { username, whatsapp, address, social_urls, RUC, name, description } =
@@ -39,7 +41,7 @@ export default function ProfileForm({ profile }) {
             toast.custom(`${state.message}`)
         }
     }, [state])
-
+    console.log(state)
     return (
         <Card className="w-full border-0">
             <CardHeader className="px-0 pt-0">
@@ -56,7 +58,11 @@ export default function ProfileForm({ profile }) {
                         <Label className="font-semibold">
                             Nombre del Negocio
                         </Label>
-                        <Input name="name" defaultValue={name} />
+                        <Input
+                            className="text-foreground/70 focus:text-black focus:dark:text-white"
+                            name="name"
+                            defaultValue={name}
+                        />
                         <p
                             className={cn("text-sm", {
                                 "text-destructive": state?.errors?.name,
@@ -75,7 +81,7 @@ export default function ProfileForm({ profile }) {
                         <Textarea
                             name="description"
                             placeholder="Rubro, productos, servicios, etc."
-                            className="resize-none"
+                            className="resize-none text-foreground/70 focus:text-black focus:dark:text-white"
                             defaultValue={description}
                         />
                         <p
@@ -101,7 +107,7 @@ export default function ProfileForm({ profile }) {
                                 https://izimport.com/b2b/
                             </div>
                             <Input
-                                className=" w-full rounded-none"
+                                className=" w-full rounded-none text-foreground/70 focus:text-black focus:dark:text-white"
                                 name="username"
                                 placeholder="Nombre de usuario"
                                 defaultValue={username}
@@ -127,7 +133,11 @@ export default function ProfileForm({ profile }) {
                     {/* RUC */}
                     <div className="space-y-2">
                         <Label className="font-semibold">RUC</Label>
-                        <Input name="RUC" defaultValue={RUC} />
+                        <Input
+                            className="text-foreground/70 focus:text-black focus:dark:text-white"
+                            name="RUC"
+                            defaultValue={RUC}
+                        />
                         <p
                             className={cn("text-sm", {
                                 "text-destructive": state?.errors?.RUC,
@@ -143,7 +153,11 @@ export default function ProfileForm({ profile }) {
                     {/* WhatsApp */}
                     <div className="space-y-2">
                         <Label className="font-semibold">Whatsapp</Label>
-                        <Input name="whatsapp" defaultValue={whatsapp} />
+                        <Input
+                            className="text-foreground/70 focus:text-black focus:dark:text-white"
+                            name="whatsapp"
+                            defaultValue={whatsapp}
+                        />
                         <p
                             className={cn("text-sm", {
                                 "text-destructive": state?.errors?.whatsapp,
@@ -163,7 +177,7 @@ export default function ProfileForm({ profile }) {
                         <Textarea
                             name="address"
                             placeholder="Dirección de tu negocio"
-                            className="resize-none"
+                            className="resize-none text-foreground/70 focus:text-black focus:dark:text-white"
                             defaultValue={address}
                         />
                         <p
@@ -189,13 +203,26 @@ export default function ProfileForm({ profile }) {
                                 Ingrese la URL completa:
                                 https://facebook.com/username. (Opcional)
                             </p>
+                            <p
+                                className={cn("text-sm", {
+                                    "text-destructive":
+                                        state?.errors?.social_urls,
+                                    "text-muted-foreground":
+                                        !state?.errors?.social_urls,
+                                })}
+                            >
+                                {state?.errors?.social_urls
+                                    ? JSON.stringify(state.errors.social_urls)
+                                    : ""}
+                            </p>
                         </div>
 
                         <div className="space-y-4 mt-4">
                             <div className="space-y-2">
                                 <Label>Facebook</Label>
                                 <Input
-                                    name="social_urls[facebook]"
+                                    className="text-foreground/70 focus:text-black focus:dark:text-white"
+                                    name="facebook"
                                     defaultValue={social_urls?.facebook || ""}
                                 />
                             </div>
@@ -203,7 +230,8 @@ export default function ProfileForm({ profile }) {
                             <div className="space-y-2">
                                 <Label>Instagram</Label>
                                 <Input
-                                    name="social_urls[instagram]"
+                                    className="text-foreground/70 focus:text-black focus:dark:text-white"
+                                    name="instagram"
                                     defaultValue={social_urls?.instagram || ""}
                                 />
                             </div>
@@ -211,7 +239,8 @@ export default function ProfileForm({ profile }) {
                             <div className="space-y-2">
                                 <Label>TikTok</Label>
                                 <Input
-                                    name="social_urls[tiktok]"
+                                    className="text-foreground/70 focus:text-black focus:dark:text-white"
+                                    name="tiktok"
                                     defaultValue={social_urls?.tiktok || ""}
                                 />
                             </div>
@@ -221,26 +250,7 @@ export default function ProfileForm({ profile }) {
                     <Button type="submit" disabled={pending} className="w-full">
                         {pending ? (
                             <div className="flex items-center gap-2">
-                                <svg
-                                    className="animate-spin -ml-1 mr-2 h-4 w-4 text-white"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                >
-                                    <circle
-                                        className="opacity-25"
-                                        cx="12"
-                                        cy="12"
-                                        r="10"
-                                        stroke="currentColor"
-                                        strokeWidth="4"
-                                    ></circle>
-                                    <path
-                                        className="opacity-75"
-                                        fill="currentColor"
-                                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                                    ></path>
-                                </svg>
+                                <LoaderCircle className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" />
                                 Processing...
                             </div>
                         ) : profile ? (
