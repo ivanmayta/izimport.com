@@ -24,7 +24,7 @@ export function MenuHeader({ user }) {
                         <LogOut className="size-6" />
                         Cerrar sesión
                     </Button>
-                    {pathName !== "/dashboard" && (
+                    {!pathName.includes("dashboard") && (
                         <Link
                             className="text-zinc-700 hover:bg-yellow-300 font-semibold px-3 py-1 rounded-md bg-[#FCD535]"
                             href="/dashboard"
