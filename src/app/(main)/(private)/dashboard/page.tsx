@@ -22,7 +22,7 @@ export default async function SettingsProfilePage() {
             <header className="flex items-center justify-between">
                 <div>
                     <h3 className="text-2xl font-bold">
-                        Informacion del Negocio{" "}
+                        Informacion del Negocio
                     </h3>
                     <p className="text-sm text-muted-foreground">
                         Se verá publicamente en tu sitio.

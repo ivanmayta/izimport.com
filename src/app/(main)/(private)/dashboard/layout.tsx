@@ -29,6 +29,9 @@ export default async function SettingsLayout({
                         <div className="space-y-0.5 ">
                             <h2 className="text-2xl font-bold tracking-tight">
                                 Dashboard
+                                <span className="ms-1 text-xs font-medium px-2.5 py-0.5 rounded-sm bg-orange-500/80 text-yellow-100">
+                                    Beta
+                                </span>
                             </h2>
                             <p className=" text-sm text-muted-foreground">
                                 Administra la informacion de tu cuenta
