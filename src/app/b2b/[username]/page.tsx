@@ -37,6 +37,7 @@ export default async function Page({
                 whatsapp={data.whatsapp}
                 products={products}
                 image_url={data.image_url}
+                socials={data.social_urls}
             />
             {/* <section>{JSON.stringify(data, null, 2)}</section> */}
             {/* <section>{JSON.stringify(products, null, 2)}</section> */}
