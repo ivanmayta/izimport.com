@@ -12,14 +12,15 @@ export default async function ProfileHero({
     address,
     whatsapp,
     products,
+    image_url,
 }) {
     return (
         <section className="pt-12 max-w-[1420px] mx-auto w-full py-6">
             <div className="flex md:flex-row flex-col items-center gap-3 ">
                 <img
                     className="aspect-square w-48 h-48 rounded-full object-cover"
-                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRQBMVEKwE_Ujcc6IwOIno4xMS31xZBrAp45A&s"
-                    alt=""
+                    src={image_url}
+                    alt={`Imagen de ${name}`}
                 />
                 <div className="flex flex-col gap-2 w-full">
                     <h1 className="font-extrabold text-4xl">{name}</h1>

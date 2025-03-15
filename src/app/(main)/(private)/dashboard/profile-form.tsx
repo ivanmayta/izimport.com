@@ -44,13 +44,7 @@ export default function ProfileForm({ profile }) {
     console.log(state)
     return (
         <Card className="w-full border-0">
-            <CardHeader className="px-0 pt-0">
-                <CardTitle className="text-base font-normal">
-                    {profile
-                        ? "Actualice la información de su negocio y cómo lo ven otros en la plataforma."
-                        : "Configure su perfil de empresa para empezar."}
-                </CardTitle>
-            </CardHeader>
+            
             <CardContent className="px-0">
                 <form action={formAction} className="space-y-8">
                     {/* Business Name */}

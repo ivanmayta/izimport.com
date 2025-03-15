@@ -164,7 +164,7 @@ export default function ProfileImageUploader({
                 {isPending ? (
                     "Updating..."
                 ) : (
-                    <span>Click the profile picture to change</span>
+                    <span>Haz clic en la foto de perfil para cambiarla.</span>
                 )}
             </div>
         </div>

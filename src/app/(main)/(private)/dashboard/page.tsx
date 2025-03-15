@@ -4,6 +4,7 @@ import Link from "next/link"
 import { ArrowUpRightFromSquareIcon } from "lucide-react"
 import { getFrontEndUrl } from "@/lib/utils"
 import ProfileImageUploader from "@/components/dashboard/profile-image-uploader"
+import { Label } from "@/components/ui/label"
 
 const BASE_URL = getFrontEndUrl()
 export default async function SettingsProfilePage() {
@@ -46,6 +47,14 @@ export default async function SettingsProfilePage() {
             */}
 
             {/* <p>{JSON.stringify(data, null, 2)}</p> */}
+            <div className="px-0 pt-0 pb-6">
+                <div className="text-base font-normal">
+                    {profile
+                        ? "Actualice la información de su negocio y cómo lo ven otros en la plataforma."
+                        : "Configure su perfil de empresa para empezar."}
+                </div>
+            </div>
+            <Label className="font-semibold">Imagen de Perfil</Label>
             <ProfileImageUploader user={data.user} profile={profile} />
             <ProfileForm profile={profile} />
         </div>
