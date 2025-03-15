@@ -25,7 +25,7 @@ export default async function SettingsLayout({
         <>
             <div className="space-y-6 md:px-0  pb-16 md:block pt-11 mx-auto">
                 <div className=" container flex flex-col space-y-8 lg:flex-row lg:space-x-12 lg:space-y-0">
-                    <aside className=" lg:w-1/5 sticky top-16 h-full bg-background ">
+                    <aside className=" z-40 lg:w-1/5 sticky top-16 h-full bg-background ">
                         <div className="space-y-0.5 ">
                             <h2 className="text-2xl font-bold tracking-tight">
                                 Dashboard

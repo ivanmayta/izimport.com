@@ -19,7 +19,7 @@ export default async function SettingsProfilePage() {
     const username = profile?.username ? profile.username : ""
     return (
         <div>
-            <header className="flex items-center justify-between">
+            <header className="flex flex-col sm:flex-row  justify-between items-start sm:items-center mb-6">
                 <div>
                     <h3 className="text-2xl font-bold">
                         Informacion del Negocio
@@ -33,7 +33,7 @@ export default async function SettingsProfilePage() {
                     target="_blank"
                     hidden={!username}
                 >
-                    <button className=" bg-orange-600/25 text-orange-600 flex py-1 px-2 justify-center items-center rounded-md  hover:scale-105 transition-transform">
+                    <button className=" bg-orange-600/25 text-orange-600 flex py-1 mt-2 px-2 justify-center items-center rounded-md  hover:scale-105 transition-transform">
                         Ver sitio
                         <ArrowUpRightFromSquareIcon className="ml-2 size-4" />
                     </button>

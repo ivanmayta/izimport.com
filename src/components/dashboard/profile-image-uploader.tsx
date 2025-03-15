@@ -137,7 +137,7 @@ export default function ProfileImageUploader({
                     <button
                         onClick={() => imageInputRef.current?.click()}
                         disabled={isPending}
-                        className="absolute inset-0 bg-black/50 opacity-0 hover:opacity-100 transition-opacity flex items-center justify-center rounded-full"
+                        className="absolute  inset-0 bg-black/50 opacity-0 hover:opacity-100 transition-opacity flex items-center justify-center rounded-full"
                         aria-label="Change profile picture"
                     >
                         {isPending ? (
