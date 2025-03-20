@@ -10,6 +10,7 @@ import { updateUserAvatarAction } from "@/actions/supabase"
 import { getAuth } from "@/lib/supabase/auth/client"
 import { convertBlobUrlToFile } from "@/lib/utils"
 import toast from "react-hot-toast"
+import { Label } from "../ui/label"
 
 export default function ProfileImageUploader({
     user,
@@ -106,8 +107,10 @@ export default function ProfileImageUploader({
     }
 
     return (
-        <div className="flex items-center gap-4">
+        <div className="flex flex-col gap-4">
             {/* Avatar with edit overlay */}
+            <Label className="font-semibold">Imagen de Perfil</Label>
+
             <div className="relative">
                 <div
                     className="relative rounded-full overflow-hidden bg-muted"

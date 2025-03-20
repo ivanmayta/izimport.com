@@ -54,8 +54,9 @@ export default async function SettingsProfilePage() {
                         : "Configure su perfil de empresa para empezar."}
                 </div>
             </div>
-            <Label className="font-semibold">Imagen de Perfil</Label>
-            <ProfileImageUploader user={data.user} profile={profile} />
+            {profile && (
+                <ProfileImageUploader user={data.user} profile={profile} />
+            )}
             <ProfileForm profile={profile} />
         </div>
     )

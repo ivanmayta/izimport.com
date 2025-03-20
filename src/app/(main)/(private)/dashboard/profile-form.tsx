@@ -18,7 +18,6 @@ import {
 import { Label } from "@/components/ui/label"
 import { cn } from "@/lib/utils"
 import { LoaderCircle } from "lucide-react"
-import { json } from "stream/consumers"
 
 export default function ProfileForm({ profile }) {
     const { username, whatsapp, address, social_urls, RUC, name, description } =
@@ -44,7 +43,6 @@ export default function ProfileForm({ profile }) {
     console.log(state)
     return (
         <Card className="w-full border-0">
-            
             <CardContent className="px-0">
                 <form action={formAction} className="space-y-8">
                     {/* Business Name */}
@@ -94,7 +92,7 @@ export default function ProfileForm({ profile }) {
                     {/* Username */}
                     <div className="space-y-2">
                         <Label className="font-semibold">
-                            Nombre de usuario
+                            Nombre de usuario: enlace del catalogo de productos
                         </Label>
                         <div className=" flex w-full">
                             <div className="px-2 text-sm bg-zinc-300/90 font-medium dark:text-black flex items-center pointer-events-none">
