@@ -1,6 +1,6 @@
 "use client"
 
-import { useRouter } from "next/navigation"
+import { usePathname, useRouter } from "next/navigation"
 import { useSearchParams } from "next/navigation"
 import { useShipment } from "@/hooks/useShipment"
 import { Button } from "@/components/ui/button"
@@ -16,6 +16,7 @@ function SearchForm({ className }: { className?: string }) {
     const SEARCH_PAGE = "/search"
     const router = useRouter()
     const params = useSearchParams()
+    const pathName = usePathname()
     const param = new URLSearchParams(params)
     const trackingNumber = params.get(QUERY) ?? ""
     const { shipment, isLoading, error, getShipment, resetStates } =
@@ -23,7 +24,9 @@ function SearchForm({ className }: { className?: string }) {
 
     const inputRef = useRef<HTMLInputElement>(null)
     useEffect(() => {
-        inputRef.current.focus()
+        if (pathName === SEARCH_PAGE) {
+            inputRef.current.focus()
+        }
         inputRef.current.setSelectionRange(
             inputRef.current.value.length,
             inputRef.current.value.length

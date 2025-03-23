@@ -49,9 +49,9 @@ export default async function Header() {
                 {/* Left side: Logo and Desktop Navigation */}
                 <div className="flex items-center gap-8">
                     {/* Logo - visible on all screens */}
-                    <h1 className="text-2xl font-extrabold tracking-tight">
-                        <a href="/">izimport.com</a>
-                    </h1>
+                    <a href="/">
+                        <img className="w-48 " src="/izimport.webp" />
+                    </a>
 
                     {/* Desktop Navigation - Hidden on mobile */}
                     <nav className="hidden md:flex items-center">
