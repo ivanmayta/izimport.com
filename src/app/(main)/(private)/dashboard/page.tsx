@@ -1,10 +1,24 @@
-import ProfileForm from "./profile-form"
+import ProfileForm from "./profile/profile-form"
 import { createClient } from "@/lib/supabase/server"
 import Link from "next/link"
-import { ArrowUpRightFromSquareIcon } from "lucide-react"
+import {
+    ArrowUpRightFromSquareIcon,
+    CreditCard,
+    ShoppingBag,
+    UserCircle,
+} from "lucide-react"
 import { getFrontEndUrl } from "@/lib/utils"
-import ProfileImageUploader from "@/components/dashboard/profile-image-uploader"
-import { Label } from "@/components/ui/label"
+import { DashboardHeader } from "@/components/dashboard/dashboard-header"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import {
+    Card,
+    CardContent,
+    CardDescription,
+    CardFooter,
+    CardHeader,
+    CardTitle,
+} from "@/components/ui/card"
+import { Button } from "@/components/ui/button"
 
 const BASE_URL = getFrontEndUrl()
 export default async function SettingsProfilePage() {
@@ -20,14 +34,10 @@ export default async function SettingsProfilePage() {
     return (
         <div>
             <header className="flex flex-col sm:flex-row  justify-between items-start sm:items-center mb-6">
-                <div>
-                    <h3 className="text-2xl font-bold">
-                        Informacion del Negocio
-                    </h3>
-                    <p className="text-sm text-muted-foreground">
-                        Se verá publicamente en tu sitio.
-                    </p>
-                </div>
+                <DashboardHeader
+                    heading="Dashboard"
+                    text="Bienvenido a tu panel de Control"
+                />
                 <Link
                     href={`${BASE_URL}/b2b/${username}`}
                     target="_blank"
@@ -45,19 +55,98 @@ export default async function SettingsProfilePage() {
                 {JSON.stringify(profile, null, 2)}
                 </p>
             */}
-
-            {/* <p>{JSON.stringify(data, null, 2)}</p> */}
-            <div className="px-0 pt-0 pb-6">
-                <div className="text-base font-normal">
-                    {profile
-                        ? "Actualice la información de su negocio y cómo lo ven otros en la plataforma."
-                        : "Configure su perfil de empresa para empezar."}
-                </div>
-            </div>
-            {profile && (
-                <ProfileImageUploader user={data.user} profile={profile} />
-            )}
-            <ProfileForm profile={profile} />
+            <Tabs defaultValue="overview" className="space-y-4">
+                <TabsList>
+                    <TabsTrigger value="overview">Resumen</TabsTrigger>
+                    <TabsTrigger value="analytics" disabled>
+                        Estadísticas
+                    </TabsTrigger>
+                </TabsList>
+                <TabsContent value="overview" className="space-y-4">
+                    <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+                        <Card className="flex flex-col h-full">
+                            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                                <CardTitle className="text-sm font-medium">
+                                    Perfil
+                                </CardTitle>
+                                <UserCircle className="h-4 w-4 text-muted-foreground" />
+                            </CardHeader>
+                            <CardContent className="flex-grow">
+                                <div className="text-2xl font-bold">
+                                    Incompleto
+                                </div>
+                                <p className="text-xs text-muted-foreground">
+                                    Completa tu perfil para mejorar tu
+                                    visibilidad
+                                </p>
+                            </CardContent>
+                            <CardFooter className="mt-auto">
+                                <Button asChild className="mt-4 w-full">
+                                    <Link href="/dashboard/products">
+                                        Gestionar Productos
+                                    </Link>
+                                </Button>
+                            </CardFooter>
+                        </Card>
+                        <Card className="flex flex-col h-full">
+                            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                                <CardTitle className="text-sm font-medium">
+                                    Productos
+                                </CardTitle>
+                                <ShoppingBag className="h-4 w-4 text-muted-foreground" />
+                            </CardHeader>
+                            <CardContent className="flex-grow">
+                                <div className="text-2xl font-bold">0</div>
+                                <p className="text-xs text-muted-foreground">
+                                    Añade productos a tu catálogo
+                                </p>
+                            </CardContent>
+                            <CardFooter className="mt-auto">
+                                <Button asChild className="mt-4 w-full">
+                                    <Link href="/dashboard/products">
+                                        Gestionar Productos
+                                    </Link>
+                                </Button>
+                            </CardFooter>
+                        </Card>
+                        <Card className="flex flex-col h-full">
+                            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                                <CardTitle className="text-sm font-medium">
+                                    Cuenta
+                                </CardTitle>
+                                <CreditCard className="h-4 w-4 text-muted-foreground" />
+                            </CardHeader>
+                            <CardContent className="flex-grow">
+                                <div className="text-2xl font-bold">Activa</div>
+                                <p className="text-xs text-muted-foreground">
+                                    Gestiona los detalles de tu cuenta
+                                </p>
+                            </CardContent>
+                            <CardFooter className="mt-auto">
+                                <Button asChild className="w-full">
+                                    <Link href="/dashboard/account">
+                                        Gestionar Cuenta
+                                    </Link>
+                                </Button>
+                            </CardFooter>
+                        </Card>
+                    </div>
+                </TabsContent>
+                <TabsContent value="analytics" className="space-y-4">
+                    <Card>
+                        <CardHeader>
+                            <CardTitle>Estadísticas</CardTitle>
+                            <CardDescription>
+                                Aquí podrás ver las estadísticas de tu tienda
+                                cuando tengas productos y visitas.
+                            </CardDescription>
+                        </CardHeader>
+                        <CardContent className="h-[300px] flex items-center justify-center text-muted-foreground">
+                            No hay datos disponibles aún
+                        </CardContent>
+                    </Card>
+                </TabsContent>
+            </Tabs>
         </div>
     )
 }

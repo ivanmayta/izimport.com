@@ -32,6 +32,10 @@ export default function ProfileForm({ profile }) {
     )
 
     useEffect(() => {
+        if (state?.message == "Perfil creado exitosamente!") {
+            toast.success(`${state.message}`)
+            return
+        }
         if (state?.message == "Perfil actualizado exitosamente!") {
             toast.success(`${state.message}`)
             return
@@ -96,7 +100,7 @@ export default function ProfileForm({ profile }) {
                         </Label>
                         <div className=" flex w-full">
                             <div className="px-2 text-sm bg-zinc-300/90 font-medium dark:text-black flex items-center pointer-events-none">
-                                https://izimport.com/b2b/
+                                izimport.com/b2b/
                             </div>
                             <Input
                                 className=" w-full rounded-none text-foreground/70 focus:text-black focus:dark:text-white"
@@ -159,7 +163,7 @@ export default function ProfileForm({ profile }) {
                         >
                             {state?.errors?.whatsapp
                                 ? state.errors.whatsapp
-                                : "Número de whatsapp de tu negocio"}
+                                : "Número de whatsapp de tu negocio (9 dígitos)"}
                         </p>
                     </div>
 
@@ -215,6 +219,7 @@ export default function ProfileForm({ profile }) {
                                 <Input
                                     className="text-foreground/70 focus:text-black focus:dark:text-white"
                                     name="facebook"
+                                    placeholder="https://"
                                     defaultValue={social_urls?.facebook || ""}
                                 />
                             </div>
@@ -224,6 +229,7 @@ export default function ProfileForm({ profile }) {
                                 <Input
                                     className="text-foreground/70 focus:text-black focus:dark:text-white"
                                     name="instagram"
+                                    placeholder="https://"
                                     defaultValue={social_urls?.instagram || ""}
                                 />
                             </div>
@@ -233,6 +239,7 @@ export default function ProfileForm({ profile }) {
                                 <Input
                                     className="text-foreground/70 focus:text-black focus:dark:text-white"
                                     name="tiktok"
+                                    placeholder="https://"
                                     defaultValue={social_urls?.tiktok || ""}
                                 />
                             </div>
