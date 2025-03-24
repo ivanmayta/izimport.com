@@ -1,4 +1,6 @@
 import ProfileHero from "@/components/b2b/hero-profile"
+import Products from "@/components/b2b/products"
+import { Whatsapp } from "@/icons/whatsapp"
 import { createClient } from "@/lib/supabase/server"
 import Image from "next/image"
 
@@ -22,25 +24,28 @@ export default async function Page({
             .from("product")
             .select("*")
             .eq("perfil_id", data.id)
-        console.log(productsData)
+        console.log("Products", productsData)
         console.log(productsError)
         products = productsData
     }
 
     return (
-        <div>
+        <section className=" max-w-[1420px] mx-auto w-full ">
             <ProfileHero
-                username={data.username}
-                name={data.name}
-                description={data.description}
-                address={data.address}
-                whatsapp={data.whatsapp}
-                products={products}
-                image_url={data.image_url}
-                socials={data.social_urls}
+                username={data?.username}
+                name={data?.name}
+                description={data?.description}
+                address={data?.address}
+                whatsapp={data?.whatsapp}
+                image_url={data?.image_url}
+                socials={data?.social_urls}
             />
+            <nav className="bg-zinc-800 text-white px-2 py-1">
+                <a href="">Productos</a>
+            </nav>
+            <Products products={products} whatsapp={data?.whatsapp} />
             {/* <section>{JSON.stringify(data, null, 2)}</section> */}
             {/* <section>{JSON.stringify(products, null, 2)}</section> */}
-        </div>
+        </section>
     )
 }
