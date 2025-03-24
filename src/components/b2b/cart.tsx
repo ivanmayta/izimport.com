@@ -100,7 +100,7 @@ export default function Cart() {
                                                     ) || 0
                                                 )
                                             }
-                                            className="h-7 w-12 text-center"
+                                            className="h-7 w-20 text-center"
                                         />
                                         <Button
                                             variant="outline"

@@ -17,7 +17,7 @@ export default async function ProfileHero({
     socials,
 }) {
     return (
-        <div className="flex md:flex-row justify-center flex-col items-center gap-3 py-4">
+        <div className="relative flex md:flex-row justify-center flex-col items-center gap-3 py-4">
             {image_url ? (
                 <img
                     className="aspect-square w-48 h-48 rounded-full object-cover"
@@ -71,12 +71,14 @@ export default async function ProfileHero({
                     Pongase en contacto
                 </a>
             </div>
-            <CartSheet>
-                <Button variant="outline" size="icon" className="relative">
-                    <ShoppingCart className="h-5 w-5" />
-                    <span className="sr-only">Open cart</span>
-                </Button>
-            </CartSheet>
+            <div className="absolute top-0 right-0 pt-4 sm:pr-0 pr-4">
+                <CartSheet>
+                    <Button variant="outline" size="icon" className="relative">
+                        <ShoppingCart className="h-5 w-5" />
+                        <span className="sr-only">Open cart</span>
+                    </Button>
+                </CartSheet>
+            </div>
         </div>
     )
 }

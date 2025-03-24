@@ -7,6 +7,7 @@ interface ProductImageProps {
     maxWidth?: string
     maxHeight?: string
     className?: string
+    children?: React.ReactNode
 }
 
 export function ProductImage({
@@ -14,10 +15,11 @@ export function ProductImage({
     maxWidth = "100%",
     maxHeight = "none",
     className = "",
+    children,
 }: ProductImageProps) {
     return (
         <div
-            className={`relative mb-1 ${className}`}
+            className={`group relative mb-1 ${className}`}
             style={{
                 width: "100%",
                 maxWidth,
@@ -35,6 +37,9 @@ export function ProductImage({
                 loading="eager"
                 decoding="sync"
             />
+            <div className="absolute group-hover:opacity-100 opacity-15 right-0 p-1 m-2 rounded-full bg-white hover:text-primary">
+                {children}
+            </div>
         </div>
     )
 }
