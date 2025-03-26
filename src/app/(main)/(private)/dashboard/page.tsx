@@ -100,6 +100,9 @@ export default async function SettingsProfilePage() {
                                 <p className="text-xs text-muted-foreground">
                                     Añade productos a tu catálogo
                                 </p>
+                                <p className="text-xs font-medium">
+                                    Max. 15 Productos. (Pronto mas planes)
+                                </p>
                             </CardContent>
                             <CardFooter className="mt-auto">
                                 <Button asChild className="mt-4 w-full">

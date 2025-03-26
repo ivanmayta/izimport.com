@@ -49,15 +49,22 @@ export default async function Soluciones() {
                                 <h3 className="text-2xl font-bold mb-4">
                                     Perfil personalizado
                                 </h3>
-                                <p className="text-lg ">
-                                    Crea tu perfil personalizado para que tus
+                                <p className="text-lg">
+                                    Crea un perfil personalizado para que tus
                                     clientes puedan ver la información de tu
-                                    negocio en un solo lugar.{" "}
-                                    <strong className="block mt-2 text-base">
-                                        (izimport.com/b2b/(nombre de tu
-                                        negocio))
-                                    </strong>
+                                    negocio en un solo lugar. Además, podrán
+                                    realizar pedidos directamente al Whatsapp.
                                 </p>
+                                <span className="font-semibold">
+                                    Demo:{" "}
+                                    <a
+                                        className="underline "
+                                        target="_blank"
+                                        href="https://izimport.com/b2b/izimport"
+                                    >
+                                        https://izimport.com/b2b/izimport
+                                    </a>
+                                </span>
                             </div>
                         </li>
                     </ul>

@@ -27,7 +27,7 @@ async function Hero() {
                             onClick={signInWithGoole}
                             className="lg:mx-0 bg-[#FCD535] text-zinc-800 text-xl font-bold rounded-xl py-3.5 px-8 focus:outline-none transform transition hover:scale-110 duration-300 ease-in-out"
                         >
-                            ¡Empezar gratis!
+                            ¡Pruebalo Ya!
                         </button>
                     </div>
                 </div>
@@ -54,29 +54,7 @@ async function Hero() {
                         */}
                 </div>
             </div>
-            <div className="text-white  z-40 relative dark:text-black">
-                <svg
-                    className="xl:h-8 xl:w-full"
-                    data-name="Layer 1"
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 1200 120"
-                    preserveAspectRatio="none"
-                >
-                    <path
-                        d="M600,112.77C268.63,112.77,0,65.52,0,7.23V120H1200V7.23C1200,65.52,931.37,112.77,600,112.77Z"
-                        fill="currentColor"
-                    ></path>
-                </svg>
-            </div>
         </section>
-    )
-}
-
-const HighlightText = ({ children }: { children: ReactNode }) => {
-    return (
-        <span className="text-transparent bg-clip-text bg-[#F0B90B]">
-            {children}
-        </span>
     )
 }
 

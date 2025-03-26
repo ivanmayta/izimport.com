@@ -169,10 +169,12 @@ export default function ProductDashboard({ user, products = [] }) {
                                 </DropdownMenu>
                             </div>
                             */}
-
-                        <Button onClick={() => setActiveView("add")}>
-                            <Plus className="mr-2 h-4 w-4" /> Añadir producto
-                        </Button>
+                        {products.length < 10 && (
+                            <Button onClick={() => setActiveView("add")}>
+                                <Plus className="mr-2 h-4 w-4" /> Añadir
+                                producto
+                            </Button>
+                        )}
                     </div>
 
                     {/* Tabla de productos */}
@@ -352,7 +354,7 @@ export default function ProductDashboard({ user, products = [] }) {
                                     ? "producto"
                                     : "productos"}
                             </p>
-                            {filteredProducts.length > 0 && (
+                            {filteredProducts.length < 10 && (
                                 <Button
                                     variant="outline"
                                     size="sm"
