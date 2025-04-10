@@ -13,7 +13,7 @@ import TrackErrorResponse from "./track-error-response"
 
 function SearchForm({ className }: { className?: string }) {
     const QUERY = "tracking_number"
-    const SEARCH_PAGE = "/search"
+    const SEARCH_PAGE = "/track"
     const router = useRouter()
     const params = useSearchParams()
     const pathName = usePathname()

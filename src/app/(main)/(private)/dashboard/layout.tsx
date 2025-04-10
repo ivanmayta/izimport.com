@@ -20,6 +20,7 @@ export default async function SettingsLayout({
     const { data, error } = await supabase.auth.getUser()
     if (error || !data?.user) {
         redirect("/")
+       
     }
     return (
         <>
