@@ -1,3 +1,3 @@
-export default function QuotePage({ children }) {
+export default function QuotePage() {
     return <main>Hello</main>
 }
