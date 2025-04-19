@@ -1,12 +1,21 @@
 import { type ClassValue, clsx } from "clsx"
 import { twMerge } from "tailwind-merge"
 
-export function getFrontEndUrl() {
-    return process.env.FRONT_URL ?? "http://localhost:3000"
-}
 export function cn(...inputs: ClassValue[]) {
     return twMerge(clsx(inputs))
 }
+
+export function getFrontEndUrl() {
+    return process.env.FRONT_URL ?? "http://localhost:3000"
+}
+
+export function getAuthUrlOrigin() {
+    if (process.env.NODE_ENV === "development") {
+        return `http://app.localhost:3000`
+    }
+    return `app.${process.env.FRONT_URL}`
+}
+
 export function formatDateTimeToSpanish(dateString: string): string {
     const date = new Date(dateString)
 

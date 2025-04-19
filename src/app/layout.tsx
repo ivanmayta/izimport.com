@@ -1,6 +1,6 @@
 import "./globals.css"
 export const metadata = {
-    title: "izimport",
+    title: "izimport.com",
     description: "Cotiza y rastrea tus envios de forma rapida y sencilla",
 }
 
