@@ -13,7 +13,7 @@ export function getAuthUrlOrigin() {
     if (process.env.NODE_ENV === "development") {
         return `http://app.localhost:3000`
     }
-    return `app.${process.env.FRONT_URL}`
+    return `${process.env.NEXTAUTH_URL}`
 }
 
 export function formatDateTimeToSpanish(dateString: string): string {
