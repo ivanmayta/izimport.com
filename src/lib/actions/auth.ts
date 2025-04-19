@@ -2,13 +2,14 @@
 import { revalidatePath } from "next/cache"
 import { redirect } from "next/navigation"
 import { createClient } from "@/lib/supabase/server"
+import { getAuthUrlOrigin } from "../utils"
 
 export async function signInWithGoogle() {
     const supabase = await createClient()
     const { data, error } = await supabase.auth.signInWithOAuth({
         provider: "google",
         options: {
-            redirectTo: `http://app.localhost:3000/api/auth/callback`,
+            redirectTo: `${getAuthUrlOrigin()}/api/auth/callback`,
         },
     })
     console.log("---------signInWithGoole------------")
