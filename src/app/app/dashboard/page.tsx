@@ -1,12 +1,6 @@
 import { createClient } from "@/lib/supabase/server"
 import Link from "next/link"
-import {
-    ArrowUpRightFromSquareIcon,
-    CreditCard,
-    ShoppingBag,
-    UserCircle,
-} from "lucide-react"
-import { getFrontEndUrl } from "@/lib/utils"
+import { CreditCard, ShoppingBag, UserCircle } from "lucide-react"
 import { DashboardHeader } from "@/components/app/dashboard-header"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import {
@@ -18,18 +12,14 @@ import {
     CardTitle,
 } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
+import { getProducts, getProfile, getUser } from "@/lib/fetchers"
 
-const BASE_URL = getFrontEndUrl()
 export default async function SettingsProfilePage() {
     const supabase = await createClient()
-    const { data, error } = await supabase.auth.getUser()
-    const user_id = data.user.id
-    const { data: profile, error: profileError } = await supabase
-        .from("profile")
-        .select("*")
-        .eq("user_id", user_id)
-        .single()
-    const username = profile?.username ? profile.username : ""
+    const { user } = await getUser(supabase)
+    const profile = await getProfile(supabase, user?.id)
+    const { count = 0 } = await getProducts(supabase, profile?.id)
+
     return (
         <div>
             <header className="flex flex-col sm:flex-row  justify-between items-start sm:items-center mb-6">
@@ -37,23 +27,9 @@ export default async function SettingsProfilePage() {
                     heading="Dashboard"
                     text="Bienvenido a tu panel de Control"
                 />
-                <Link
-                    href={`${BASE_URL}/b2b/${username}`}
-                    target="_blank"
-                    hidden={!username}
-                >
-                    <button className=" bg-orange-600/25 text-orange-600 flex py-1 mt-2 px-2 justify-center items-center rounded-md  hover:scale-105 transition-transform">
-                        Ver sitio
-                        <ArrowUpRightFromSquareIcon className="ml-2 size-4" />
-                    </button>
-                </Link>
             </header>
             <hr className="mb-6 mt-4" />
-            {/*
-                <p className="text-sm text-muted-foreground">
-                {JSON.stringify(profile, null, 2)}
-                </p>
-            */}
+
             <Tabs defaultValue="overview" className="space-y-4">
                 <TabsList>
                     <TabsTrigger value="overview">Resumen</TabsTrigger>
@@ -72,7 +48,7 @@ export default async function SettingsProfilePage() {
                             </CardHeader>
                             <CardContent className="flex-grow">
                                 <div className="text-2xl font-bold">
-                                    Incompleto
+                                    {profile ? "Completo" : "Incompleto"}
                                 </div>
                                 <p className="text-xs text-muted-foreground">
                                     Completa tu perfil para mejorar tu
@@ -81,8 +57,10 @@ export default async function SettingsProfilePage() {
                             </CardContent>
                             <CardFooter className="mt-auto">
                                 <Button asChild className="mt-4 w-full">
-                                    <Link href="/dashboard/products">
-                                        Gestionar Productos
+                                    <Link href="/dashboard/profile">
+                                        {profile
+                                            ? "Gestionar Perfil"
+                                            : "Completar Perfil"}
                                     </Link>
                                 </Button>
                             </CardFooter>
@@ -95,7 +73,9 @@ export default async function SettingsProfilePage() {
                                 <ShoppingBag className="h-4 w-4 text-muted-foreground" />
                             </CardHeader>
                             <CardContent className="flex-grow">
-                                <div className="text-2xl font-bold">0</div>
+                                <div className="text-2xl font-bold">
+                                    {count}
+                                </div>
                                 <p className="text-xs text-muted-foreground">
                                     Añade productos a tu catálogo
                                 </p>

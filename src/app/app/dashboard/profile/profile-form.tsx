@@ -8,13 +8,7 @@ import { toast } from "react-hot-toast"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Button } from "@/components/ui/button"
-import {
-    Card,
-    CardContent,
-    CardDescription,
-    CardHeader,
-    CardTitle,
-} from "@/components/ui/card"
+import { Card, CardContent } from "@/components/ui/card"
 import { Label } from "@/components/ui/label"
 import { cn } from "@/lib/utils"
 import { LoaderCircle } from "lucide-react"
@@ -51,11 +45,9 @@ export default function ProfileForm({ profile }) {
                 <form action={formAction} className="space-y-8">
                     {/* Business Name */}
                     <div className="space-y-2">
-                        <Label className="font-semibold">
-                            Nombre del Negocio
-                        </Label>
+                        <Label className="font-bold">Nombre del Negocio</Label>
                         <Input
-                            className="text-foreground/70 focus:text-black focus:dark:text-white"
+                            className=" focus:text-black focus:dark:text-white"
                             name="name"
                             defaultValue={name}
                         />
@@ -73,11 +65,11 @@ export default function ProfileForm({ profile }) {
 
                     {/* Description */}
                     <div className="space-y-2">
-                        <Label className="font-semibold">Descripción</Label>
+                        <Label className="font-bold">Descripción</Label>
                         <Textarea
                             name="description"
                             placeholder="Rubro, productos, servicios, etc."
-                            className="resize-none text-foreground/70 focus:text-black focus:dark:text-white"
+                            className="resize-none focus:text-black focus:dark:text-white"
                             defaultValue={description}
                         />
                         <p
@@ -95,18 +87,17 @@ export default function ProfileForm({ profile }) {
 
                     {/* Username */}
                     <div className="space-y-2">
-                        <Label className="font-semibold">
-                            Nombre de usuario: enlace del catalogo de productos
-                        </Label>
+                        <Label className="font-bold">Enlace de la tienda</Label>
                         <div className=" flex w-full">
                             <div className="px-2 text-sm bg-zinc-300/90 font-medium dark:text-black flex items-center pointer-events-none">
-                                izimport.com/b2b/
+                                izimport.com/
                             </div>
                             <Input
-                                className=" w-full rounded-none text-foreground/70 focus:text-black focus:dark:text-white"
+                                className=" w-full rounded-none focus:text-black focus:dark:text-white"
                                 name="username"
                                 placeholder="Nombre de usuario"
                                 defaultValue={username}
+                                required
                             />
                         </div>
                         <p
@@ -119,7 +110,7 @@ export default function ProfileForm({ profile }) {
                             {state?.errors?.username
                                 ? state.errors.username
                                 : profile === null
-                                ? `Tu enlace será: https://izimport.com/b2b/${
+                                ? `Tu enlace será: https://izimport.com/${
                                       username || ""
                                   }`
                                 : ""}
@@ -128,9 +119,9 @@ export default function ProfileForm({ profile }) {
 
                     {/* RUC */}
                     <div className="space-y-2">
-                        <Label className="font-semibold">RUC</Label>
+                        <Label className="font-bold">RUC</Label>
                         <Input
-                            className="text-foreground/70 focus:text-black focus:dark:text-white"
+                            className=" focus:text-black focus:dark:text-white"
                             name="RUC"
                             defaultValue={RUC}
                         />
@@ -148,9 +139,9 @@ export default function ProfileForm({ profile }) {
 
                     {/* WhatsApp */}
                     <div className="space-y-2">
-                        <Label className="font-semibold">Whatsapp</Label>
+                        <Label className="font-bold">Whatsapp</Label>
                         <Input
-                            className="text-foreground/70 focus:text-black focus:dark:text-white"
+                            className=" focus:text-black focus:dark:text-white"
                             name="whatsapp"
                             defaultValue={whatsapp}
                         />
@@ -169,11 +160,11 @@ export default function ProfileForm({ profile }) {
 
                     {/* Address */}
                     <div className="space-y-2">
-                        <Label className="font-semibold">Dirección</Label>
+                        <Label className="font-bold">Dirección</Label>
                         <Textarea
                             name="address"
                             placeholder="Dirección de tu negocio"
-                            className="resize-none text-foreground/70 focus:text-black focus:dark:text-white"
+                            className="resize-none focus:text-black focus:dark:text-white"
                             defaultValue={address}
                         />
                         <p
@@ -192,9 +183,7 @@ export default function ProfileForm({ profile }) {
                     {/* Social Media */}
                     <div className="space-y-4">
                         <div>
-                            <Label className="font-semibold">
-                                Redes sociales
-                            </Label>
+                            <Label className="font-bold">Redes sociales</Label>
                             <p className="text-sm text-muted-foreground mt-1">
                                 Ingrese la URL completa:
                                 https://facebook.com/username. (Opcional)
@@ -217,7 +206,7 @@ export default function ProfileForm({ profile }) {
                             <div className="space-y-2">
                                 <Label>Facebook</Label>
                                 <Input
-                                    className="text-foreground/70 focus:text-black focus:dark:text-white"
+                                    className="focus:text-black focus:dark:text-white"
                                     name="facebook"
                                     placeholder="https://"
                                     defaultValue={social_urls?.facebook || ""}
@@ -227,7 +216,7 @@ export default function ProfileForm({ profile }) {
                             <div className="space-y-2">
                                 <Label>Instagram</Label>
                                 <Input
-                                    className="text-foreground/70 focus:text-black focus:dark:text-white"
+                                    className="focus:text-black focus:dark:text-white"
                                     name="instagram"
                                     placeholder="https://"
                                     defaultValue={social_urls?.instagram || ""}
@@ -237,7 +226,7 @@ export default function ProfileForm({ profile }) {
                             <div className="space-y-2">
                                 <Label>TikTok</Label>
                                 <Input
-                                    className="text-foreground/70 focus:text-black focus:dark:text-white"
+                                    className="focus:text-black focus:dark:text-white"
                                     name="tiktok"
                                     placeholder="https://"
                                     defaultValue={social_urls?.tiktok || ""}
@@ -246,16 +235,16 @@ export default function ProfileForm({ profile }) {
                         </div>
                     </div>
 
-                    <Button type="submit" disabled={pending} className="w-full">
+                    <Button type="submit" disabled={pending} className="self-start">
                         {pending ? (
                             <div className="flex items-center gap-2">
                                 <LoaderCircle className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" />
                                 Processing...
                             </div>
                         ) : profile ? (
-                            "Update Profile"
+                            "Actualizar Perfil"
                         ) : (
-                            "Create Profile"
+                            "Crear Perfil"
                         )}
                     </Button>
                 </form>

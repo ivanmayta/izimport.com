@@ -1,5 +1,6 @@
 import { getRates } from "@/lib/actions/loaders"
 import Exchange from "../exchange"
+import { ArrowRight } from "lucide-react"
 
 export default async function Soluciones() {
     const data = await getRates()
@@ -13,7 +14,6 @@ export default async function Soluciones() {
                     </h2>
 
                     <ul className="flex flex-col space-y-16 sm:space-y-24">
-                        {/* Tipo de cambio */}
                         <li className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
                             <div className="flex flex-col justify-center">
                                 <h3 className="text-2xl font-bold mb-4">
@@ -32,38 +32,36 @@ export default async function Soluciones() {
                             </div>
                         </li>
 
-                        {/* Perfil personalizado */}
                         <li className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
                             <div className="flex items-center justify-start order-2 md:order-1">
                                 <div className="relative w-full p-3 bg-white rounded-lg shadow-lg">
                                     <img
-                                        src="/img/example.png"
+                                        src="/img/track.png"
                                         alt="Perfil personalizado"
-                                        className="object-contain w-full h-auto"
+                                        className="object-contain w-full h-auto border p-4 rounded-md"
                                     />
                                 </div>
                             </div>
 
                             <div className="flex flex-col justify-center order-1 md:order-2">
                                 <h3 className="text-2xl font-bold mb-4">
-                                    Perfil personalizado
+                                    Seguimiento de envios por DHL
                                 </h3>
                                 <p className="text-lg">
-                                    Crea un perfil personalizado para que tus
-                                    clientes puedan ver la información de tu
-                                    negocio en un solo lugar. Además, podrán
-                                    realizar pedidos directamente al Whatsapp.
+                                    Realiza el seguimiento de tu paquete enviado
+                                    por DHL Express. Puedes ingresar el número
+                                    de guía y ver el estado de tu envío en
+                                    tiempo real.
                                 </p>
-                                <span className="font-semibold">
-                                    Demo:{" "}
-                                    <a
-                                        className="underline "
-                                        target="_blank"
-                                        href="https://izimport.com/b2b/izimport"
-                                    >
-                                        https://izimport.com/b2b/izimport
-                                    </a>
-                                </span>
+
+                                <a
+                                    className="text-orange-600 flex items-center mt-3 font-bold gap-2"
+                                    target="_blank"
+                                    href="https://track.izimport.com/"
+                                >
+                                    Rastrear envios
+                                    <ArrowRight size={18} />
+                                </a>
                             </div>
                         </li>
                     </ul>
