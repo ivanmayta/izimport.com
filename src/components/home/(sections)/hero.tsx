@@ -1,8 +1,6 @@
-import { getRates } from "@/lib/actions/loaders"
 import { getAuthUrlOrigin } from "@/lib/utils"
 
 async function Hero() {
-    const data = await getRates()
     return (
         <section className=" text-zinc-900">
             <div className="max-w-screen-xl px-2 sm:px-6 lg:px-0 mx-auto flex flex-col lg:flex-row items-start pt-20">

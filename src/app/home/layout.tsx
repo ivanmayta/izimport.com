@@ -8,7 +8,7 @@ export default function MainLayout({ children }) {
     return (
         <>
             <main
-                className={`${lexend.className} overflow-x-hidden`}
+                className={`${lexend.className} overflow-x-hidden bg-slate-50`}
                 suppressHydrationWarning
             >
                 <Header />

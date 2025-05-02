@@ -9,7 +9,7 @@ export function Services() {
                     <h3 className="font-bold mb-2 text-lg">
                         Enlace personalizado
                     </h3>
-                    <p className="font-light pb-4">
+                    <p className="font-light pb-4 text-pretty">
                         Generalmente el nombre de tu Negocio, puedes compartirlo
                         en tus redes sociales
                     </p>
@@ -22,7 +22,7 @@ export function Services() {
                     <h3 className="font-bold mb-2 text-lg">
                         Recibe pedidos por WhatsApp
                     </h3>
-                    <p className="font-light">
+                    <p className="font-light text-pretty">
                         Los clientes pueden completar el pedido del carrito de
                         compras via WhatsApp.
                     </p>
@@ -40,7 +40,7 @@ export function Services() {
                     <h3 className="font-bold mb-2 text-lg">
                         ¿Importas tus productos?{" "}
                     </h3>
-                    <p className="font-light">
+                    <p className="font-light text-pretty">
                         Utilidades para mantenerte informado sobre el tipo de
                         cambio actual y seguimiento de envíos por DHL.
                     </p>
