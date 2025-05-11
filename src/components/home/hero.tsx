@@ -1,5 +1,5 @@
-
-async function Hero() {
+import { APP_URL } from "@/config"
+function Hero() {
     return (
         <section className=" text-zinc-900">
             <div className="max-w-screen-xl px-2 sm:px-6 lg:px-0 mx-auto flex flex-col lg:flex-row items-start pt-20">
@@ -16,7 +16,7 @@ async function Hero() {
                     </p>
                     <div className="w-full md:flex items-center justify-center lg:justify-start md:space-x-5">
                         <a
-                            href="http://app.localhost:3000/"
+                            href={`${APP_URL}`}
                             className="lg:mx-0 bg-[#FCD535] text-zinc-800 text-xl font-bold rounded-xl py-3.5 px-8 focus:outline-none transform transition hover:scale-105 duration-300 ease-in-out"
                         >
                             ¡Pruebalo Ya!

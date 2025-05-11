@@ -56,7 +56,7 @@ export const uploadImage = async (file: File | undefined) => {
         if (error) {
             return { success: false, imageUrl: null, error: error.message }
         }
-        revalidatePath("/app/dashboard/profile")
+        revalidatePath("/dashboard/profile")
         return { success: true, imageUrl: imageUrl.secure_url, error: null }
     }
     return { success: false, imageUrl: null, error: "Failed to upload image" }

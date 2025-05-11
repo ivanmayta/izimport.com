@@ -73,13 +73,13 @@ const data = {
                 },
                 {
                     title: "Productos",
-                    url: "#",
+                    url: "/dashboard/products",
                 },
             ],
         },
         {
             title: "Cuenta",
-            url: "#",
+            url: "/app/dashboard/account",
             icon: User,
             items: [
                 {
