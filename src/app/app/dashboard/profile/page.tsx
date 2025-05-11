@@ -43,7 +43,7 @@ export default async function ProfilePage() {
 
                 <Box pt="3">
                     <Tabs.Content value="account">
-                        <FormProfile />
+                        <FormProfile profile={profile} />
                     </Tabs.Content>
 
                     <Tabs.Content value="documents">
