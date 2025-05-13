@@ -3,8 +3,9 @@
 import { revalidatePath } from "next/cache"
 import { createServerSupabaseClient } from "./supbase-clerk/server"
 import { auth } from "@clerk/nextjs/server"
-import { PROFILE_FORM_SCHEMA } from "./validations"
-import { ProfileState } from "@/types/states"
+import { PRODUCT_FORM_SCHEMA, PROFILE_FORM_SCHEMA } from "./validations"
+import { ProductState, ProfileState } from "@/types/states"
+import { uploadProductImage } from "./cloudinary"
 
 //action for update profile
 export const updateProfile = async (
@@ -134,10 +135,131 @@ export const createProfile = async (
             errors: {},
         }
     }
-    revalidatePath("/dashboard")
+    revalidatePath("/dashboard/profile")
     return {
         success: true,
         message: "Perfil creado exitosamente!",
-        errors: {},
+        errors: null,
+    }
+}
+//create product
+
+export const addProduct = async (
+    prevState: ProductState,
+    formData: FormData
+): Promise<ProductState> => {
+    console.log("formData", formData)
+    const supabase = createServerSupabaseClient()
+    const { userId } = await auth()
+    if (!userId) {
+        console.error("Error getting user:", userId)
+
+        return {
+            success: false,
+            message: "Error al obtener el usuario",
+            errors: {},
+        }
+    }
+    const user_id = userId
+    const { data: perfilData, error: perfilError } = await supabase
+        .from("profiles")
+        .select("id")
+        .eq("user_id", user_id)
+        .single()
+    if (perfilError) {
+        console.error("Error getting profile:", perfilError.message)
+
+        return {
+            success: false,
+            message: "Perfil no encontrado",
+            errors: {},
+        }
+    }
+    const perfil_id = perfilData.id
+
+    //upload image to cloudinary
+
+    const { success, imageUrl, error } = await uploadProductImage(
+        formData.get("file") as File
+    )
+    if (!success) {
+        return {
+            success: false,
+            message: "Error al subir la imagen a cloudinary",
+            errors: {},
+        }
+    }
+    console.log("imageUrl", imageUrl)
+    console.log("error", error)
+    // Prepare product data
+    const validatedFields = PRODUCT_FORM_SCHEMA.safeParse({
+        name: formData.get("name"),
+        description: formData.get("description"),
+        price: Number(formData.get("price")),
+        image_url: Array(imageUrl),
+    })
+
+    // Insert the product
+    // console.log("productData", validatedFields?.error)
+    // console.log("validatedFields", validatedFields.data)
+    if (!validatedFields.success) {
+        return {
+            success: false,
+            message: "Hubo un problema al crear el producto.",
+            errors: validatedFields.error.flatten().fieldErrors,
+        }
+    }
+    //console.log(validatedFields.data)
+    const { data: productDataResponse, error: productError } = await supabase
+        .from("products")
+        .insert({ ...validatedFields.data, perfil_id: perfil_id })
+
+    if (productError) {
+        console.error("Error creating product:", productError.message)
+        return {
+            success: false,
+            message: "Error al crear el producto",
+            errors: {},
+        }
+    } else {
+        console.log("Product created successfully:", productDataResponse)
+        revalidatePath("/dashboard/products")
+        return {
+            success: true,
+            message: "Producto creado exitosamente!",
+            errors: null,
+        }
+    }
+}
+
+export const deleteProductAction = async (
+    id: string
+): Promise<ProductState> => {
+    const supabase = createServerSupabaseClient()
+    const { error, data, statusText } = await supabase
+        .from("products")
+        .delete()
+        .eq("id", id)
+
+    {
+        console.log("id", id)
+        console.log("error", error)
+        console.log("data", data)
+        console.log("statusText", statusText)
+    }
+
+    if (error) {
+        console.error("Error deleting product:", error.message)
+        return {
+            success: false,
+            message: "Error al eliminar el producto",
+            errors: {},
+        }
+    }
+    revalidatePath("/dashboard/products")
+    return {
+        success: true,
+        message: "Producto eliminado exitosamente!",
+        errors: null,
     }
 }

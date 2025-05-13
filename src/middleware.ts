@@ -1,6 +1,6 @@
 import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server"
-import { APP_URL } from "@/config"
-const host = APP_URL?.split("://")[1]
+import { NEXT_PUBLIC_APP_URL } from "@/config"
+const host = NEXT_PUBLIC_APP_URL?.split("://")[1]
 console.log("host", host)
 const isPublicRoute = createRouteMatcher([
     "/sign-in(.*)",

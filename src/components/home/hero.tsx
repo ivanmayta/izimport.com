@@ -1,4 +1,4 @@
-import { APP_URL } from "@/config"
+import { NEXT_PUBLIC_APP_URL } from "@/config"
 function Hero() {
     return (
         <section className=" text-zinc-900">
@@ -16,7 +16,7 @@ function Hero() {
                     </p>
                     <div className="w-full md:flex items-center justify-center lg:justify-start md:space-x-5">
                         <a
-                            href={`${APP_URL}`}
+                            href={`${NEXT_PUBLIC_APP_URL}`}
                             className="lg:mx-0 bg-[#FCD535] text-zinc-800 text-xl font-bold rounded-xl py-3.5 px-8 focus:outline-none transform transition hover:scale-105 duration-300 ease-in-out"
                         >
                             ¡Pruebalo Ya!

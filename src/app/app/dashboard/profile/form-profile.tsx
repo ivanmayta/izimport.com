@@ -2,7 +2,9 @@
 import { createProfile, updateProfile } from "@/lib/actions"
 import { cn } from "@/lib/utils"
 import { Button, Card, Spinner, Text, TextField } from "@radix-ui/themes"
-import { useActionState, useEffect } from "react"
+import { Copy } from "lucide-react"
+import { Check } from "lucide-react"
+import { useActionState, useEffect, useState } from "react"
 import { toast } from "sonner"
 export type Profile = {
     name: string
@@ -13,11 +15,13 @@ export type Profile = {
     address: string
 }
 export default function FormProfile({ profile }: { profile: Profile }) {
-    const { name, description, username, RUC, whatsapp, address } = profile
-    console.log(profile)
+    const baseDomain = process.env.NEXT_PUBLIC_BASE_DOMAIN
+    const { name, description, username, RUC, whatsapp, address } =
+        profile ?? {}
+    const [hasCopied, setHasCopied] = useState(false)
     const initialState = { message: null, error: null, success: false }
-    const actions = profile ? updateProfile : createProfile
-    const [state, formAction, isPending] = useActionState(actions, initialState)
+    const action = profile ? updateProfile : createProfile
+    const [state, formAction, isPending] = useActionState(action, initialState)
     useEffect(() => {
         if (state.success) {
             toast.success(state.message)
@@ -36,10 +40,18 @@ export default function FormProfile({ profile }: { profile: Profile }) {
         social_urls: socialUrlsError,
     } = state?.errors || {}
     console.log("render FORM PROFILE")
+    const handleCopy = () => {
+        console.log(baseDomain)
+        const fullUrl = `${baseDomain}/${username || ""}`
+        navigator.clipboard.writeText(fullUrl)
+        setHasCopied(true)
+        setTimeout(() => setHasCopied(false), 2000)
+    }
+
     return (
         <>
-            <Card variant="ghost">
-                <div className="flex flex-col  my-6">
+            <Card variant="ghost" className="h-full">
+                <div className="flex flex-col my-6">
                     <Text as="div" size="4" weight="medium">
                         Información de tu Negocio
                     </Text>
@@ -47,8 +59,8 @@ export default function FormProfile({ profile }: { profile: Profile }) {
                         Esta información será visible para los clientes.
                     </Text>
                 </div>
-                <form className="flex flex-col gap-10 mb-3" action={formAction}>
-                    <fieldset className="flex flex-col gap-4">
+                <form className="flex flex-col gap-6" action={formAction}>
+                    <fieldset className="flex flex-col gap-4 flex-1">
                         <Text as="label" className="font-medium">
                             Nombre del Negocio
                             <TextField.Root
@@ -94,19 +106,32 @@ export default function FormProfile({ profile }: { profile: Profile }) {
                         </Text>
                         <Text as="label" className="font-medium">
                             Enlace de la tienda
-                            <TextField.Root
-                                name="username"
-                                placeholder="izimport"
-                                defaultValue={username}
-                            >
-                                <TextField.Slot
-                                    color="gray"
-                                    pr="1"
-                                    className="font-medium bg-slate-300"
+                            <div className="flex gap-2">
+                                <TextField.Root
+                                    name="username"
+                                    placeholder="izimport"
+                                    defaultValue={username}
+                                    className="flex-1"
                                 >
-                                    izimport.com/
-                                </TextField.Slot>
-                            </TextField.Root>
+                                    <TextField.Slot
+                                        color="gray"
+                                        pr="1"
+                                        className="font-medium bg-slate-300"
+                                    >
+                                        izimport.com/
+                                    </TextField.Slot>
+                                    <TextField.Slot
+                                        onClick={handleCopy}
+                                        className="!px-2 !cursor-pointer"
+                                    >
+                                        {hasCopied ? (
+                                            <Check className="h-4 w-4 text-green-500 border rounded-md" />
+                                        ) : (
+                                            <Copy className="h-4 w-4" />
+                                        )}
+                                    </TextField.Slot>
+                                </TextField.Root>
+                            </div>
                             <Text
                                 as="p"
                                 size="1"
@@ -185,7 +210,7 @@ export default function FormProfile({ profile }: { profile: Profile }) {
                             </Text>
                         </Text>
 
-                        <div className="flex flex-col  my-6">
+                        <div className="flex flex-col my-3">
                             <Text as="div" size="4" weight="medium">
                                 Redes sociales
                             </Text>
@@ -246,7 +271,7 @@ export default function FormProfile({ profile }: { profile: Profile }) {
                         </Text>
                     </fieldset>
                     <Button
-                        className="!self-start"
+                        className="!mt-auto !self-start"
                         variant="solid"
                         color="orange"
                         disabled={isPending}

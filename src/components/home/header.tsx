@@ -1,4 +1,4 @@
-import { APP_URL } from "@/config"
+import { NEXT_PUBLIC_APP_URL } from "@/config"
 import Link from "next/link"
 
 //TODO: fix magic url
@@ -41,7 +41,7 @@ export default function Header() {
                         {/*<ExchangeBadge />*/}
                         <a
                             className="px-3 font-medium hover:bg-zinc-800 py-2 border-2 rounded-xl border-black bg-black text-white"
-                            href={`${APP_URL}`}
+                            href={`${NEXT_PUBLIC_APP_URL}`}
                         >
                             Iniciar sesión
                         </a>

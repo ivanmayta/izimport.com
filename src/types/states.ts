@@ -19,11 +19,12 @@ export type ProfileState = {
 }
 
 export type ProductState = {
+    success?: boolean
     errors?: {
         name?: string[]
         description?: string[]
         price?: string[]
         image_url?: string[]
-    }
+    } | null
     message?: string | null
 }
