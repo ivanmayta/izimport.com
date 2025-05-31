@@ -7,6 +7,7 @@ import {
 import { createServerSupabaseClient } from "./supbase-clerk/server"
 import { auth } from "@clerk/nextjs/server"
 import { revalidatePath } from "next/cache"
+import { revalidateBusinessProfile } from "./revalidate"
 
 const cloudName = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME
 const apiKey = process.env.NEXT_PUBLIC_CLOUDINARY_API_KEY
@@ -57,7 +58,7 @@ export const uploadImage = async (file: File | undefined) => {
                 .end(buffer)
         })
     if (imageUrl) {
-        const { error } = await supbase
+        const { data, error } = await supbase
             .from("profiles")
             .update({
                 image_url: imageUrl.secure_url,
@@ -66,7 +67,10 @@ export const uploadImage = async (file: File | undefined) => {
         if (error) {
             return { success: false, imageUrl: null, error: error.message }
         }
+        console.log("data", data)
         revalidatePath("/dashboard/profile")
+        await revalidateBusinessProfile()
+
         return { success: true, imageUrl: imageUrl.secure_url, error: null }
     }
     return { success: false, imageUrl: null, error: "Failed to upload image" }
@@ -122,7 +126,6 @@ export const uploadProductImage = async (file: File | undefined) => {
                     error: "Error al procesar la imagen en Cloudinary",
                 }
             }
-
             return {
                 success: true,
                 imageUrl: imageUrl.secure_url,

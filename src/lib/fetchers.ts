@@ -18,7 +18,28 @@ export const getProfile = async (
     }
     return data
 }
-
+export const getProfileByUsername = async (
+    supabase: SupabaseClient,
+    username: string
+) => {
+    const { data, error } = await supabase
+        .from("profiles")
+        .select("*")
+        .eq("username", username)
+        .single()
+    if (error) {
+        console.log("error", error)
+    }
+    return { data, error }
+}
+export const getProfiles = async (supabase: SupabaseClient) => {
+    const { data, error } = await supabase.from("profiles").select("*")
+    if (error) {
+        console.log("error", error)
+        return []
+    }
+    return data
+}
 export const getProducts = cache(
     async (supabase: SupabaseClient, profileId: string) => {
         const { data, error } = await supabase
@@ -29,6 +50,6 @@ export const getProducts = cache(
         if (error) {
             console.log("error", error)
         }
-        return { products: data, count: data?.length }
+        return { products: data, count: data?.length, error }
     }
 )

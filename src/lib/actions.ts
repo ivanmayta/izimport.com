@@ -6,6 +6,7 @@ import { auth } from "@clerk/nextjs/server"
 import { PRODUCT_FORM_SCHEMA, PROFILE_FORM_SCHEMA } from "./validations"
 import { ProductState, ProfileState } from "@/types/states"
 import { uploadProductImage } from "./cloudinary"
+import { revalidateBusinessProfile } from "./revalidate"
 
 //action for update profile
 export const updateProfile = async (
@@ -73,7 +74,9 @@ export const updateProfile = async (
             errors: {},
         }
     }
-    revalidatePath("/dasboard")
+    const username = formData?.get("username")
+    console.log("username", username)
+    //revalidateBusinessProfile()
     return {
         success: true,
         message: "Perfil actualizado exitosamente!",
@@ -135,6 +138,7 @@ export const createProfile = async (
             errors: {},
         }
     }
+    await revalidateBusinessProfile()
     revalidatePath("/dashboard/profile")
     return {
         success: true,
@@ -224,6 +228,7 @@ export const addProduct = async (
     } else {
         console.log("Product created successfully:", productDataResponse)
         revalidatePath("/dashboard/products")
+        await revalidateBusinessProfile()
         return {
             success: true,
             message: "Producto creado exitosamente!",
@@ -256,6 +261,7 @@ export const deleteProductAction = async (
             errors: {},
         }
     }
+    await revalidateBusinessProfile()
     revalidatePath("/dashboard/products")
     return {
         success: true,

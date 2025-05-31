@@ -16,7 +16,7 @@ export default async function DashboardPage() {
     }
     const supabase = createServerSupabaseClient()
     const profile = await getProfile(supabase, userId)
-    const { count = 0 } = await getProducts(supabase, userId)
+    const { count = 0 } = await getProducts(supabase, profile?.id)
     return (
         <>
             <Text as="div" size="8" weight="bold">
