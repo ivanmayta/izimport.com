@@ -3,7 +3,8 @@ import { createClientSupabaseClient } from "@/lib/supbase-clerk/client"
 import ProfileHero from "../_components/hero-profile"
 import Products from "../_components/products"
 import { notFound } from "next/navigation"
-export const revalidate = 60
+
+export const revalidate = 3600
 export const dynamicParams = true
 export async function generateStaticParams() {
     const supabase = createClientSupabaseClient()
