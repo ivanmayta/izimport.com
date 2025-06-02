@@ -5,6 +5,7 @@ import { ImageUploader } from "@/components/dashboard/image-uploader"
 import { getProfile } from "@/lib/fetchers"
 import { auth } from "@clerk/nextjs/server"
 import { createServerSupabaseClient } from "@/lib/supbase-clerk/server"
+import { NEXT_PUBLIC_BASE_DOMAIN } from "@/config"
 export default async function ProfilePage() {
     const supabase = createServerSupabaseClient()
     const { userId } = await auth()
@@ -21,7 +22,7 @@ export default async function ProfilePage() {
                     <a
                         className="flex justify-center items-center gap-2"
                         target="_blank"
-                        href="http://localhost:3000/izimport"
+                        href={`${NEXT_PUBLIC_BASE_DOMAIN}/${profile?.username}`}
                     >
                         ver sitio
                         <ExternalLink size="16" />
