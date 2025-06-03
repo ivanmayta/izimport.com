@@ -76,7 +76,7 @@ export const updateProfile = async (
     }
     const username = formData?.get("username")
     console.log("username", username)
-    //revalidateBusinessProfile()
+    await revalidateBusinessProfile()
     return {
         success: true,
         message: "Perfil actualizado exitosamente!",
