@@ -25,6 +25,7 @@ export async function GET(req: NextRequest) {
             headers: {
                 "DHL-API-Key": apiKey,
                 "Content-Type": "application/json",
+                "Access-Control-Allow-Origin": process.env.ALLOWED_ORIGIN ?? "",
             },
         }
 
