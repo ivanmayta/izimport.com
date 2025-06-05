@@ -1,30 +1,21 @@
 "use client"
 
 import { Edit, Package, Search } from "lucide-react"
-import { useState } from "react"
-import FormProduct from "./form-product"
+
 import { Button, Flex, Table } from "@radix-ui/themes"
 import { TextField } from "@radix-ui/themes"
 import { ButtonDeleteAlert } from "@/components/dashboard/button-delete-alert"
+import { Product } from "@/types/tables.types"
+import { useFilters } from "../_hooks/usefilters"
+import FormProduct from "../products/form-product"
 
-type Product = {
-    id: string
-    name: string
-    description: string
-    price: number
-    image_url?: string
-}
 export default function ProductList({
     products = [],
 }: {
-    products: Product[] | null
+    products: Product[]
 }) {
-    const [searchQuery, setSearchQuery] = useState("")
-
-    const filteredProducts = products?.filter((product) =>
-        product.name.toLowerCase().includes(searchQuery.toLowerCase())
-    )
-    console.log("filteredProducts", filteredProducts)
+    const { filters, setFilters, filteredProductsBySearch } = useFilters()
+    const filteredProducts = filteredProductsBySearch(products)
     return (
         <>
             <div>
@@ -54,10 +45,15 @@ export default function ProductList({
                                 size="3"
                                 className="flex-grow"
                                 placeholder="Buscar productos..."
-                                value={searchQuery}
+                                value={filters.search}
                                 onChange={(
                                     e: React.ChangeEvent<HTMLInputElement>
-                                ) => setSearchQuery(e.target.value)}
+                                ) =>
+                                    setFilters({
+                                        ...filters,
+                                        search: e.target.value,
+                                    })
+                                }
                             >
                                 <TextField.Slot>
                                     <Search className="h-4 w-4 text-gray-500" />

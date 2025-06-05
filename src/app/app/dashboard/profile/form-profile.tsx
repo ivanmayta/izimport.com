@@ -6,14 +6,7 @@ import { Copy } from "lucide-react"
 import { Check } from "lucide-react"
 import { useActionState, useEffect, useState } from "react"
 import { toast } from "sonner"
-export type Profile = {
-    name: string
-    description: string
-    username: string
-    RUC: string
-    whatsapp: string
-    address: string
-}
+import { Profile } from "@/types/tables.types"
 export default function FormProfile({ profile }: { profile: Profile }) {
     const baseDomain = process.env.NEXT_PUBLIC_BASE_DOMAIN
     const { name, description, username, RUC, whatsapp, address } =

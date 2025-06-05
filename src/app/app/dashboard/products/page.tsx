@@ -1,24 +1,9 @@
-import { redirect } from "next/navigation"
-
-import { auth } from "@clerk/nextjs/server"
-
-import { createServerSupabaseClient } from "@/lib/supbase-clerk/server"
-
-import { getProducts, getProfile } from "@/lib/fetchers"
 import { Separator, Text } from "@radix-ui/themes"
-import ProductList from "./product-list"
+import { Suspense } from "react"
+import { Products } from "./products"
+import { ProductListSkeleton } from "../_components/product-list-skeleton"
 
-export default async function Products() {
-    const { userId } = await auth()
-    if (!userId) {
-        redirect("/sign-in")
-    }
-    const supabase = createServerSupabaseClient()
-    const profile = await getProfile(supabase, userId)
-    const { products, count } = await getProducts(supabase, profile?.id)
-    console.log(products)
-    console.log(count)
-    console.log(profile)
+export default function ProductsPage() {
     return (
         <>
             <Text as="div" size="8" weight="bold">
@@ -29,11 +14,15 @@ export default async function Products() {
                 Gestiona tu catálogo de productos desde aquí.
             </Text>
             <Separator my="5" size="4" color="blue" />
-            {profile ? (
+            <Suspense fallback={<ProductListSkeleton />}>
+                <Products />
+            </Suspense>
+
+            {/* {profile ? (
                 <ProductList products={products} />
             ) : (
                 <p>Cree un perfil de negocio primero</p>
-            )}
+            )} */}
         </>
     )
 }
