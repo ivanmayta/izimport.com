@@ -9,6 +9,7 @@ export async function LinkBadge() {
     const { userId } = await auth()
 
     const profile = await getProfile(supabase, userId)
+    if (!profile) return <></>
     return (
         <a
             className="flex justify-center items-center gap-2"
