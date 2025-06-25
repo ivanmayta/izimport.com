@@ -5,7 +5,6 @@ import Steps from "@/components/home/steps"
 import Soluciones from "@/components/home/solutions"
 import Footer from "@/components/home/footer"
 import { Lexend } from "next/font/google"
-import { HOST_APP_URL } from "@/config"
 
 const lexend = Lexend({ subsets: ["latin"] })
 export default function Home() {
@@ -18,7 +17,6 @@ export default function Home() {
                 <Steps />
                 <Soluciones />
                 <Footer />
-                {HOST_APP_URL}
             </div>
         </>
     )
