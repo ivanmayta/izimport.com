@@ -1,13 +1,13 @@
 import { getProfile } from "@/lib/fetchers"
 import { createServerSupabaseClient } from "@/lib/supbase-clerk/server"
-import { auth } from "@clerk/nextjs/server"
 import FormProfile from "./form-profile"
 import { Box, Tabs } from "@radix-ui/themes"
 import { ImageUploader } from "@/components/dashboard/image-uploader"
+import { verifyAuthUser } from "@/lib/dal"
 
 export async function Profile() {
     const supabase = createServerSupabaseClient()
-    const { userId } = await auth()
+    const userId = await verifyAuthUser()
 
     const profile = await getProfile(supabase, userId)
     const { image_url } = profile ?? ""

@@ -2,11 +2,11 @@
 
 import { revalidatePath } from "next/cache"
 import { createServerSupabaseClient } from "./supbase-clerk/server"
-import { auth } from "@clerk/nextjs/server"
 import { PRODUCT_FORM_SCHEMA, PROFILE_FORM_SCHEMA } from "./validations"
 import { ProductState, ProfileState } from "@/types/states"
 import { uploadProductImage } from "./cloudinary"
 import { revalidateBusinessProfile } from "./revalidate"
+import { verifyAuthUser } from "./dal"
 
 //action for update profile
 export const updateProfile = async (
@@ -15,7 +15,7 @@ export const updateProfile = async (
 ): Promise<ProfileState> => {
     // create a supabase client and get the user
     const supabase = createServerSupabaseClient()
-    const { userId } = await auth()
+    const userId = await verifyAuthUser()
     //console.log(user_id)
 
     //Validate form fields with zod
@@ -89,7 +89,7 @@ export const createProfile = async (
     formData: FormData
 ): Promise<ProfileState> => {
     const supabase = createServerSupabaseClient()
-    const { userId } = await auth()
+    const userId = await verifyAuthUser()
     const validatedFields = PROFILE_FORM_SCHEMA.safeParse({
         name: formData.get("name"),
         username: formData.get("username"),
@@ -154,7 +154,7 @@ export const addProduct = async (
 ): Promise<ProductState> => {
     console.log("formData", formData)
     const supabase = createServerSupabaseClient()
-    const { userId } = await auth()
+    const userId = await verifyAuthUser()
     if (!userId) {
         console.error("Error getting user:", userId)
 
