@@ -9,6 +9,7 @@ const nextConfig: NextConfig = {
                 hostname: "res.cloudinary.com",
             },
         ],
+        unoptimized: true,
     },
     /* config options here */
     async headers() {
