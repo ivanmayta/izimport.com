@@ -1,13 +1,16 @@
 "use client"
 import { addProduct } from "@/lib/actions"
+
 import { ProductState } from "@/types/states"
 import { Flex, Text, TextField, Button, Card } from "@radix-ui/themes"
 import { Dialog } from "@radix-ui/themes"
 import { Plus, FileImage } from "lucide-react"
-import { useActionState, useEffect } from "react"
+import { useActionState, useEffect, useState } from "react"
 import { toast } from "sonner"
 
 export default function FormProduct() {
+    const [image, setImage] = useState<File | undefined>(undefined)
+    const [open, setOpen] = useState(false)
     const initialState: ProductState = {
         success: false,
         message: "",
@@ -17,17 +20,39 @@ export default function FormProduct() {
         addProduct,
         initialState
     )
+    const {
+        name: nameError,
+        description: descriptionError,
+        price: priceError,
+    } = state?.errors || {}
+
     useEffect(() => {
+        setImage(undefined)
         if (state.success) {
             toast.success(state.message)
+            setOpen(false)
         }
         if (state.errors) {
             toast.error(state.message)
         }
     }, [state])
+    const handleSubmit = (formData: FormData) => {
+        const data = Object.fromEntries(formData)
+        const file = data.file as File
+        if (!file) {
+            toast.error("La imagen es requerida")
+            return
+        }
+        if (file.size > 1024 * 1024) {
+            toast.error("El archivo es demasiado grande, 1mb máximo")
+            setImage(undefined)
+            return
+        }
+        formAction(formData)
+    }
     return (
         <div>
-            <Dialog.Root>
+            <Dialog.Root open={open} onOpenChange={setOpen}>
                 <Dialog.Trigger>
                     <Button size="3" color="orange">
                         <Plus />
@@ -41,7 +66,7 @@ export default function FormProduct() {
                         Añade un producto a tu inventario.
                     </Dialog.Description>
 
-                    <form action={formAction} className="flex flex-col gap-6">
+                    <form action={handleSubmit} className="flex flex-col gap-6">
                         <Card>
                             <Flex direction="column" gap="4">
                                 {/* Imagen Upload Section */}
@@ -52,16 +77,40 @@ export default function FormProduct() {
                                     <div className="relative w-full h-32">
                                         <label
                                             htmlFor="image-uploader"
-                                            className="absolute border-2 border-dashed border-gray-300 hover:border-orange-500 hover:bg-orange-50 cursor-pointer inset-0 transition-all flex flex-col items-center justify-center gap-2 rounded-md bg-gray-50 active:scale-[0.98]"
+                                            className="absolute border-2 border-dashed border-gray-300 hover:border-orange-500 hover:bg-orange-50 cursor-pointer inset-0 transition-all flex flex-col justify-center gap-2 rounded-md bg-gray-50 active:scale-[0.98]"
                                         >
-                                            <FileImage className="w-6 h-6 text-gray-400" />
-                                            <Text size="2" color="gray">
-                                                Haz clic para subir una imagen
-                                            </Text>
-                                            <Text size="1" color="gray">
-                                                PNG, JPG hasta 5MB
-                                            </Text>
+                                            {image ? (
+                                                <img
+                                                    src={
+                                                        image
+                                                            ? URL.createObjectURL(
+                                                                  image
+                                                              )
+                                                            : ""
+                                                    }
+                                                    alt="Imagen del producto"
+                                                    className="w-30 h-30 p-1 object-cover rounded-md aspect-square"
+                                                />
+                                            ) : (
+                                                <div className="flex flex-col items-center justify-center gap-2">
+                                                    <FileImage className="w-6 h-6 text-gray-400" />
+                                                    <Text size="2" color="gray">
+                                                        Haz clic para subir una
+                                                        imagen
+                                                    </Text>
+                                                    <Text size="1" color="gray">
+                                                        PNG, JPG hasta 5MB
+                                                    </Text>
+                                                </div>
+                                            )}
+
                                             <input
+                                                onChange={(e) => {
+                                                    setImage(
+                                                        e.target.files?.[0] ??
+                                                            undefined
+                                                    )
+                                                }}
                                                 id="image-uploader"
                                                 className="hidden"
                                                 type="file"
@@ -86,9 +135,15 @@ export default function FormProduct() {
                                         placeholder="Nombre del producto"
                                         mt="1"
                                     />
-                                    <Text as="p" size="1" color="gray" mt="1">
-                                        Nombre del tu producto (maximo 100
-                                        caracteres)
+                                    <Text
+                                        as="p"
+                                        size="1"
+                                        color={nameError ? "red" : "gray"}
+                                        mt="1"
+                                    >
+                                        {nameError
+                                            ? nameError
+                                            : "Nombre del tu producto (maximo 100 caracteres)"}
                                     </Text>
                                 </div>
 
@@ -102,9 +157,17 @@ export default function FormProduct() {
                                         placeholder="Descripción del producto"
                                         mt="1"
                                     />
-                                    <Text as="p" size="1" color="gray" mt="1">
-                                        Descripción breve del producto (maximo
-                                        230 caracteres)
+                                    <Text
+                                        as="p"
+                                        size="1"
+                                        color={
+                                            descriptionError ? "red" : "gray"
+                                        }
+                                        mt="1"
+                                    >
+                                        {descriptionError
+                                            ? descriptionError
+                                            : "Descripción breve del producto (maximo 230 caracteres)"}
                                     </Text>
                                 </div>
 
@@ -121,8 +184,15 @@ export default function FormProduct() {
                                     >
                                         <TextField.Slot>S/</TextField.Slot>
                                     </TextField.Root>
-                                    <Text as="p" size="1" color="gray" mt="1">
-                                        El precio debe ser mayor a 0
+                                    <Text
+                                        as="p"
+                                        size="1"
+                                        color={priceError ? "red" : "gray"}
+                                        mt="1"
+                                    >
+                                        {priceError
+                                            ? priceError
+                                            : "El precio debe ser mayor a 0"}
                                     </Text>
                                 </div>
                             </Flex>

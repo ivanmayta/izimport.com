@@ -84,7 +84,7 @@ const productFormSchema = z.object({
     price: z.number().min(0, { message: "El precio debe ser mayor a 0" }),
     image_url: z.array(z.string().url({
         message: "La URL de la imagen no es válida",
-    })),
+    })).optional(),
 })
 export {
     createProfileFormSchema as PROFILE_FORM_SCHEMA,

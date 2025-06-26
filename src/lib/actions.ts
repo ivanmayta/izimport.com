@@ -153,7 +153,36 @@ export const addProduct = async (
     formData: FormData
 ): Promise<ProductState> => {
     console.log("formData", formData)
-    const supabase = createServerSupabaseClient()
+    // VALIDATIONS ->formData
+    const data = Object.fromEntries(formData)
+    const validatedFields = PRODUCT_FORM_SCHEMA.safeParse({
+        name: data.name,
+        description: data.description,
+        price: Number(data.price),
+    })
+    // -> File image
+    const file = data.file as File
+    if (!file) {
+        return {
+            success: false,
+            message: "La imagen es requerida",
+            errors: {},
+        }
+    }
+    if (file.size > 1024 * 1024) {
+        return {
+            success: false,
+            message: "El archivo es demasiado grande, 1mb máximo",
+            errors: {},
+        }
+    }
+    if (!validatedFields.success) {
+        return {
+            success: false,
+            message: "Error de validación: ingresa datos correctos",
+            errors: validatedFields.error.flatten().fieldErrors,
+        }
+    }
     const userId = await verifyAuthUser()
     if (!userId) {
         console.error("Error getting user:", userId)
@@ -165,12 +194,13 @@ export const addProduct = async (
         }
     }
     const user_id = userId
+    const supabase = createServerSupabaseClient()
     const { data: perfilData, error: perfilError } = await supabase
         .from("profiles")
         .select("id")
         .eq("user_id", user_id)
         .single()
-    if (perfilError) {
+    if (perfilError || !perfilData) {
         console.error("Error getting profile:", perfilError.message)
 
         return {
@@ -183,9 +213,7 @@ export const addProduct = async (
 
     //upload image to cloudinary
 
-    const { success, imageUrl, error } = await uploadProductImage(
-        formData.get("file") as File
-    )
+    const { success, imageUrl } = await uploadProductImage(file)
     if (!success) {
         return {
             success: false,
@@ -193,30 +221,14 @@ export const addProduct = async (
             errors: {},
         }
     }
-    console.log("imageUrl", imageUrl)
-    console.log("error", error)
-    // Prepare product data
-    const validatedFields = PRODUCT_FORM_SCHEMA.safeParse({
-        name: formData.get("name"),
-        description: formData.get("description"),
-        price: Number(formData.get("price")),
-        image_url: Array(imageUrl),
-    })
 
-    // Insert the product
-    // console.log("productData", validatedFields?.error)
-    // console.log("validatedFields", validatedFields.data)
-    if (!validatedFields.success) {
-        return {
-            success: false,
-            message: "Hubo un problema al crear el producto.",
-            errors: validatedFields.error.flatten().fieldErrors,
-        }
-    }
-    //console.log(validatedFields.data)
     const { data: productDataResponse, error: productError } = await supabase
         .from("products")
-        .insert({ ...validatedFields.data, perfil_id: perfil_id })
+        .insert({
+            ...validatedFields.data,
+            perfil_id: perfil_id,
+            image_url: [imageUrl],
+        })
 
     if (productError) {
         console.error("Error creating product:", productError.message)
