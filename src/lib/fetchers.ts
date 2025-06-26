@@ -1,24 +1,25 @@
 import { SupabaseClient } from "@supabase/supabase-js"
 import { createClientSupabaseClient } from "./supbase-clerk/client"
 import { cacheLife } from "next/dist/server/use-cache/cache-life"
+import { cache } from "react"
 
-export const getProfile = async (
-    supabase: SupabaseClient,
-    id: string | null
-) => {
-    if (!id) {
-        return null
+export const getProfile = cache(
+    async (supabase: SupabaseClient, id: string | null) => {
+        if (!id) {
+            return null
+        }
+        const { data, error } = await supabase
+            .from("profiles")
+            .select("*")
+            .eq("user_id", id)
+            .single()
+        if (error) {
+            console.log("error", error)
+        }
+        return data
     }
-    const { data, error } = await supabase
-        .from("profiles")
-        .select("*")
-        .eq("user_id", id)
-        .single()
-    if (error) {
-        console.log("error", error)
-    }
-    return data
-}
+)
+
 export const getProfileByUsername = async (
     supabase: SupabaseClient,
     username: string
