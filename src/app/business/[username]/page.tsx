@@ -23,8 +23,7 @@ export default async function BusinessPage({
         return notFound()
     }
     const { products, error: productsError } = await getProducts(
-        supabase,
-        data?.id
+        data?.id ?? ""
     )
     if (productsError) {
         return notFound()
