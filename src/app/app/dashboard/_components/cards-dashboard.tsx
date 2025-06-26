@@ -15,7 +15,7 @@ export async function CardsDashboard() {
     }
     const supabase = createServerSupabaseClient()
     const profile = await getProfile(supabase, userId)
-    const { count = 0 } = await getProducts(supabase, profile?.id)
+    const { count = 0 } = await getProducts(profile?.id ?? "")
     return (
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
             <Card className="!flex !flex-col">

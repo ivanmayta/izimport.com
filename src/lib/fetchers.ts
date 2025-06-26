@@ -1,6 +1,4 @@
-import { cache } from "react"
 import { SupabaseClient } from "@supabase/supabase-js"
-import { createServerSupabaseClient } from "./supbase-clerk/server"
 import { createClientSupabaseClient } from "./supbase-clerk/client"
 import { cacheLife } from "next/dist/server/use-cache/cache-life"
 
