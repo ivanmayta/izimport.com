@@ -3,6 +3,9 @@ import type { NextConfig } from "next"
 const allowedOrigin = process.env.ALLOWED_ORIGIN ?? ""
 console.log("allowedOrigin", allowedOrigin)
 const nextConfig: NextConfig = {
+    experimental: {
+        useCache: true,
+    },
     images: {
         remotePatterns: [
             {

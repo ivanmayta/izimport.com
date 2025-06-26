@@ -1,5 +1,8 @@
 import { cache } from "react"
 import { SupabaseClient } from "@supabase/supabase-js"
+import { createServerSupabaseClient } from "./supbase-clerk/server"
+import { createClientSupabaseClient } from "./supbase-clerk/client"
+import { cacheLife } from "next/dist/server/use-cache/cache-life"
 
 export const getProfile = async (
     supabase: SupabaseClient,
@@ -40,16 +43,17 @@ export const getProfiles = async (supabase: SupabaseClient) => {
     }
     return data
 }
-export const getProducts = cache(
-    async (supabase: SupabaseClient, profileId: string) => {
-        const { data, error } = await supabase
-            .from("products")
-            .select("*")
-            .eq("perfil_id", profileId)
-            .order("created_at", { ascending: false })
-        if (error) {
-            console.log("error", error)
-        }
-        return { products: data, count: data?.length, error }
+export const getProducts = async (profileId: string) => {
+    "use cache"
+    cacheLife("max")
+    const supabase = createClientSupabaseClient()
+    const { data, error } = await supabase
+        .from("products")
+        .select("*")
+        .eq("perfil_id", profileId)
+        .order("created_at", { ascending: false })
+    if (error) {
+        console.log("error", error)
     }
-)
+    return { products: data, count: data?.length, error }
+}
