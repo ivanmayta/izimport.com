@@ -12,8 +12,6 @@ export async function Products() {
     const supabase = createServerSupabaseClient()
     const profile = await getProfile(supabase, userId)
     const { products } = await getProducts(profile?.id ?? "")
-    // console.log(products)
-    // console.log(count)
-    // console.log(profile)
+    
     return <ProductList products={products ?? []} />
 }
