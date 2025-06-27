@@ -2,8 +2,8 @@ import { getProfile } from "@/lib/fetchers"
 import { createServerSupabaseClient } from "@/lib/supbase-clerk/server"
 import FormProfile from "./form-profile"
 import { Box, Tabs } from "@radix-ui/themes"
-import { ImageUploader } from "@/components/dashboard/image-uploader"
 import { verifyAuthUser } from "@/lib/dal"
+import { ImageUploader } from "../_components/image-uploader"
 
 export async function Profile() {
     const supabase = createServerSupabaseClient()

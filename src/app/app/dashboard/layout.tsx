@@ -1,4 +1,4 @@
-import { AppSidebar } from "@/components/dashboard/app-sidebar"
+
 import { Separator } from "@/components/ui/separator"
 import {
     SidebarInset,
@@ -7,6 +7,7 @@ import {
 } from "@/components/ui/sidebar"
 import { UserButton } from "@clerk/nextjs"
 import "@radix-ui/themes/styles.css"
+import { AppSidebar } from "./_components/app-sidebar"
 
 export default function Layout({ children }: { children: React.ReactNode }) {
     return (

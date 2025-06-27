@@ -1,5 +1,5 @@
+import { SidebarMenuButton } from "@/components/ui/sidebar"
 import { Badge } from "@radix-ui/themes"
-import { SidebarMenuButton } from "../ui/sidebar"
 
 export default function NavTop() {
     return (

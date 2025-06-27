@@ -1,11 +1,10 @@
-import Header from "@/components/home/header"
-import Hero from "@/components/home/hero"
-import Services from "@/components/home/services"
-import Steps from "@/components/home/steps"
-import Soluciones from "@/components/home/solutions"
-import Footer from "@/components/home/footer"
 import { Lexend } from "next/font/google"
-
+import Header from "./_components/header"
+import Hero from "./_components/hero"
+import Services from "./_components/services"
+import Steps from "./_components/steps"
+import Footer from "./_components/footer"
+import Soluciones from "./_components/solutions"
 const lexend = Lexend({ subsets: ["latin"] })
 export default function Home() {
     return (

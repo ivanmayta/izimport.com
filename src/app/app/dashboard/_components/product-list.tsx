@@ -4,10 +4,10 @@ import { Edit, Package, Search } from "lucide-react"
 
 import { Button, Flex, Table } from "@radix-ui/themes"
 import { TextField } from "@radix-ui/themes"
-import { ButtonDeleteAlert } from "@/components/dashboard/button-delete-alert"
 import { Product } from "@/types/tables.types"
 import { useFilters } from "../_hooks/usefilters"
 import FormProduct from "../products/form-product"
+import { ButtonDeleteAlert } from "./button-delete-alert"
 
 export default function ProductList({
     products = [],
