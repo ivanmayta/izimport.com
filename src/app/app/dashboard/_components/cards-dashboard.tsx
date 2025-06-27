@@ -1,18 +1,14 @@
 import { getProducts, getProfile } from "@/lib/fetchers"
 import { createServerSupabaseClient } from "@/lib/supbase-clerk/server"
-import { auth } from "@clerk/nextjs/server"
 import { Text, Card } from "@radix-ui/themes"
 import { CreditCard } from "lucide-react"
 import { ShoppingBag, UserCircle } from "lucide-react"
 // import Link from "next/link"
-import { redirect } from "next/navigation"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
+import { verifyAuthUser } from "@/lib/dal"
 export async function CardsDashboard() {
-    const { userId } = await auth()
-    if (!userId) {
-        redirect("/sign-in")
-    }
+    const userId = await verifyAuthUser()
     const supabase = createServerSupabaseClient()
     const profile = await getProfile(supabase, userId)
     const { count = 0 } = await getProducts(profile?.id ?? "")

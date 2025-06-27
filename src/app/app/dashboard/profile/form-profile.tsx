@@ -32,7 +32,7 @@ export default function FormProfile({ profile }: { profile: Profile }) {
         address: addressError,
         social_urls: socialUrlsError,
     } = state?.errors || {}
-    console.log("render FORM PROFILE")
+    //console.log("render FORM PROFILE")
     const handleCopy = () => {
         console.log(baseDomain)
         const fullUrl = `${baseDomain}/${username || ""}`
