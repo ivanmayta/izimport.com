@@ -109,7 +109,7 @@ export default function FormProfile({ profile }: { profile: Profile }) {
                                     <TextField.Slot
                                         color="gray"
                                         pr="1"
-                                        className="font-medium bg-slate-300"
+                                        className="font-medium bg-slate-300 dark:bg-slate-700"
                                     >
                                         izimport.com/
                                     </TextField.Slot>

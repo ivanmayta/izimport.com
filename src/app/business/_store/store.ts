@@ -1,12 +1,8 @@
+import { Product } from "@/types/products"
 import { create } from "zustand"
 import { persist } from "zustand/middleware"
 
-export type Product = {
-    id: number
-    name: string
-    price: number
-    image: string
-}
+
 
 export type CartItem = {
     product: Product
@@ -95,3 +91,12 @@ export const useCartStore = create<CartStore>()(
         }
     )
 )
+export const {
+    addItem,
+    removeItem,
+    updateQuantity,
+    clearCart,
+    getTotal,
+    getTotalItems,
+    setWhatsapp,
+} = useCartStore.getState()

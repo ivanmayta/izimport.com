@@ -60,7 +60,7 @@ export default function Cart() {
                                 <div className="relative h-16 w-16 flex-shrink-0">
                                     <Image
                                         src={
-                                            item.product.image ||
+                                            item.product.image_url[0] ||
                                             "/placeholder.svg"
                                         }
                                         alt={item.product.name}

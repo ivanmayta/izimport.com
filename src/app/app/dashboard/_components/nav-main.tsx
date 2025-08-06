@@ -65,9 +65,9 @@ export function NavMain({
                                             <SidebarMenuSubButton
                                                 asChild
                                                 className={cn(
-                                                    "hover:bg-orange-50 hover:text-orange-800",
+                                                    "hover:bg-orange-50 hover:text-orange-800 dark:hover:bg-orange-500/20 dark:hover:text-orange-400",
                                                     pathname === subItem.url &&
-                                                        "bg-orange-100 text-orange-800"
+                                                        "bg-orange-100 text-orange-800 dark:bg-orange-500/20 dark:text-orange-400"
                                                 )}
                                             >
                                                 <Link href={subItem.url}>

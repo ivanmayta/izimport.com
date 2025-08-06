@@ -35,15 +35,8 @@ export default async function BusinessPage({
     return (
         <div className="max-w-[1420px] mx-auto w-full">
             <ProfileHero
-                username={data?.username}
-                name={data?.name}
-                description={data?.description}
-                address={data?.address}
-                whatsapp={data?.whatsapp}
-                image_url={data?.image_url}
-                socials={data?.social_urls}
+                data={data}
             />
-            <section className="h-8 bg-zinc-700"></section>
             {products && (
                 <Products products={products} whatsapp={data?.whatsapp} />
             )}
