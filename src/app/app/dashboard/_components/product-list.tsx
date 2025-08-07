@@ -3,7 +3,7 @@
 import { Edit } from "lucide-react"
 
 import { Button, Flex, Table } from "@radix-ui/themes"
-import { Product } from "@/types/tables.types"
+import { Product } from "@/types/products"
 import { ButtonDeleteAlert } from "./button-delete-alert"
 import { SearchProduct } from "./search-product"
 
@@ -49,7 +49,7 @@ export default function ProductList({
                                         <div className="w-16 h-16 relative">
                                             <img
                                                 src={
-                                                    product.image_url ||
+                                                    product.image_url[0] ||
                                                     "/placeholder.png"
                                                 }
                                                 alt={product.name}
@@ -67,7 +67,7 @@ export default function ProductList({
                                     <Table.Cell>
                                         <Flex gap="3">
                                             <ButtonDeleteAlert
-                                                id={product.id}
+                                                id={product.id.toString()}
                                             />
                                             <Button
                                                 variant="soft"

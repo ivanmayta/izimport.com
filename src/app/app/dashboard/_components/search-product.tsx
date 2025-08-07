@@ -3,7 +3,7 @@ import FormProduct from "../products/form-product"
 import { Package, Search } from "lucide-react"
 import { Flex, TextField } from "@radix-ui/themes"
 import { useFilters } from "../_hooks/usefilters"
-import { Product } from "@/types/tables.types"
+import { Product } from "@/types/products"
 
 interface SearchProps<T> {
     items: T[]

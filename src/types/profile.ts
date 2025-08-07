@@ -4,6 +4,7 @@ export interface Profile {
     description: string
     address: string
     whatsapp: string
+    RUC: string
     image_url: string
     socials?: {
         tiktok?: string

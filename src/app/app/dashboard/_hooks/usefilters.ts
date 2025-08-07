@@ -1,4 +1,4 @@
-import { Product } from "@/types/tables.types"
+import { Product } from "@/types/products"
 import { useState } from "react"
 
 export const useFilters = () => {
