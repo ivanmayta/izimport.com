@@ -24,7 +24,7 @@ export function SearchProduct<T>({
 
     return (
         <section className={`flex flex-col gap-2  max-w-5xl mx-auto  py-4 px-4 md:px-0`}>
-            <div className="flex gap-2 border-t-1 border-b-1 dark:border-rose-200/20 py-4 items-center md:flex-row flex-col-reverse ">
+            <div className="flex gap-2 border-t-1 border-b-1 border-black dark:border-rose-200/20 py-4 items-center md:flex-row flex-col-reverse ">
                 <div className={`md:flex-1 w-full flex-none flex gap-2 font-semibold text-lg `}>
                     <span className="">Productos</span>
                     {/*
@@ -48,7 +48,7 @@ export function SearchProduct<T>({
                         onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                             setFilters({ ...filters, search: e.target.value })
                         }
-                        className="w-full md:text-sm text-base pl-10 pr-4 py-1 border dark:border-gray-200 border-gray-600 rounded-lg focus:outline-none focus:ring-1 dark:focus:ring-pink-200 dark:focus:border-pink-200 focus:border-gray-700 focus:ring-gray-400 transition-all duration-200"
+                        className="w-full md:text-sm text-base pl-10 pr-4 py-1 border dark:border-gray-200 border-black/60 rounded-lg focus:outline-none focus:ring-1 dark:focus:ring-pink-200 dark:focus:border-pink-200 focus:border-black focus:ring-gray-400 transition-all duration-200"
                     />
                 </div>
             </div>

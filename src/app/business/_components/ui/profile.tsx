@@ -23,7 +23,7 @@ const Profile: ProfileComponent = ({ children, className = "" }) => {
     return (
         <section
             className={cn(
-                "mt-8 relative flex items-center py-10 max-w-5xl mx-auto border-t-1 dark:border-rose-200/20 gap-14 flex-col md:flex-row sm:px-0 px-4 ",
+                "mt-8 relative flex items-center py-10 max-w-5xl mx-auto border-t-1 border-black dark:border-rose-200/20 gap-14 flex-col md:flex-row sm:px-0 px-4 ",
                 className
             )}
         >
