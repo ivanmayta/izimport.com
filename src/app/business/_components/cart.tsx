@@ -8,8 +8,12 @@ import { useCartStore } from "@/app/business/_store/store"
 import { Whatsapp } from "@/icons/whatsapp"
 
 export default function Cart() {
-    const { items, whatsapp, removeItem, updateQuantity, getTotal, clearCart } =
-        useCartStore()
+    const items = useCartStore((state) => state.items)
+    const whatsapp = useCartStore((state) => state.whatsapp)
+    const removeItem = useCartStore((state) => state.removeItem)
+    const updateQuantity = useCartStore((state) => state.updateQuantity)
+    const getTotal = useCartStore((state) => state.getTotal)
+    const clearCart = useCartStore((state) => state.clearCart)
 
     const handleWhatsAppCheckout = () => {
         if (items.length === 0) return

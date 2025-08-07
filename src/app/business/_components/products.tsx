@@ -16,7 +16,7 @@ export default function Products({
     const setWhatsapp = useCartStore((state) => state.setWhatsapp)
     useEffect(() => {
         setWhatsapp(whatsapp)
-    }, [whatsapp])
+    }, [whatsapp, setWhatsapp])
 
     return (
         <SearchProduct

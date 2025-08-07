@@ -23,18 +23,18 @@ interface CartSheetProps {
 export default function CartSheet({ children }: CartSheetProps) {
     const [open, setOpen] = useState(false)
     const [mounted, setMounted] = useState(false)
-    const { getTotalItems } = useCartStore() //-> can get items
+    const [prevItemsLength, setPrevItemsLength] = useState(0)
+    const getTotalItems = useCartStore((state) => state.getTotalItems)
+    const items = useCartStore((state) => state.items)
     const totalItems = getTotalItems()
 
-    // Subscribe to cart changes to auto-open sheet when items are added
-    //const addItem = useCartStore((state) => state.addItem)
-
-    // Override the addItem function to also open the sheet
-    useCartStore.subscribe((state, prevState) => {
-        if (mounted && state.items.length > prevState.items.length) {
+    // Monitor changes in cart items to auto-open sheet when items are added
+    useEffect(() => {
+        if (mounted && items.length > prevItemsLength && items.length > 0) {
             setOpen(true)
         }
-    })
+        setPrevItemsLength(items.length)
+    }, [items.length, mounted, prevItemsLength])
 
     // Handle hydration
     useEffect(() => {

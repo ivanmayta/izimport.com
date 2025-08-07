@@ -1,8 +1,6 @@
 import { Product } from "@/types/products"
 import { create } from "zustand"
-import { persist } from "zustand/middleware"
-
-
+import { persist, createJSONStorage } from "zustand/middleware"
 
 export type CartItem = {
     product: Product
@@ -19,6 +17,45 @@ type CartStore = {
     getTotal: () => number
     getTotalItems: () => number
     setWhatsapp: (whatsapp: string) => void
+}
+
+// Función para obtener el username actual de la URL
+const getCurrentUsername = (): string => {
+    if (typeof window === "undefined") return "default"
+
+    const pathname = window.location.pathname
+    const segments = pathname.split("/")
+
+    // Para rutas como /business/[username], el username está en segments[2]
+    return segments[1] || "default"
+}
+
+// Funciones para manipular localStorage con prefijo dinámico basado en username
+const getStorageKey = (key: string): string => {
+    const username = getCurrentUsername()
+    return `${username}-${key}`
+}
+
+const getStorageItem = (key: string): string | null => {
+    if (typeof window === "undefined") return null
+    return localStorage.getItem(getStorageKey(key))
+}
+
+const setStorageItem = (key: string, value: string): void => {
+    if (typeof window === "undefined") return
+    localStorage.setItem(getStorageKey(key), value)
+}
+
+const removeStorageItem = (key: string): void => {
+    if (typeof window === "undefined") return
+    localStorage.removeItem(getStorageKey(key))
+}
+
+// Storage personalizado que automáticamente usa el username como prefijo
+const usernameBasedStorage = {
+    getItem: (key: string) => getStorageItem(key),
+    setItem: (key: string, value: string) => setStorageItem(key, value),
+    removeItem: (key: string) => removeStorageItem(key),
 }
 
 export const useCartStore = create<CartStore>()(
@@ -88,15 +125,7 @@ export const useCartStore = create<CartStore>()(
         }),
         {
             name: "cart-storage",
+            storage: createJSONStorage(() => usernameBasedStorage),
         }
     )
 )
-export const {
-    addItem,
-    removeItem,
-    updateQuantity,
-    clearCart,
-    getTotal,
-    getTotalItems,
-    setWhatsapp,
-} = useCartStore.getState()
