@@ -23,7 +23,7 @@ const Profile: ProfileComponent = ({ children, className = "" }) => {
     return (
         <section
             className={cn(
-                "mt-8 relative flex items-center py-10 max-w-5xl mx-auto border-t-1 border-black dark:border-rose-200/20 gap-14 flex-col md:flex-row sm:px-0 px-4 ",
+                "mt-8 relative flex items-center py-10 max-w-5xl mx-auto border-t-1 border-black dark:border-rose-200/20 md:gap-14 gap-4 flex-col md:flex-row sm:px-0 px-4 ",
                 className
             )}
         >
@@ -53,15 +53,15 @@ const ProfileImage = ({
     >
         {src !== "" ? (
             <Image
-                className="aspect-square w-48 h-48 rounded-full object-cover"
+                className="aspect-square w-24 h-24 sm:w-32 sm:h-32 md:w-40 md:h-40 lg:w-48 lg:h-48 rounded-full object-cover"
                 src={src}
                 alt={alt}
                 width={width}
                 height={height}
             />
         ) : (
-            <div className="flex items-center justify-center aspect-square w-48 h-48 rounded-full bg-gray-300 text-muted-foreground">
-                <Building2 className="w-32 h-32 " />
+            <div className="flex items-center justify-center aspect-square w-24 h-24 sm:w-32 sm:h-32 md:w-40 md:h-40 lg:w-48 lg:h-48 rounded-full bg-gray-300 text-muted-foreground">
+                <Building2 className="w-12 h-12 sm:w-16 sm:h-16 md:w-24 md:h-24 lg:w-32 lg:h-32" />
             </div>
         )}
     </div>
@@ -74,14 +74,15 @@ interface ProfileTitleProps {
     username?: string
 }
 
-const ProfileTitle = ({ children, className = "", username }: ProfileTitleProps) => (
+const ProfileTitle = ({
+    children,
+    className = "",
+    username,
+}: ProfileTitleProps) => (
     <h1 className={`text-3xl font-semibold ${className}`}>
         {children}
         {username && (
-            <p className="text-sm text-muted-foreground">
-                @
-                {username}
-            </p>
+            <p className="text-sm text-muted-foreground">@{username}</p>
         )}
     </h1>
 )
