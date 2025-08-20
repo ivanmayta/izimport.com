@@ -15,24 +15,24 @@ export default async function ProfileHero({ data }: { data: Profile }) {
         address,
         whatsapp,
         image_url,
-        socials,
+        social_urls,
     } = data
 
     const socialLinks = [
         {
-            href: socials?.facebook,
+            href: social_urls?.facebook,
             icon: (
                 <Facebook className="size-8 hover:text-blue-400 transition-colors cursor-pointer" />
             ),
         },
         {
-            href: socials?.instagram,
+            href: social_urls?.instagram,
             icon: (
                 <Instagram className="size-8 hover:text-rose-400 transition-colors cursor-pointer" />
             ),
         },
         {
-            href: socials?.tiktok,
+            href: social_urls?.tiktok,
             icon: (
                 <Tiktok className="size-8 hover:text-gray-400 transition-colors cursor-pointer" />
             ),
