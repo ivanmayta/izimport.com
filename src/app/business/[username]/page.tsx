@@ -22,9 +22,7 @@ export default async function BusinessPage({
     if (error) {
         return notFound()
     }
-    const { products, error: productsError } = await getProducts(
-        data?.id ?? ""
-    )
+    const { products, error: productsError } = await getProducts(data?.id ?? "")
     if (productsError) {
         return notFound()
     }
@@ -33,10 +31,8 @@ export default async function BusinessPage({
         new Date().toISOString()
     )
     return (
-        <div className="max-w-[1420px] mx-auto w-full">
-            <ProfileHero
-                data={data}
-            />
+        <div className="max-w-[1420px] mx-auto w-full ">
+            <ProfileHero data={data} />
             {products && (
                 <Products products={products} whatsapp={data?.whatsapp} />
             )}
