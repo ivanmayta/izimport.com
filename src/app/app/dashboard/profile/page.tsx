@@ -1,23 +1,27 @@
-import { Flex, Separator, Text, Badge, Skeleton } from "@radix-ui/themes"
+import { Skeleton, Text } from "@radix-ui/themes"
 
 import { Profile } from "./profile"
 import { Suspense } from "react"
-import { LinkBadge } from "../_components/link-badge"
+import { Building } from "lucide-react"
 export default function ProfilePage() {
     return (
         <>
-            <Flex direction="row" justify={"between"} align="center">
-                <Text as="div" size="8" weight="bold">
-                    Mi perfil
-                </Text>
+            <div className="flex items-center justify-center gap-2">
+                <span className="border-b-2 border-zinc-300 w-full"></span>
+                <div className="flex items-center justify-center gap-2 w-full">
+                    <Building size={18} strokeWidth={3} />
+                    <Text as="div" size="3" weight="medium">
+                        Información básica de Negocio
+                    </Text>
+                </div>
+                <span className="border-b-2 border-zinc-300 w-full"></span>
+            </div>
+            {/* <Flex direction="row" justify={"between"} align="end">
                 <Badge color="orange" size="3">
                     <LinkBadge />
                 </Badge>
-            </Flex>
-            <Text as="span" size="4" color="gray" className="mb-3">
-                Actualiza tu información personal y de negocio.
-            </Text>
-            <Separator my="5" size="4" color="blue" />
+            </Flex> */}
+
             <Suspense
                 fallback={<Skeleton loading height="500px" width="100%" />}
             >

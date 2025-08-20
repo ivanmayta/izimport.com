@@ -6,7 +6,7 @@ export interface Profile {
     whatsapp: string
     RUC: string
     image_url: string
-    socials?: {
+    social_urls?: {
         tiktok?: string
         instagram?: string
         facebook?: string

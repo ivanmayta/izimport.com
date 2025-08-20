@@ -40,27 +40,9 @@ const createProfileFormSchema = z.object({
             message: "La dirección debe ser de al menos 4 caracteres.",
         }),
     social_urls: z.object({
-        facebook: z
-            .string()
-            .url({
-                message: "La URL de Facebook no es válida",
-            })
-            .optional()
-            .or(z.literal("")),
-        instagram: z
-            .string()
-            .url({
-                message: "La URL de Instagram no es válida",
-            })
-            .optional()
-            .or(z.literal("")),
-        tiktok: z
-            .string()
-            .url({
-                message: "La URL de TikTok no es válida",
-            })
-            .optional()
-            .or(z.literal("")),
+        facebook: z.string().optional().or(z.literal("")),
+        instagram: z.string().optional().or(z.literal("")),
+        tiktok: z.string().optional().or(z.literal("")),
     }),
 })
 
@@ -82,9 +64,13 @@ const productFormSchema = z.object({
             message: "La descripción no debe ser mayor a 230 caracteres",
         }),
     price: z.number().min(0, { message: "El precio debe ser mayor a 0" }),
-    image_url: z.array(z.string().url({
-        message: "La URL de la imagen no es válida",
-    })).optional(),
+    image_url: z
+        .array(
+            z.string().url({
+                message: "La URL de la imagen no es válida",
+            })
+        )
+        .optional(),
 })
 export {
     createProfileFormSchema as PROFILE_FORM_SCHEMA,
