@@ -81,7 +81,7 @@ export default async function Soluciones() {
                                 <a
                                     className="text-orange-600 flex items-center mt-3 font-bold gap-2"
                                     target="_blank"
-                                    href="https://track.izimport.com/"
+                                    href="https://quotes.izimport.com/"
                                 >
                                     Cotiza importaciones
                                     <ArrowRight size={18} />
