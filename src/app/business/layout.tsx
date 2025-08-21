@@ -3,5 +3,9 @@ export default function BusinessLayout({
 }: {
     children: React.ReactNode
 }) {
-    return <>{children}</>
+    return (
+        <html lang="es">
+            <body className="business-layout">{children}</body>
+        </html>
+    )
 }

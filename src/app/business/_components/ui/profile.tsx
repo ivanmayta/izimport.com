@@ -23,7 +23,7 @@ const Profile: ProfileComponent = ({ children, className = "" }) => {
     return (
         <section
             className={cn(
-                "mt-8 relative flex items-center py-10 max-w-5xl mx-auto border-t-1 border-black dark:border-rose-200/20 md:gap-14 gap-4 flex-col md:flex-row sm:px-0 px-4 ",
+                "mt-4 relative flex items-center py-10 max-w-5xl mx-auto border-t-1 border-zinc-400 dark:border-rose-200/20 md:gap-14 gap-4 flex-col md:flex-row sm:px-0 px-4 ",
                 className
             )}
         >
@@ -48,9 +48,7 @@ const ProfileImage = ({
     height = 100,
     className = "",
 }: ProfileImageProps) => (
-    <div
-        className={`flex border bg-white rounded-xl p-2 aspect-square ${className}`}
-    >
+    <div className={`flex border rounded-xl p-2 aspect-square ${className}`}>
         {src !== "" ? (
             <Image
                 className="aspect-square w-24 h-24 sm:w-32 sm:h-32 md:w-40 md:h-40 lg:w-48 lg:h-48 rounded-full object-cover"

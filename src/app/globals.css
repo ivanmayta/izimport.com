@@ -144,3 +144,16 @@
 ::-webkit-scrollbar-thumb:hover {
     background: #555;
 }
+
+@media (prefers-color-scheme: dark) {
+    .business-layout {
+        background-color: #000000;
+        color: #ededed;
+    }
+}
+
+.business-layout {
+    background: var(--background);
+    color: var(--foreground);
+    font-family: Arial, Helvetica, sans-serif;
+}

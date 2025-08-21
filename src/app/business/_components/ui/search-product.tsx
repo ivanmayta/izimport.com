@@ -24,7 +24,7 @@ export function SearchProduct<T>({
 
     return (
         <section className={`flex flex-col gap-2  max-w-5xl mx-auto  py-4 px-4 md:px-0`}>
-            <div className="flex gap-2 border-t-1 border-b-1 border-black dark:border-rose-200/20 py-4 items-center md:flex-row flex-col-reverse ">
+            <div className="flex gap-2 border-t-1 border-b-1 border-zinc-400 dark:border-rose-200/20 py-4 items-center md:flex-row flex-col-reverse ">
                 <div className={`md:flex-1 w-full flex-none flex gap-2 font-semibold text-lg `}>
                     <span className="">Productos</span>
                     {/*
