@@ -10,7 +10,12 @@ export default function ProfilePage() {
                 <span className="border-b-2 border-zinc-300 w-full"></span>
                 <div className="flex items-center justify-center gap-2 w-full">
                     <Building size={18} strokeWidth={3} />
-                    <Text as="div" size="3" weight="medium">
+                    <Text
+                        as="div"
+                        size="3"
+                        weight="medium"
+                        className="text-center"
+                    >
                         Información básica de Negocio
                     </Text>
                 </div>
