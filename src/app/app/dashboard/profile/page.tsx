@@ -1,8 +1,9 @@
-import { Skeleton, Text } from "@radix-ui/themes"
+import { Text } from "@radix-ui/themes"
 
 import { Profile } from "./profile"
 import { Suspense } from "react"
 import { Building } from "lucide-react"
+import { ProfileFormSkeleton } from "../_components/skeletons/profile-form-skeleton"
 export default function ProfilePage() {
     return (
         <>
@@ -27,9 +28,7 @@ export default function ProfilePage() {
                 </Badge>
             </Flex> */}
 
-            <Suspense
-                fallback={<Skeleton loading height="500px" width="100%" />}
-            >
+            <Suspense fallback={<ProfileFormSkeleton />}>
                 <Profile />
             </Suspense>
         </>
