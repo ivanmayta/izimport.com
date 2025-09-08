@@ -9,6 +9,7 @@ import { ButtonDeleteAlert } from "./button-delete-alert"
 import { SearchProduct } from "./search-product"
 import { updateProduct } from "@/lib/actions"
 import { ProductForm } from "../products/form-product"
+import { limpiarHTML } from "../../lib/utils"
 
 export default function ProductList({
     products = [],
@@ -67,7 +68,7 @@ export default function ProductList({
                                         S/ {product.price.toFixed(2)}
                                     </Table.Cell>
                                     <Table.Cell>
-                                        {product.description}
+                                        {limpiarHTML(product.description)}
                                     </Table.Cell>
                                     <Table.Cell>
                                         <Flex gap="3">
