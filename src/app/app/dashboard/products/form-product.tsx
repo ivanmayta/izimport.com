@@ -2,6 +2,7 @@
 import { addProduct } from "@/lib/actions"
 
 import { ProductState } from "@/types/states"
+import { type Product } from "@/types/products"
 import { Flex, Text, TextField, Button, Card } from "@radix-ui/themes"
 import { Dialog } from "@radix-ui/themes"
 import { Plus, FileImage } from "lucide-react"
@@ -9,48 +10,218 @@ import { useActionState, useEffect, useState } from "react"
 import { toast } from "sonner"
 import Tiptap from "../_components/rich-text-editor/tiptap"
 
-export default function FormProduct() {
-    const [image, setImage] = useState<File | undefined>(undefined)
-    const [open, setOpen] = useState(false)
+export function ProductForm({
+    product,
+    action = addProduct,
+    submitLabel = "Añadir Producto",
+    onSuccess,
+}: {
+    product?: Product
+    action?: (prev: ProductState, formData: FormData) => Promise<ProductState>
+    submitLabel?: string
+    onSuccess?: () => void
+}) {
+    const isEdit = Boolean(product)
     const initialState: ProductState = {
         success: false,
         message: "",
         errors: null,
     }
-    const [state, formAction, isPending] = useActionState(
-        addProduct,
-        initialState
-    )
-    const {
-        name: nameError,
-        description: descriptionError,
-        price: priceError,
-    } = state?.errors || {}
+    const [state, formAction, isPending] = useActionState(action, initialState)
+    const [image, setImage] = useState<File | undefined>(undefined)
 
     useEffect(() => {
-        setImage(undefined)
         if (state.success) {
             toast.success(state.message)
-            setOpen(false)
+            onSuccess?.()
         }
         if (state.errors) {
             toast.error(state.message)
         }
-    }, [state])
+    }, [state, onSuccess])
+
     const handleSubmit = (formData: FormData) => {
         const data = Object.fromEntries(formData)
-        const file = data.file as File
-        if (!file) {
-            toast.error("La imagen es requerida")
-            return
-        }
-        if (file.size > 1024 * 1024) {
+        const file = data.file as File | undefined
+        if (!isEdit) {
+            if (!file) {
+                toast.error("La imagen es requerida")
+                return
+            }
+            if (file.size > 1024 * 1024) {
+                toast.error("El archivo es demasiado grande, 1mb máximo")
+                setImage(undefined)
+                return
+            }
+        } else if (file && file.size > 1024 * 1024) {
             toast.error("El archivo es demasiado grande, 1mb máximo")
             setImage(undefined)
             return
         }
         formAction(formData)
     }
+
+    const {
+        name: nameError,
+        description: descriptionError,
+        price: priceError,
+    } = state?.errors || {}
+
+    return (
+        <form action={handleSubmit} className="flex flex-col gap-6">
+            {isEdit && (
+                <input type="hidden" name="id" value={String(product!.id)} />
+            )}
+            <Card>
+                <Flex direction="column" gap="4">
+                    {/* Imagen */}
+                    <div>
+                        <Text as="label" size="2" weight="bold">
+                            Imagen
+                        </Text>
+                        <div className="relative w-full h-32">
+                            <label
+                                htmlFor={`image-uploader-${
+                                    isEdit ? "edit" : "new"
+                                }`}
+                                className="absolute border-2 border-dashed border-gray-300 hover:border-orange-500 hover:bg-orange-50 cursor-pointer inset-0 transition-all flex flex-col justify-center gap-2 rounded-md bg-gray-50 active:scale-[0.98]"
+                            >
+                                {image ? (
+                                    <img
+                                        src={URL.createObjectURL(image)}
+                                        alt="Imagen del producto"
+                                        className="w-30 h-30 p-1 object-cover rounded-md aspect-square"
+                                    />
+                                ) : product?.image_url?.[0] ? (
+                                    <img
+                                        src={product.image_url[0]}
+                                        alt={product.name}
+                                        className="w-30 h-30 p-1 object-cover rounded-md aspect-square"
+                                    />
+                                ) : (
+                                    <div className="flex flex-col items-center justify-center gap-2">
+                                        <FileImage className="w-6 h-6 text-gray-400" />
+                                        <Text size="2" color="gray">
+                                            Haz clic para subir una imagen
+                                        </Text>
+                                        <Text size="1" color="gray">
+                                            PNG, JPG hasta 1MB
+                                        </Text>
+                                    </div>
+                                )}
+                                <input
+                                    onChange={(e) =>
+                                        setImage(
+                                            e.target.files?.[0] ?? undefined
+                                        )
+                                    }
+                                    id={`image-uploader-${
+                                        isEdit ? "edit" : "new"
+                                    }`}
+                                    className="hidden"
+                                    type="file"
+                                    name="file"
+                                    accept="image/jpeg,image/png,image/gif,image/webp"
+                                />
+                            </label>
+                        </div>
+                        <Text as="p" size="1" color="gray" mt="1">
+                            PNG, JPG hasta 1MB.{" "}
+                            {isEdit
+                                ? "Sube una nueva si deseas reemplazar."
+                                : "Obligatoria."}
+                        </Text>
+                    </div>
+
+                    {/* Título */}
+                    <div>
+                        <Text as="label" size="2" weight="bold">
+                            Título
+                        </Text>
+                        <TextField.Root
+                            name="name"
+                            placeholder="Nombre del producto"
+                            defaultValue={product?.name}
+                            mt="1"
+                        />
+                        <Text
+                            as="p"
+                            size="1"
+                            color={nameError ? "red" : "gray"}
+                            mt="1"
+                        >
+                            {nameError
+                                ? nameError
+                                : "Nombre del tu producto (maximo 100 caracteres)"}
+                        </Text>
+                    </div>
+
+                    {/* Descripción */}
+                    <div>
+                        <Text as="label" size="2" weight="bold">
+                            Descripción
+                        </Text>
+                        <Tiptap
+                            name="description"
+                            initialContent={product?.description || "<p></p>"}
+                        />
+                        <Text
+                            as="p"
+                            size="1"
+                            color={descriptionError ? "red" : "gray"}
+                            mt="1"
+                        >
+                            {descriptionError
+                                ? descriptionError
+                                : "Descripción breve del producto (maximo 230 caracteres)"}
+                        </Text>
+                    </div>
+
+                    {/* Precio */}
+                    <div>
+                        <Text as="label" size="2" weight="bold">
+                            Precio
+                        </Text>
+                        <TextField.Root
+                            name="price"
+                            placeholder="0.00"
+                            type="number"
+                            defaultValue={product?.price}
+                            mt="1"
+                        >
+                            <TextField.Slot>S/</TextField.Slot>
+                        </TextField.Root>
+                        <Text
+                            as="p"
+                            size="1"
+                            color={priceError ? "red" : "gray"}
+                            mt="1"
+                        >
+                            {priceError
+                                ? priceError
+                                : "El precio debe ser mayor a 0"}
+                        </Text>
+                    </div>
+                </Flex>
+            </Card>
+
+            <Flex gap="3" justify="end">
+                <Button type="submit" disabled={isPending} color="orange">
+                    {isEdit
+                        ? isPending
+                            ? "Guardando..."
+                            : submitLabel
+                        : isPending
+                        ? "Añadiendo..."
+                        : submitLabel}
+                </Button>
+            </Flex>
+        </form>
+    )
+}
+
+export default function FormProduct() {
+    const [open, setOpen] = useState(false)
     return (
         <div>
             <Dialog.Root open={open} onOpenChange={setOpen}>
@@ -67,153 +238,11 @@ export default function FormProduct() {
                         Añade un producto a tu inventario.
                     </Dialog.Description>
 
-                    <form action={handleSubmit} className="flex flex-col gap-6">
-                        <Card>
-                            <Flex direction="column" gap="4">
-                                {/* Imagen Upload Section */}
-                                <div>
-                                    <Text as="label" size="2" weight="bold">
-                                        Imagen
-                                    </Text>
-                                    <div className="relative w-full h-32">
-                                        <label
-                                            htmlFor="image-uploader"
-                                            className="absolute border-2 border-dashed border-gray-300 hover:border-orange-500 hover:bg-orange-50 cursor-pointer inset-0 transition-all flex flex-col justify-center gap-2 rounded-md bg-gray-50 active:scale-[0.98]"
-                                        >
-                                            {image ? (
-                                                <img
-                                                    src={
-                                                        image
-                                                            ? URL.createObjectURL(
-                                                                  image
-                                                              )
-                                                            : ""
-                                                    }
-                                                    alt="Imagen del producto"
-                                                    className="w-30 h-30 p-1 object-cover rounded-md aspect-square"
-                                                />
-                                            ) : (
-                                                <div className="flex flex-col items-center justify-center gap-2">
-                                                    <FileImage className="w-6 h-6 text-gray-400" />
-                                                    <Text size="2" color="gray">
-                                                        Haz clic para subir una
-                                                        imagen
-                                                    </Text>
-                                                    <Text size="1" color="gray">
-                                                        PNG, JPG hasta 5MB
-                                                    </Text>
-                                                </div>
-                                            )}
-
-                                            <input
-                                                onChange={(e) => {
-                                                    setImage(
-                                                        e.target.files?.[0] ??
-                                                            undefined
-                                                    )
-                                                }}
-                                                id="image-uploader"
-                                                className="hidden"
-                                                type="file"
-                                                name="file"
-                                                accept="image/jpeg,image/png,image/gif,image/webp"
-                                            />
-                                        </label>
-                                    </div>
-                                    <Text as="p" size="1" color="gray" mt="1">
-                                        SVG, PNG, JPG (MAX. 800x400px). Máximo 1
-                                        imágenes.
-                                    </Text>
-                                </div>
-
-                                {/* Product Name */}
-                                <div>
-                                    <Text as="label" size="2" weight="bold">
-                                        Título
-                                    </Text>
-                                    <TextField.Root
-                                        name="name"
-                                        placeholder="Nombre del producto"
-                                        mt="1"
-                                    />
-                                    <Text
-                                        as="p"
-                                        size="1"
-                                        color={nameError ? "red" : "gray"}
-                                        mt="1"
-                                    >
-                                        {nameError
-                                            ? nameError
-                                            : "Nombre del tu producto (maximo 100 caracteres)"}
-                                    </Text>
-                                </div>
-
-                                {/* Description */}
-                                <div>
-                                    <Text as="label" size="2" weight="bold">
-                                        Descripción
-                                    </Text>
-                                    {/*          
-                                    <TextField.Root
-                                        name="description1"
-                                        placeholder="Descripción del producto"
-                                        mt="1"
-                                    />
-                                    */}
-
-                                    <Tiptap />
-                                    <Text
-                                        as="p"
-                                        size="1"
-                                        color={
-                                            descriptionError ? "red" : "gray"
-                                        }
-                                        mt="1"
-                                    >
-                                        {descriptionError
-                                            ? descriptionError
-                                            : "Descripción breve del producto (maximo 230 caracteres)"}
-                                    </Text>
-                                </div>
-
-                                {/* Price */}
-                                <div>
-                                    <Text as="label" size="2" weight="bold">
-                                        Precio
-                                    </Text>
-                                    <TextField.Root
-                                        name="price"
-                                        placeholder="0.00"
-                                        type="number"
-                                        mt="1"
-                                    >
-                                        <TextField.Slot>S/</TextField.Slot>
-                                    </TextField.Root>
-                                    <Text
-                                        as="p"
-                                        size="1"
-                                        color={priceError ? "red" : "gray"}
-                                        mt="1"
-                                    >
-                                        {priceError
-                                            ? priceError
-                                            : "El precio debe ser mayor a 0"}
-                                    </Text>
-                                </div>
-                            </Flex>
-                        </Card>
-
-                        <Flex gap="3" justify="end">
-                            <Dialog.Close>
-                                <Button variant="soft" color="gray">
-                                    Cancelar
-                                </Button>
-                            </Dialog.Close>
-                            <Button disabled={isPending} color="orange">
-                                {isPending ? "Añadiendo..." : "Añadir Producto"}
-                            </Button>
-                        </Flex>
-                    </form>
+                    <ProductForm
+                        action={addProduct}
+                        submitLabel="Añadir Producto"
+                        onSuccess={() => setOpen(false)}
+                    />
                 </Dialog.Content>
             </Dialog.Root>
         </div>

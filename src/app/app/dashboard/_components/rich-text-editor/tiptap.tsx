@@ -3,14 +3,20 @@
 import { useEditor, EditorContent } from "@tiptap/react"
 import StarterKit from "@tiptap/starter-kit"
 import MenuBar from "./menu-bar"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
-const Tiptap = () => {
+const Tiptap = ({
+    name = "description",
+    initialContent = "",
+}: {
+    name?: string
+    initialContent?: string
+}) => {
     const [html, setHtml] = useState("")
 
     const editor = useEditor({
         extensions: [StarterKit],
-        content: "",
+        content: initialContent,
         // Don't render immediately on the server to avoid SSR issues
         immediatelyRender: false,
         onUpdate: ({ editor }) => {
@@ -23,11 +29,17 @@ const Tiptap = () => {
         },
     })
 
+    useEffect(() => {
+        if (editor) {
+            setHtml(editor.getHTML())
+        }
+    }, [editor])
+
     return (
         <div>
             <MenuBar editor={editor} />
-            <EditorContent className="border" name="content" editor={editor} />
-            <input type="hidden" name="description" value={html} />
+            <EditorContent className="border tiptap" editor={editor} />
+            <input type="hidden" name={name} value={html} />
         </div>
     )
 }

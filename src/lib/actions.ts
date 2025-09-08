@@ -250,6 +250,102 @@ export const addProduct = async (
     }
 }
 
+export const updateProduct = async (
+    prevState: ProductState,
+    formData: FormData
+): Promise<ProductState> => {
+    try {
+        const data = Object.fromEntries(formData)
+        const idRaw = data.id
+        const id =
+            typeof idRaw === "string" ? parseInt(idRaw, 10) : Number(idRaw)
+        const name = String(data.name ?? "")
+        const description = String(data.description ?? "")
+        const price = Number(data.price ?? 0)
+        const file = data.file as File | undefined
+
+        const validatedFields = PRODUCT_FORM_SCHEMA.safeParse({
+            name,
+            description,
+            price,
+        })
+        if (!validatedFields.success) {
+            return {
+                success: false,
+                message: "Error de validación: ingresa datos correctos",
+                errors: validatedFields.error.flatten().fieldErrors,
+            }
+        }
+
+        const userId = await verifyAuthUser()
+        if (!userId) {
+            return {
+                success: false,
+                message: "No autenticado",
+                errors: {},
+            }
+        }
+
+        const supabase = createServerSupabaseClient()
+
+        let imageUrlArr: string[] | undefined
+        if (file && file.size > 0) {
+            if (file.size > 1024 * 1024) {
+                return {
+                    success: false,
+                    message: "El archivo es demasiado grande, 1mb máximo",
+                    errors: {},
+                }
+            }
+            const { success, imageUrl } = await uploadProductImage(file)
+            if (!success || !imageUrl) {
+                return {
+                    success: false,
+                    message: "Error al subir la imagen a cloudinary",
+                    errors: {},
+                }
+            }
+            imageUrlArr = [imageUrl]
+        }
+
+        const updatePayload: Record<string, unknown> = {
+            name: validatedFields.data.name,
+            description: validatedFields.data.description,
+            price: validatedFields.data.price,
+        }
+        if (imageUrlArr) {
+            updatePayload.image_url = imageUrlArr
+        }
+
+        const { error } = await supabase
+            .from("products")
+            .update(updatePayload)
+            .eq("id", id)
+
+        if (error) {
+            return {
+                success: false,
+                message: error.message,
+                errors: {},
+            }
+        }
+
+        revalidatePath("/dashboard/products")
+        await revalidateBusinessProfile()
+        return {
+            success: true,
+            message: "Producto actualizado exitosamente!",
+            errors: null,
+        }
+    } catch (e: any) {
+        return {
+            success: false,
+            message: e?.message ?? "Error",
+            errors: {},
+        }
+    }
+}
+
 export const deleteProductAction = async (
     id: string
 ): Promise<ProductState> => {

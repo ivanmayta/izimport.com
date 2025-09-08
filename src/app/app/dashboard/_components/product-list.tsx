@@ -1,17 +1,22 @@
 "use client"
 
+import { useState } from "react"
 import { Edit } from "lucide-react"
 
-import { Button, Flex, Table } from "@radix-ui/themes"
+import { Button, Flex, Table, Dialog } from "@radix-ui/themes"
 import { Product } from "@/types/products"
 import { ButtonDeleteAlert } from "./button-delete-alert"
 import { SearchProduct } from "./search-product"
+import { updateProduct } from "@/lib/actions"
+import { ProductForm } from "../products/form-product"
 
 export default function ProductList({
     products = [],
 }: {
     products: Product[]
 }) {
+    const [selected, setSelected] = useState<Product | null>(null)
+    const [open, setOpen] = useState(false)
     return (
         <>
             <SearchProduct
@@ -69,13 +74,50 @@ export default function ProductList({
                                             <ButtonDeleteAlert
                                                 id={product.id.toString()}
                                             />
-                                            <Button
-                                                variant="soft"
-                                                color="gray"
-                                                className="!cursor-pointer"
+                                            <Dialog.Root
+                                                open={
+                                                    open &&
+                                                    selected?.id === product.id
+                                                }
+                                                onOpenChange={(v: boolean) => {
+                                                    setOpen(v)
+                                                    if (!v) setSelected(null)
+                                                }}
                                             >
-                                                <Edit className="h-4 w-4" />
-                                            </Button>
+                                                <Dialog.Trigger>
+                                                    <Button
+                                                        variant="soft"
+                                                        color="gray"
+                                                        className="!cursor-pointer"
+                                                        onClick={() => {
+                                                            setSelected(product)
+                                                            setOpen(true)
+                                                        }}
+                                                    >
+                                                        <Edit className="h-4 w-4" />
+                                                    </Button>
+                                                </Dialog.Trigger>
+                                                <Dialog.Content>
+                                                    <Dialog.Title>
+                                                        Editar producto
+                                                    </Dialog.Title>
+                                                    {selected && (
+                                                        <ProductForm
+                                                            product={selected}
+                                                            action={
+                                                                updateProduct
+                                                            }
+                                                            submitLabel="Guardar cambios"
+                                                            onSuccess={() => {
+                                                                setOpen(false)
+                                                                setSelected(
+                                                                    null
+                                                                )
+                                                            }}
+                                                        />
+                                                    )}
+                                                </Dialog.Content>
+                                            </Dialog.Root>
                                         </Flex>
                                     </Table.Cell>
                                 </Table.Row>
