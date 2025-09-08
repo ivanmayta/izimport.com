@@ -155,6 +155,7 @@ export const addProduct = async (
     console.log("formData", formData)
     // VALIDATIONS ->formData
     const data = Object.fromEntries(formData)
+    console.log("data", data)
     const validatedFields = PRODUCT_FORM_SCHEMA.safeParse({
         name: data.name,
         description: data.description,

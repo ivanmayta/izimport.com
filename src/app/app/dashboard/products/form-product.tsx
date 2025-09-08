@@ -7,6 +7,7 @@ import { Dialog } from "@radix-ui/themes"
 import { Plus, FileImage } from "lucide-react"
 import { useActionState, useEffect, useState } from "react"
 import { toast } from "sonner"
+import Tiptap from "../_components/rich-text-editor/tiptap"
 
 export default function FormProduct() {
     const [image, setImage] = useState<File | undefined>(undefined)
@@ -152,11 +153,15 @@ export default function FormProduct() {
                                     <Text as="label" size="2" weight="bold">
                                         Descripción
                                     </Text>
+                                    {/*          
                                     <TextField.Root
-                                        name="description"
+                                        name="description1"
                                         placeholder="Descripción del producto"
                                         mt="1"
                                     />
+                                    */}
+
+                                    <Tiptap />
                                     <Text
                                         as="p"
                                         size="1"

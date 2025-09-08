@@ -4,6 +4,7 @@ import ProfileHero from "../_components/hero-profile"
 import Products from "../_components/products"
 import { notFound } from "next/navigation"
 import { Metadata, ResolvingMetadata } from "next"
+import { sanitizeHtml } from "../lib/sanitize-html"
 
 export const dynamic = "force-static"
 export const dynamicParams = true
@@ -50,6 +51,7 @@ export default async function BusinessPage({
     const { username } = await params
     const supabase = createClientSupabaseClient()
     const { data, error } = await getProfileByUsername(supabase, username)
+    const safeDescription = sanitizeHtml(data?.description ?? "")
     if (error) {
         return notFound()
     }
@@ -63,7 +65,7 @@ export default async function BusinessPage({
     )
     return (
         <div className="max-w-[1420px] mx-auto w-full ">
-            <ProfileHero data={data} />
+            <ProfileHero data={{ ...data, description: safeDescription }} />
             {products && (
                 <Products products={products} whatsapp={data?.whatsapp} />
             )}

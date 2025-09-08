@@ -11,6 +11,7 @@ import {
     DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog"
+import { SafeHTMLRenderer } from "../safe-html-renderer"
 const ProductCardContext = createContext<{ value: Product } | null>(null)
 function useProductCardProvider() {
     const context = useContext(ProductCardContext)
@@ -67,7 +68,10 @@ function Image({ className }: { className?: string }) {
                 <p className=" text-end  font-medium mb-1">s/.{value.price}</p>
 
                 <DialogDescription className=" w-full max-w-[80%] text-start ">
-                    {value.description}
+                    <SafeHTMLRenderer
+                        html={value.description}
+                        className="product-content"
+                    />
                 </DialogDescription>
             </DialogContent>
         </Dialog>
