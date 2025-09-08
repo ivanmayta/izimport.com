@@ -57,13 +57,18 @@ function Image({ className }: { className?: string }) {
                     </div>
                 </div>
             </DialogTrigger>
-            <DialogContent>
+            <DialogContent className="flex flex-col items-center">
                 <DialogTitle>{value.name}</DialogTitle>
                 <ProductImage
                     product={value}
-                    className="w-auto h-50 aspect-square"
+                    maxWidth="50%"
+                    className=" h-50  aspect-square"
                 />
-                <DialogDescription>{value.description}</DialogDescription>
+                <p className=" text-end  font-medium mb-1">s/.{value.price}</p>
+
+                <DialogDescription className=" w-full max-w-[80%] text-start ">
+                    {value.description}
+                </DialogDescription>
             </DialogContent>
         </Dialog>
     )
