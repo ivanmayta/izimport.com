@@ -15,6 +15,7 @@ import {
 import { ShoppingCart } from "lucide-react"
 import { useCartStore } from "@/app/business/_store/store"
 import Cart from "@/app/business/_components/cart"
+import { useIsMobile } from "@/hooks/use-mobile"
 
 interface CartSheetProps {
     children: React.ReactNode
@@ -24,17 +25,24 @@ export default function CartSheet({ children }: CartSheetProps) {
     const [open, setOpen] = useState(false)
     const [mounted, setMounted] = useState(false)
     const [prevItemsLength, setPrevItemsLength] = useState(0)
+    const isMobile = useIsMobile()
     const getTotalItems = useCartStore((state) => state.getTotalItems)
     const items = useCartStore((state) => state.items)
     const totalItems = getTotalItems()
 
     // Monitor changes in cart items to auto-open sheet when items are added
+    // Only auto-open on desktop to avoid covering the entire screen on mobile
     useEffect(() => {
-        if (mounted && items.length > prevItemsLength && items.length > 0) {
+        if (
+            mounted &&
+            items.length > prevItemsLength &&
+            items.length > 0 &&
+            !isMobile
+        ) {
             setOpen(true)
         }
         setPrevItemsLength(items.length)
-    }, [items.length, mounted, prevItemsLength])
+    }, [items.length, mounted, prevItemsLength, isMobile])
 
     // Handle hydration
     useEffect(() => {

@@ -1,10 +1,16 @@
 "use client"
 import { cn } from "@/lib/utils"
 import { type Product } from "@/types/products"
-import { ShoppingCart } from "lucide-react"
+import { ShoppingCart, ListCollapse } from "lucide-react"
 import { createContext, useContext } from "react"
 import { ProductImage } from "../ui/product-image"
-
+import {
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogTitle,
+    DialogTrigger,
+} from "@/components/ui/dialog"
 const ProductCardContext = createContext<{ value: Product } | null>(null)
 function useProductCardProvider() {
     const context = useContext(ProductCardContext)
@@ -28,10 +34,7 @@ function Root({
     return (
         <ProductCardContext.Provider value={{ value }}>
             <div
-                className={cn(
-                    "group cursor-pointer flex flex-col h-full",
-                    className
-                )}
+                className={cn("group flex flex-col h-full", className)}
                 {...props}
             >
                 {children}
@@ -42,7 +45,28 @@ function Root({
 
 function Image({ className }: { className?: string }) {
     const { value } = useProductCardProvider()
-    return <ProductImage product={value} className={className} />
+
+    return (
+        <Dialog>
+            <DialogTrigger>
+                <div className="relative">
+                    <ProductImage product={value} className={className} />
+                    <div className=" cursor-pointer py-2 px-3 absolute flex items-center text-xs gap-2 group-hover:opacity-100 opacity-15 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 p-1 rounded-md bg-white dark:bg-black hover:text-primary">
+                        <ListCollapse size={16} />
+                        Detalles
+                    </div>
+                </div>
+            </DialogTrigger>
+            <DialogContent>
+                <DialogTitle>{value.name}</DialogTitle>
+                <ProductImage
+                    product={value}
+                    className="w-auto h-50 aspect-square"
+                />
+                <DialogDescription>{value.description}</DialogDescription>
+            </DialogContent>
+        </Dialog>
+    )
 }
 function Information({ className }: { className?: string }) {
     const { value } = useProductCardProvider()
@@ -70,11 +94,11 @@ function Button({
         <button
             onClick={onClick}
             className={cn(
-                "cursor-pointer bg-white font-medium text-sm py-1 border text-black w-full mt-auto rounded-sm flex items-center justify-around hover:bg-gray-50 transition-colors duration-200",
+                "cursor-pointer dark:bg-white bg-black text-white font-medium text-sm py-1 border dark:text-black w-full mt-auto rounded-sm flex items-center justify-around dark:hover:bg-gray-50 hover:bg-zinc-800 transition-colors duration-200",
                 className
             )}
         >
-            <span className="flex items-center gap-2">
+            <span className="flex items-center gap-2 ">
                 <ShoppingCart size={16} />
                 Añadir al carrito
             </span>
