@@ -12,8 +12,11 @@ import Link from "next/link"
 import { getProducts, getProfile } from "@/lib/fetchers"
 import { createServerSupabaseClient } from "@/lib/supbase-clerk/server"
 import { verifyAuthUser } from "@/lib/dal"
+import { Whatsapp } from "@/icons/whatsapp"
 
 export default async function DashboardPage() {
+    const baseDomain = process.env.NEXT_PUBLIC_BASE_DOMAIN
+    console.log("baseDomain", baseDomain)
     const supabase = createServerSupabaseClient()
     const userId = await verifyAuthUser()
     const profile = await getProfile(supabase, userId)
@@ -36,7 +39,7 @@ export default async function DashboardPage() {
                         </h1>
                         {username ? (
                             <Link
-                                href={`/${username}`}
+                                href={`${baseDomain}/${username}`}
                                 target="_blank"
                                 rel="noopener noreferrer"
                             >
@@ -108,9 +111,9 @@ export default async function DashboardPage() {
                             </Card>
                         </div>
 
-                        <Card className="border-accent/20 bg-gradient-to-r from-accent/5 to-transparent">
+                        <Card>
                             <div className="flex items-center gap-2">
-                                <Store className="h-5 w-5 text-accent" />
+                                <Store className="h-5 w-5" />
                                 <h3 className="text-lg font-semibold">
                                     Completa tu perfil de negocio
                                 </h3>
@@ -119,13 +122,25 @@ export default async function DashboardPage() {
                                 Configura tu información comercial para mejorar
                                 la experiencia de tus clientes
                             </p>
-                            <div>
-                                <div className="space-y-3">
-                                    <div className="flex items-center justify-between">
-                                        <span className="text-sm">
-                                            Información básica
-                                        </span>
-                                        {profile ? (
+                            <div className="mt-3 space-y-3">
+                                <div className="flex items-center justify-between">
+                                    <div className="text-sm">Enlace</div>
+                                    <div className="flex items-center gap-2">
+                                        {username ? (
+                                            <Link
+                                                href={`${baseDomain}/${username}`}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="text-sm font-medium hover:underline"
+                                            >
+                                                /{username}
+                                            </Link>
+                                        ) : (
+                                            <span className="text-sm text-muted-foreground">
+                                                Pendiente
+                                            </span>
+                                        )}
+                                        {username ? (
                                             <Badge className="bg-green-100 text-green-800">
                                                 Completado
                                             </Badge>
@@ -133,28 +148,51 @@ export default async function DashboardPage() {
                                             <Badge>Pendiente</Badge>
                                         )}
                                     </div>
-                                    <div className="flex items-center justify-between">
-                                        <span className="text-sm">
-                                            Horarios de atención
-                                        </span>
-                                        <Badge>Pendiente</Badge>
-                                    </div>
-                                    <div className="flex items-center justify-between">
-                                        <span className="text-sm">
-                                            Métodos de pago
-                                        </span>
-                                        <Badge>Pendiente</Badge>
+                                </div>
+
+                                <div className="flex items-center justify-between">
+                                    <div className="text-sm">Nombre</div>
+                                    <div className="flex items-center gap-2">
+                                        {profile?.name ? (
+                                            <span className="text-sm font-medium">
+                                                {profile.name}
+                                            </span>
+                                        ) : (
+                                            <span className="text-sm text-muted-foreground">
+                                                Pendiente
+                                            </span>
+                                        )}
+                                        {profile?.name ? (
+                                            <Badge className="bg-green-100 text-green-800">
+                                                Completado
+                                            </Badge>
+                                        ) : (
+                                            <Badge>Pendiente</Badge>
+                                        )}
                                     </div>
                                 </div>
-                                <Button
-                                    asChild
-                                    className="w-full mt-4 bg-transparent"
-                                    variant="outline"
-                                >
-                                    <Link href="/app/dashboard/profile">
-                                        Configurar perfil
-                                    </Link>
-                                </Button>
+
+                                <div className="flex items-center justify-between">
+                                    <div className="text-sm">WhatsApp</div>
+                                    <div className="flex items-center gap-2">
+                                        {profile?.whatsapp ? (
+                                            <span className="text-sm font-medium">
+                                                {profile.whatsapp}
+                                            </span>
+                                        ) : (
+                                            <span className="text-sm text-muted-foreground">
+                                                Pendiente
+                                            </span>
+                                        )}
+                                        {profile?.whatsapp ? (
+                                            <Badge className="bg-green-100 text-green-800">
+                                                Completado
+                                            </Badge>
+                                        ) : (
+                                            <Badge>Pendiente</Badge>
+                                        )}
+                                    </div>
+                                </div>
                             </div>
                         </Card>
                     </div>
@@ -179,11 +217,11 @@ export default async function DashboardPage() {
                                     className="w-full bg-green-600 hover:bg-green-700 text-white"
                                 >
                                     <Link
-                                        href="https://wa.me/51999999999"
+                                        href="https://wa.me/51972677175"
                                         target="_blank"
                                         rel="noopener noreferrer"
                                     >
-                                        <MessageCircle className="h-4 w-4 mr-2" />
+                                        <Whatsapp className="h-6 w-6 mr-2" />
                                         Contactar por WhatsApp
                                     </Link>
                                 </Button>
