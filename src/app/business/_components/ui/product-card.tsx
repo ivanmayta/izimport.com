@@ -67,12 +67,12 @@ function Image({ className }: { className?: string }) {
                 />
                 <p className=" text-end  font-medium mb-1">s/.{value.price}</p>
 
-                <DialogDescription className=" w-full max-w-[80%] text-start ">
+                <div className=" w-full max-w-[80%] text-start ">
                     <SafeHTMLRenderer
                         html={value.description}
                         className="product-content"
                     />
-                </DialogDescription>
+                </div>
             </DialogContent>
         </Dialog>
     )
