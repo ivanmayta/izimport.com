@@ -7,7 +7,9 @@ export default function BusinessLayout({
 }) {
     return (
         <html lang="es">
-            <body className="business-layout">{children}</body>
+            <body>
+                <div className="business-layout">{children}</div>
+            </body>
         </html>
     )
 }
