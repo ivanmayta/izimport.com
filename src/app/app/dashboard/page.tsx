@@ -1,18 +1,12 @@
 import { Card, Badge } from "@radix-ui/themes"
 import { Button } from "@/components/ui/button"
-import {
-    ExternalLink,
-    Store,
-    MessageCircle,
-    Instagram,
-    Mail,
-    Calendar,
-} from "lucide-react"
+import { ExternalLink, Store, Instagram, Calendar, Youtube } from "lucide-react"
 import Link from "next/link"
 import { getProducts, getProfile } from "@/lib/fetchers"
 import { createServerSupabaseClient } from "@/lib/supbase-clerk/server"
 import { verifyAuthUser } from "@/lib/dal"
 import { Whatsapp } from "@/icons/whatsapp"
+import { Facebook } from "@/icons/facebook"
 
 export default async function DashboardPage() {
     const baseDomain = process.env.NEXT_PUBLIC_BASE_DOMAIN
@@ -23,7 +17,7 @@ export default async function DashboardPage() {
     const { count: productCount = 0 } = await getProducts(profile?.id ?? "")
     const username = profile?.username
     const usedProducts = productCount
-    const planLimit = 15
+    const planLimit = profile?.product_limit ?? 0
     const planUsagePct = Math.min(
         100,
         Math.round((usedProducts / planLimit) * 100)
@@ -51,7 +45,13 @@ export default async function DashboardPage() {
                     </div>
                     <div className="flex items-center gap-2 text-sm text-muted-foreground">
                         <Calendar className="h-4 w-4" />
-                        <span>Diciembre 1, 2024 - Diciembre 8, 2024</span>
+                        <span>
+                            {new Date().toLocaleDateString("es-PE", {
+                                month: "long",
+                                day: "numeric",
+                                year: "numeric",
+                            })}
+                        </span>
                     </div>
                 </div>
 
@@ -69,6 +69,16 @@ export default async function DashboardPage() {
                                         {productCount}
                                     </div>
                                 </div>
+                                <div>
+                                    <Badge
+                                        variant="outline"
+                                        className="text-xs"
+                                    >
+                                        <Link href="/dashboard/products">
+                                            Gestionar productos
+                                        </Link>
+                                    </Badge>
+                                </div>
                             </Card>
 
                             <Card className="border-dashed border-muted-foreground/30">
@@ -84,6 +94,7 @@ export default async function DashboardPage() {
                                     <Badge
                                         variant="outline"
                                         className="text-xs"
+                                        color="gray"
                                     >
                                         Próximamente
                                     </Badge>
@@ -104,6 +115,7 @@ export default async function DashboardPage() {
                                     <Badge
                                         variant="outline"
                                         className="text-xs"
+                                        color="gray"
                                     >
                                         Próximamente
                                     </Badge>
@@ -193,6 +205,24 @@ export default async function DashboardPage() {
                                         )}
                                     </div>
                                 </div>
+                                <div className="flex items-center justify-between">
+                                    <div className="text-sm">---------</div>
+                                    <div className="flex items-center gap-2">
+                                        ---
+                                    </div>
+                                </div>
+                                <Button
+                                    className="w-full mt-4 bg-transparent"
+                                    variant="outline"
+                                    asChild
+                                >
+                                    <Link
+                                        className="border border-muted-foreground/40 hover:bg-muted-foreground/20"
+                                        href="/dashboard/profile"
+                                    >
+                                        Configurar perfil
+                                    </Link>
+                                </Button>
                             </div>
                         </Card>
                     </div>
@@ -259,7 +289,13 @@ export default async function DashboardPage() {
                                     variant="outline"
                                     className="w-full bg-transparent"
                                 >
-                                    Mejorar plan
+                                    <Link
+                                        href="https://wa.me/51972677175"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                    >
+                                        Mejorar plan
+                                    </Link>
                                 </Button>
                             </div>
                         </Card>
@@ -274,28 +310,40 @@ export default async function DashboardPage() {
                                 consejos
                             </p>
                             <div>
-                                <div className="flex justify-center gap-4">
-                                    <Button
-                                        variant="outline"
-                                        size="icon"
+                                <div className="flex justify-center gap-4 pt-4">
+                                    <Link
+                                        href="https://wa.me/51972677175"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
                                         className="h-12 w-12 bg-transparent"
                                     >
-                                        <MessageCircle className="h-5 w-5 text-green-600" />
-                                    </Button>
-                                    <Button
-                                        variant="outline"
-                                        size="icon"
+                                        <Whatsapp className="h-5 w-5 text-green-600" />
+                                    </Link>
+                                    <Link
+                                        href="https://www.instagram.com/_izimport"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
                                         className="h-12 w-12 bg-transparent"
                                     >
                                         <Instagram className="h-5 w-5 text-pink-600" />
-                                    </Button>
-                                    <Button
-                                        variant="outline"
-                                        size="icon"
+                                    </Link>
+                                    <Link
+                                        href="https://www.facebook.com/izimportcom"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
                                         className="h-12 w-12 bg-transparent"
                                     >
-                                        <Mail className="h-5 w-5 text-blue-600" />
-                                    </Button>
+                                        <Facebook className="h-5 w-5 text-blue-700" />
+                                    </Link>
+
+                                    <Link
+                                        href="https://www.youtube.com/@izimport"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="h-12 w-12 bg-transparent"
+                                    >
+                                        <Youtube className="h-5 w-5 text-red-600" />
+                                    </Link>
                                 </div>
                             </div>
                         </Card>
