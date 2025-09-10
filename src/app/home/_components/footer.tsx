@@ -64,54 +64,39 @@ function Footer() {
                         {/* Producto column */}
                         <div>
                             <h3 className="font-semibold text-lg mb-4">
-                                Producto
+                                Productos
                             </h3>
                             <ul className="space-y-2">
                                 <li>
                                     <a
                                         href="#"
-                                        className="text-gray-300 hover:text-white transition-colors"
+                                        className="hover:border-b-2 hover:border-white py-2 font-medium text-white"
                                     >
                                         Precios
                                     </a>
                                 </li>
                                 <li>
-                                    <a
-                                        href="#"
-                                        className="text-gray-300 hover:text-white transition-colors"
+                                    <Link
+                                        className="hover:border-b-2 hover:border-white py-2 font-medium text-white"
+                                        href="https://track.izimport.com"
+                                        target="_blank"
                                     >
-                                        Solicita una demo
-                                    </a>
+                                        Rastrea
+                                    </Link>
                                 </li>
                                 <li>
-                                    <a
-                                        href="#"
-                                        className="text-gray-300 hover:text-white transition-colors"
+                                    <Link
+                                        className="hover:border-b-2 hover:border-white py-2 font-medium text-white"
+                                        href="https://quotes.izimport.com"
+                                        target="_blank"
                                     >
-                                        Regístrate
-                                    </a>
+                                        Cotiza
+                                    </Link>
                                 </li>
                             </ul>
                         </div>
 
                         {/* Recursos column */}
-                        <div>
-                            <h3 className="font-semibold text-lg mb-4">
-                                Recursos
-                            </h3>
-                            <ul className="space-y-2">
-                                <li>
-                                    <a
-                                        href="#"
-                                        className="text-gray-300 hover:text-white transition-colors"
-                                    >
-                                        Blog
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-
-                        {/* Legal column */}
                         <div>
                             <h3 className="font-semibold text-lg mb-4">
                                 Legal
@@ -126,16 +111,7 @@ function Footer() {
                                         Términos y Condiciones
                                     </a>
                                 </li>
-                                <li>
-                                    <a
-                                        href={`${appUrl}/libro-de-reclamaciones`}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="text-gray-300 hover:text-white transition-colors"
-                                    >
-                                        Libro de Reclamaciones
-                                    </a>
-                                </li>
+
                                 <li>
                                     <a
                                         href={`${appUrl}/politicas-de-cambios-devoluciones`}
@@ -144,6 +120,29 @@ function Footer() {
                                         className="text-gray-300 hover:text-white transition-colors"
                                     >
                                         Políticas de Cambios y Devoluciones
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+
+                        {/* Legal column */}
+                        <div>
+                            <h3 className="font-semibold text-lg mb-4">
+                                Adicional
+                            </h3>
+                            <ul className="space-y-2">
+                                <li>
+                                    <a
+                                        href={`${appUrl}/libro-de-reclamaciones`}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="text-gray-300 hover:text-white transition-colors"
+                                    >
+                                        <img
+                                            src="/images/libro-de-reclamaciones.png"
+                                            alt="Libro de Reclamaciones"
+                                            className="w-40  aspect-video rounded-sm"
+                                        />
                                     </a>
                                 </li>
                             </ul>
@@ -161,7 +160,7 @@ function Footer() {
                         </Button>
 
                         {/* Copyright */}
-                        <p className="text-gray-400 text-sm">
+                        <p className="flex text-gray-400 text-sm gap-2">
                             © 2025
                             <Link
                                 href="https://iverse.dev"
@@ -171,7 +170,7 @@ function Footer() {
                             >
                                 <Github className="w-4" />
                                 iverse.dev
-                            </Link>{" "}
+                            </Link>
                             Todos los derechos reservados.
                         </p>
                     </div>
