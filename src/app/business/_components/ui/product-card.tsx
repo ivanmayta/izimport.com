@@ -7,7 +7,6 @@ import { ProductImage } from "../ui/product-image"
 import {
     Dialog,
     DialogContent,
-    DialogDescription,
     DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog"
