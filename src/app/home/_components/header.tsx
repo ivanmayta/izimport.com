@@ -48,6 +48,17 @@ export default function Header() {
                     </div>
                 </div>
             </div>
+            <div className=" mt-2 mx-auto bg-primary text-primary-foreground py-2 px-4 text-center text-md">
+                <span className="font-medium">
+                    🚀 ¿Vendes productos por WhatsApp?{" "}
+                </span>
+                <a
+                    href={`${appUrl}`}
+                    className="underline hover:no-underline font-semibold"
+                >
+                    Crea tu tienda online GRATIS aquí →
+                </a>
+            </div>{" "}
         </header>
     )
 }
