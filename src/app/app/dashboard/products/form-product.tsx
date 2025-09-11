@@ -121,12 +121,12 @@ export function ProductForm({
                                     className="hidden"
                                     type="file"
                                     name="file"
-                                    accept="image/jpeg,image/png,image/gif,image/webp"
+                                    accept="image/jpeg,image/png,image/gif,image/webp,image/avif"
                                 />
                             </label>
                         </div>
                         <Text as="p" size="1" color="gray" mt="1">
-                            PNG, JPG hasta 1MB.{" "}
+                            PNG, JPG, WEBP, AVIF hasta 1MB.{" "}
                             {isEdit
                                 ? "Sube una nueva si deseas reemplazar."
                                 : "Obligatoria."}

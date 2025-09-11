@@ -29,9 +29,36 @@ cloudinary.config({
 const FOLDER = "izimport"
 
 export const uploadImage = async (file: File | undefined) => {
-    //TODO: Add validation for file size and type
     if (!file) {
         return { success: false, imageUrl: null, error: "No file uploaded" }
+    }
+
+    // Validate file type
+    const allowedTypes = [
+        "image/jpeg",
+        "image/png",
+        "image/gif",
+        "image/webp",
+        "image/avif",
+    ]
+    if (!allowedTypes.includes(file.type)) {
+        return {
+            success: false,
+            imageUrl: null,
+            error: `Tipo de archivo no soportado. Tipos permitidos: ${allowedTypes.join(
+                ", "
+            )}`,
+        }
+    }
+
+    // Validate file size (5MB max)
+    const maxSize = 5 * 1024 * 1024 // 5MB
+    if (file.size > maxSize) {
+        return {
+            success: false,
+            imageUrl: null,
+            error: "El archivo es demasiado grande. Máximo 5MB permitido.",
+        }
     }
 
     const supbase = createServerSupabaseClient()
@@ -82,6 +109,34 @@ export const uploadProductImage = async (file: File | undefined) => {
                 success: false,
                 imageUrl: null,
                 error: "No se ha subido ningún archivo",
+            }
+        }
+
+        // Validate file type
+        const allowedTypes = [
+            "image/jpeg",
+            "image/png",
+            "image/gif",
+            "image/webp",
+            "image/avif",
+        ]
+        if (!allowedTypes.includes(file.type)) {
+            return {
+                success: false,
+                imageUrl: null,
+                error: `Tipo de archivo no soportado. Tipos permitidos: ${allowedTypes.join(
+                    ", "
+                )}`,
+            }
+        }
+
+        // Validate file size (1MB max for products)
+        const maxSize = 1024 * 1024 // 1MB
+        if (file.size > maxSize) {
+            return {
+                success: false,
+                imageUrl: null,
+                error: "El archivo es demasiado grande. Máximo 1MB permitido.",
             }
         }
 
