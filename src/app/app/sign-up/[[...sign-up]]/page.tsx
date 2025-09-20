@@ -1,5 +1,41 @@
+"use client"
+
 import { SignUp } from "@clerk/nextjs"
 import Link from "next/link"
+
+function RegisterSkeleton() {
+    return (
+        <div className="w-full max-w-md">
+            <div className="bg-white rounded-2xl shadow-xl p-8 space-y-6">
+                {/* Email field skeleton */}
+                <div className="space-y-2">
+                    <div className="h-4 bg-gray-200 rounded w-32 animate-pulse"></div>
+                    <div className="h-12 bg-gray-100 rounded-lg animate-pulse"></div>
+                </div>
+
+                {/* Password field skeleton */}
+                <div className="space-y-2">
+                    <div className="h-4 bg-gray-200 rounded w-24 animate-pulse"></div>
+                    <div className="h-12 bg-gray-100 rounded-lg animate-pulse"></div>
+                </div>
+
+                {/* Confirm Password field skeleton */}
+                <div className="space-y-2">
+                    <div className="h-4 bg-gray-200 rounded w-36 animate-pulse"></div>
+                    <div className="h-12 bg-gray-100 rounded-lg animate-pulse"></div>
+                </div>
+
+                {/* Register button skeleton */}
+                <div className="h-12 bg-gray-200 rounded-lg animate-pulse"></div>
+
+                {/* Login link skeleton */}
+                <div className="text-center">
+                    <div className="h-4 bg-gray-200 rounded w-48 mx-auto animate-pulse"></div>
+                </div>
+            </div>
+        </div>
+    )
+}
 
 export default function SignUpPage() {
     return (
@@ -18,14 +54,17 @@ export default function SignUpPage() {
             <p className="text-lg text-gray-700">
                 Regístrate para acceder a izimport.com.
             </p>
-            <SignUp
-                appearance={{
-                    theme: "simple",
-                    elements: {
-                        header: "!hidden",
-                    },
-                }}
-            />
+            <div className="flex justify-center">
+                <SignUp
+                    fallback={<RegisterSkeleton />}
+                    appearance={{
+                        theme: "simple",
+                        elements: {
+                            header: "!hidden",
+                        },
+                    }}
+                />
+            </div>
         </section>
     )
 }
