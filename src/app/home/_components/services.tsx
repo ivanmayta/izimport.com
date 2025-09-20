@@ -3,7 +3,7 @@ import { CircleDollarSign, Lock, SendHorizonal } from "lucide-react"
 
 export default function Services() {
     return (
-        <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-0 pt-36">
+        <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-0 py-16">
             <section className="grid grid-cols-1 lg:grid-cols-3 gap-10 place-items-center ">
                 <div className="flex flex-col w-full text-center lg:text-left">
                     <h3 className="font-bold mb-2 text-lg">

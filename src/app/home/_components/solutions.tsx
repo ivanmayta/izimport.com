@@ -16,6 +16,8 @@ export default async function Soluciones() {
                         </span>
                     </div>
                     <ul className="flex flex-col space-y-16 sm:space-y-24">
+                        {/*
+
                         <li className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
                             <div className="flex flex-col justify-center">
                                 <h3 className="text-2xl font-bold mb-4">
@@ -30,9 +32,10 @@ export default async function Soluciones() {
                             </div>
 
                             <div className="flex items-center justify-end">
-                                {/*<Exchange data={data} />*/}
+                                <Exchange data={data} />
                             </div>
                         </li>
+                            */}
 
                         <li className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
                             <div className="flex items-center justify-start order-2 md:order-1">
