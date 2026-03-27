@@ -59,10 +59,6 @@ export default async function BusinessPage({
     if (productsError) {
         return notFound()
     }
-    console.log(
-        `🔄 [${process.env.NODE_ENV}] Rendering ${username} at:`,
-        new Date().toISOString()
-    )
     return (
         <div className="max-w-[1420px] mx-auto w-full ">
             <ProfileHero data={{ ...data, description: safeDescription }} />

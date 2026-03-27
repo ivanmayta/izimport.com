@@ -6,6 +6,7 @@ import { MapPin, Phone, Truck } from "lucide-react"
 import { Profile } from "@/types/profile"
 import ProfileRoot from "@/app/business/_components/ui/profile"
 import { DetailsIcon } from "@/icons/details-icon"
+import { WHATSAPP_COUNTRY_CODE } from "@/config"
 
 export default async function ProfileHero({ data }: { data: Profile }) {
     const {
@@ -17,9 +18,7 @@ export default async function ProfileHero({ data }: { data: Profile }) {
         image_url,
         social_urls,
     } = data
-    console.log("social_urls from profile hero", social_urls)
 
-    // Create an array of potential social links
     const potentialSocialLinks = [
         {
             platform: "facebook",
@@ -27,9 +26,7 @@ export default async function ProfileHero({ data }: { data: Profile }) {
             href: social_urls?.facebook
                 ? `https://www.facebook.com/${social_urls.facebook}`
                 : undefined,
-            icon: (
-                <Facebook className="size-8 hover:text-blue-400 transition-colors cursor-pointer" />
-            ),
+            icon: <Facebook className="size-4" />,
         },
         {
             platform: "instagram",
@@ -37,9 +34,7 @@ export default async function ProfileHero({ data }: { data: Profile }) {
             href: social_urls?.instagram
                 ? `https://www.instagram.com/${social_urls.instagram}`
                 : undefined,
-            icon: (
-                <Instagram className="size-8 hover:text-rose-400 transition-colors cursor-pointer" />
-            ),
+            icon: <Instagram className="size-4" />,
         },
         {
             platform: "tiktok",
@@ -47,21 +42,18 @@ export default async function ProfileHero({ data }: { data: Profile }) {
             href: social_urls?.tiktok
                 ? `https://www.tiktok.com/${social_urls.tiktok}`
                 : undefined,
-            icon: (
-                <Tiktok className="size-8 hover:text-gray-400 transition-colors cursor-pointer" />
-            ),
+            icon: <Tiktok className="size-4" />,
         },
     ]
 
-    // Filter out social links with empty or undefined usernames and always include WhatsApp
     const socialLinks = [
         ...potentialSocialLinks.filter(
             (link) => link.username && link.username.trim() !== "" && link.href
         ),
         {
-            href: `https://wa.me/51${whatsapp}?text=Hola%20${name}%20me%20interesa%20un%20producto`,
-            icon: <Whatsapp className="size-7 " />,
-            label: "Mensaje",
+            href: `https://wa.me/${WHATSAPP_COUNTRY_CODE}${whatsapp}?text=Hola%20${name}%20me%20interesa%20un%20producto`,
+            icon: <Whatsapp className="size-4" />,
+            label: "WhatsApp",
         },
     ]
 
@@ -72,36 +64,36 @@ export default async function ProfileHero({ data }: { data: Profile }) {
     ]
 
     return (
-        <>
-            <ProfileRoot>
-                <ProfileRoot.CartButton />
-                <ProfileRoot.Image
-                    src={image_url}
-                    alt="logo"
-                    width={125}
-                    height={125}
-                />
-                <div className="flex-1">
-                    <div className="flex gap-2 w-full flex-col items-center md:items-start md:flex-row text-center md:text-left ">
-                        <div className="flex-1 space-y-2">
-                            <ProfileRoot.Title username={username}>
-                                {name}
-                            </ProfileRoot.Title>
-                            <ProfileRoot.SocialLinks links={socialLinks} />
-                        </div>
-                        <div className="flex-1 flex justify-center">
-                            <ProfileRoot.ContactInfo items={contactItems} />
-                        </div>
+        <ProfileRoot>
+            <ProfileRoot.CartButton />
+
+            {/* Main info area */}
+            <div className="p-6 sm:p-8 pr-32 sm:pr-44">
+                <div className="flex gap-5 sm:gap-6 items-start">
+                    <ProfileRoot.Image
+                        src={image_url}
+                        alt={name}
+                        width={140}
+                        height={140}
+                    />
+                    <div className="flex-1 min-w-0 space-y-3 pt-1">
+                        <ProfileRoot.Title username={username}>
+                            {name}
+                        </ProfileRoot.Title>
+                        <ProfileRoot.SocialLinks links={socialLinks} />
+                        {description && (
+                            <ProfileRoot.Description icon={<DetailsIcon />}>
+                                {description}
+                            </ProfileRoot.Description>
+                        )}
                     </div>
-                    <ProfileRoot.Description
-                        icon={
-                            <DetailsIcon className="size-7 md:self-start self-center" />
-                        }
-                    >
-                        {description}
-                    </ProfileRoot.Description>
                 </div>
-            </ProfileRoot>
-        </>
+            </div>
+
+            {/* Contact strip */}
+            <div className="border-t border-zinc-100 bg-zinc-50/60 px-6 sm:px-8 py-4">
+                <ProfileRoot.ContactInfo items={contactItems} />
+            </div>
+        </ProfileRoot>
     )
 }

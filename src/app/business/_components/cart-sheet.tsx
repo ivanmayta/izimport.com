@@ -56,11 +56,9 @@ export default function CartSheet({ children }: CartSheetProps) {
             <SheetTrigger asChild>
                 <div className="relative">
                     {children}
-                    {totalItems > 0 && (
-                        <span className="absolute -top-2 -right-2 bg-primary text-primary-foreground text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">
-                            {totalItems}
-                        </span>
-                    )}
+                    <span className={`absolute -top-1.5 -right-1.5 text-[10px] font-black rounded-full h-4 w-4 flex items-center justify-center tabular-nums transition-colors ${totalItems > 0 ? "bg-zinc-950 text-white" : "bg-zinc-200 text-zinc-500"}`}>
+                        {totalItems}
+                    </span>
                 </div>
             </SheetTrigger>
             <SheetContent className="w-full sm:max-w-md overflow-y-auto">

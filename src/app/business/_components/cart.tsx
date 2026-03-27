@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input"
 import { Trash2, Plus, Minus, ShoppingCart } from "lucide-react"
 import { useCartStore } from "@/app/business/_store/store"
 import { Whatsapp } from "@/icons/whatsapp"
+import { WHATSAPP_COUNTRY_CODE } from "@/config"
 
 export default function Cart() {
     const items = useCartStore((state) => state.items)
@@ -31,15 +32,12 @@ export default function Cart() {
         })
 
         message += `*Total: s/.${getTotal().toFixed(2)}*\n\n`
-        message += "Por favor cofirma tu orden. Gracias!"
+        message += "Por favor confirma tu orden. Gracias!"
 
-        // Encode the message for URL
         const encodedMessage = encodeURIComponent(message)
 
-        // Open WhatsApp with the pre-filled message
-        // Replace '1234567890' with your actual WhatsApp business number
         window.open(
-            `https://wa.me/51${whatsapp}?text=${encodedMessage}`,
+            `https://wa.me/${WHATSAPP_COUNTRY_CODE}${whatsapp}?text=${encodedMessage}`,
             "_blank"
         )
     }
