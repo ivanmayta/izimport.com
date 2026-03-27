@@ -8,7 +8,7 @@ export const getProfile = cache(
         if (!id) {
             return null
         }
-        const { data, error } = await supabase
+        const { data } = await supabase
             .from("profiles")
             .select("*")
             .eq("user_id", id)

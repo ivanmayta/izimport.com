@@ -1,5 +1,5 @@
 import { Whatsapp } from "@/icons/whatsapp"
-import { LayoutGrid, MousePointerClick, Share2, ShoppingBag } from "lucide-react"
+import { LayoutGrid, Share2, ShoppingBag } from "lucide-react"
 
 export default function Services() {
     const features = [
