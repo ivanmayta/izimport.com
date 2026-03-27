@@ -1,7 +1,6 @@
-export default function LibroDeReclamaciones() {
-    return (
-        <div>
-            <h1>Libro de Reclamaciones</h1>
-        </div>
-    )
+import { redirect } from "next/navigation"
+import { APP_URLS } from "@/config"
+
+export default function Page() {
+    redirect(`${APP_URLS.base}/libro-de-reclamaciones`)
 }
