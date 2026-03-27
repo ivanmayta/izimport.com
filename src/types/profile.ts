@@ -1,4 +1,6 @@
 export interface Profile {
+    id: number
+    user_id: string
     username: string
     name: string
     description: string

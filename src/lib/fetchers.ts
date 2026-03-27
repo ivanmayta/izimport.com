@@ -13,9 +13,6 @@ export const getProfile = cache(
             .select("*")
             .eq("user_id", id)
             .single()
-        if (error) {
-            console.log("error", error)
-        }
         return data
     }
 )
@@ -29,15 +26,11 @@ export const getProfileByUsername = async (
         .select("*")
         .eq("username", username)
         .single()
-    if (error) {
-        console.log("error", error)
-    }
     return { data, error }
 }
 export const getProfiles = async (supabase: SupabaseClient) => {
     const { data, error } = await supabase.from("profiles").select("*")
     if (error) {
-        console.log("error", error)
         return []
     }
     return data
@@ -51,8 +44,5 @@ export const getProducts = async (profileId: string) => {
         .select("*")
         .eq("perfil_id", profileId)
         .order("created_at", { ascending: false })
-    if (error) {
-        console.log("error", error)
-    }
     return { products: data, count: data?.length, error }
 }

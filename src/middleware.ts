@@ -1,20 +1,14 @@
 import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server"
 import { NEXT_PUBLIC_APP_URL } from "@/config"
 const host = NEXT_PUBLIC_APP_URL?.split("://")[1]
-console.log("host", host)
+
 const isPublicRoute = createRouteMatcher([
     "/sign-in(.*)",
     "/sign-up(.*)",
-    "/terminos-y-condiciones(.*)",
-    "/libro-de-reclamaciones(.*)",
-    "/politicas-de-cambios-devoluciones(.*)",
     "/public(.*)",
 ])
 export default clerkMiddleware(async (auth, req) => {
-    console.log("middleware running")
-    console.log("req headers", req.headers.get("host"))
     if (req.headers.get("host") === host) {
-        console.log("excecuting app.localhost middleware")
         if (!isPublicRoute(req)) {
             await auth.protect()
         }

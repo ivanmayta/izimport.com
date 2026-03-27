@@ -10,7 +10,6 @@ import { Facebook } from "@/icons/facebook"
 
 export default async function DashboardPage() {
     const baseDomain = process.env.NEXT_PUBLIC_BASE_DOMAIN
-    console.log("baseDomain", baseDomain)
     const supabase = createServerSupabaseClient()
     const userId = await verifyAuthUser()
     const profile = await getProfile(supabase, userId)
