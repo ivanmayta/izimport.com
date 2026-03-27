@@ -1,4 +1,5 @@
 import { ArrowRight } from "lucide-react"
+import { APP_URLS } from "@/config"
 
 export default async function Soluciones() {
     return (
@@ -62,7 +63,7 @@ export default async function Soluciones() {
                                 <a
                                     className="text-orange-600 flex items-center mt-3 font-bold gap-2"
                                     target="_blank"
-                                    href="https://track.izimport.com/"
+                                    href={APP_URLS.tracking}
                                 >
                                     Rastrear envios
                                     <ArrowRight size={18} />
@@ -84,7 +85,7 @@ export default async function Soluciones() {
                                 <a
                                     className="text-orange-600 flex items-center mt-3 font-bold gap-2"
                                     target="_blank"
-                                    href="https://quotes.izimport.com/"
+                                    href={APP_URLS.quotes}
                                 >
                                     Cotiza importaciones
                                     <ArrowRight size={18} />

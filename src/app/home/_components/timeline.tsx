@@ -1,210 +1,157 @@
 "use client"
 
-import { NEXT_PUBLIC_APP_URL } from "@/config"
-import { ArrowRight, CheckCircle, X } from "lucide-react"
+import { APP_URLS } from "@/config"
+import { ArrowRight, X, Smartphone, ListChecks, Settings2, Rocket } from "lucide-react"
 import { useState } from "react"
 
 export default function Timeline() {
     const [selectedImage, setSelectedImage] = useState<string | null>(null)
 
+    const steps = [
+        {
+            tag: "Paso 1",
+            title: "URL personalizada",
+            description: "Elige tu nombre único: izimport.com/tunombre. Tu marca, tu dirección.",
+            icon: <Smartphone className="h-5 w-5" />,
+            active: true
+        },
+        {
+            tag: "Paso 2",
+            title: "Carga tu catálogo",
+            description: "Sube fotos y precios. Configura tu WhatsApp para recibir los pedidos.",
+            icon: <ListChecks className="h-5 w-5" />,
+            active: false
+        },
+        {
+            tag: "Paso 3",
+            title: "Personaliza",
+            description: "Ajusta colores y logo para que la tienda se sienta 100% tuya.",
+            icon: <Settings2 className="h-5 w-5" />,
+            active: false
+        },
+        {
+            tag: "¡Listo!",
+            title: "Vende por WhatsApp",
+            description: "Comparte tu link y empieza a recibir pedidos organizados.",
+            icon: <Rocket className="h-5 w-5" />,
+            active: false
+        }
+    ]
+
+    const showcases = [
+        { title: "Configuración URL", image: "/images/1.png", step: "Paso 1" },
+        { title: "Personalización", image: "/images/2.png", step: "Paso 2" },
+        { title: "Gestión de Productos", image: "/images/3.png", step: "Paso 3" },
+        { title: "Tienda Finalizada", image: "/images/main.png", step: "Resultado" }
+    ]
+
     return (
         <>
-            {/* Modal de zoom */}
             {selectedImage && (
                 <div
-                    className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4"
+                    className="fixed inset-0 bg-zinc-950/90 z-[100] flex items-center justify-center p-4 backdrop-blur-sm"
                     onClick={() => setSelectedImage(null)}
                 >
-                    <div className="relative max-w-4xl max-h-[90vh] w-full">
+                    <div className="relative max-w-5xl w-full animate-in zoom-in-95 duration-300">
                         <button
                             onClick={() => setSelectedImage(null)}
-                            className="absolute -top-10 right-0 text-white hover:text-gray-300 transition-colors"
+                            className="absolute -top-12 right-0 text-white hover:text-orange-500 transition-colors"
                         >
                             <X className="h-8 w-8" />
                         </button>
                         <img
-                            src={selectedImage || "/placeholder.svg"}
+                            src={selectedImage}
                             alt="Vista ampliada"
-                            className="w-full h-full object-contain rounded-lg"
+                            className="w-full h-auto object-contain rounded-2xl shadow-2xl border border-white/10"
                             onClick={(e) => e.stopPropagation()}
                         />
                     </div>
                 </div>
             )}
 
-            <section className="py-16 px-4 bg-gray-50">
-                <div className="container mx-auto max-w-7xl">
-                    <div className="text-center mb-12">
-                        <h2 className="text-3xl md:text-4xl font-bold mb-4 text-balance text-gray-900">
-                            En menos de 5 minutos, tu{" "}
-                            <span className="italic text-orange-600">
-                                tienda online
-                            </span>{" "}
-                            estará lista para recibir pedidos por WhatsApp
+            <section className="py-24 px-6 bg-zinc-50/50 relative overflow-hidden">
+                <div className="max-w-7xl mx-auto">
+                    <div className="text-center mb-20 space-y-4">
+                        <h2 className="text-3xl md:text-5xl font-black text-zinc-950 tracking-tight">
+                            Tu tienda lista en <span className="text-red-600 italic">5 minutos</span>
                         </h2>
-                        <p className="text-gray-600 text-lg">
-                            Proceso simple y directo
-                        </p>
+                        <p className="text-zinc-500 text-lg font-medium">Un proceso diseñado para que no pierdas tiempo.</p>
                     </div>
 
-                    {/* Timeline */}
-                    <div className="grid md:grid-cols-4 gap-8 relative mb-16">
-                        {/* Timeline Line */}
-                        <div className="hidden md:block absolute top-8 left-0 right-0 h-0.5 bg-gray-300"></div>
-
-                        {[
-                            {
-                                day: "Paso 1",
-                                title: "Elige tu URL personalizada",
-                                description:
-                                    "Selecciona tu nombre único para tu tienda: izimport.com/tunombre. Será tu dirección web personal.",
-                                active: true,
-                            },
-                            {
-                                day: "Paso 2",
-                                title: "Sube tu catálogo de productos",
-                                description:
-                                    "Agrega tus productos con fotos, precios y descripciones. Configura tu número de WhatsApp para recibir pedidos.",
-                                active: false,
-                            },
-                            {
-                                day: "Paso 3",
-                                title: "Personaliza tu tienda",
-                                description:
-                                    "Ajusta colores, logo y información de contacto. Tu tienda estará lista para compartir.",
-                                active: false,
-                            },
-                            {
-                                day: "¡Listo!",
-                                title: "Comparte y recibe pedidos",
-                                description:
-                                    "Comparte tu URL única. Los clientes verán tu catálogo y te enviarán pedidos por WhatsApp.",
-                                active: false,
-                            },
-                        ].map((step, index) => (
+                    {/* Simplified Steps Flow */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-20">
+                        {steps.map((step, index) => (
                             <div
                                 key={index}
-                                className={`relative bg-white rounded-lg border shadow-sm p-6 ${
-                                    step.active ? "ring-2 ring-orange-300" : ""
+                                className={`relative p-8 rounded-3xl transition-all duration-500 border ${
+                                    step.active 
+                                    ? "bg-white border-zinc-200 shadow-xl shadow-zinc-200/50 scale-105 z-10" 
+                                    : "bg-transparent border-transparent hover:bg-white/50 hover:border-zinc-100"
                                 }`}
                             >
-                                <div
-                                    className={`absolute -top-3 left-1/2 transform -translate-x-1/2 px-3 py-1 rounded-full text-sm font-medium ${
-                                        step.active
-                                            ? "bg-orange-600 text-white"
-                                            : "bg-gray-700 text-white"
-                                    }`}
-                                >
-                                    {step.day}
+                                <div className={`inline-flex items-center justify-center w-10 h-10 rounded-xl mb-6 ${
+                                    step.active ? "bg-orange-500 text-white" : "bg-zinc-200 text-zinc-500"
+                                }`}>
+                                    {step.icon}
                                 </div>
-                                <div className="pt-8 pb-6">
-                                    <div className="flex items-start space-x-3">
-                                        <div
-                                            className={`p-2 rounded-lg ${
-                                                step.active
-                                                    ? "bg-orange-100"
-                                                    : "bg-gray-100"
-                                            }`}
-                                        >
-                                            <CheckCircle
-                                                className={`h-5 w-5 ${
-                                                    step.active
-                                                        ? "text-orange-600"
-                                                        : "text-gray-600"
-                                                }`}
-                                            />
+                                <span className={`block text-[10px] font-black uppercase tracking-[0.2em] mb-2 ${
+                                    step.active ? "text-orange-600" : "text-zinc-400"
+                                }`}>
+                                    {step.tag}
+                                </span>
+                                <h3 className="text-xl font-bold text-zinc-950 mb-3 tracking-tight">
+                                    {step.title}
+                                </h3>
+                                <p className="text-sm text-zinc-500 font-medium leading-relaxed">
+                                    {step.description}
+                                </p>
+                            </div>
+                        ))}
+                    </div>
+
+                    {/* Visual Showcase Grid */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+                        {showcases.map((item, index) => (
+                            <div
+                                key={index}
+                                className="group relative bg-white rounded-2xl border border-zinc-200 overflow-hidden shadow-sm hover:shadow-2xl hover:shadow-zinc-300/50 transition-all duration-500 cursor-pointer"
+                                onClick={() => setSelectedImage(item.image)}
+                            >
+                                <div className="aspect-[4/3] overflow-hidden">
+                                    <img
+                                        src={item.image}
+                                        alt={item.title}
+                                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                                    />
+                                    <div className="absolute inset-0 bg-zinc-950/0 group-hover:bg-zinc-950/20 transition-colors duration-500 flex items-center justify-center">
+                                        <div className="w-12 h-12 rounded-full bg-white shadow-xl flex items-center justify-center scale-0 group-hover:scale-100 transition-transform duration-500">
+                                            <ArrowRight className="h-5 w-5 text-zinc-950 -rotate-45" />
                                         </div>
-                                        <div>
-                                            <h3 className="font-semibold mb-2 text-balance text-gray-900">
-                                                {step.title}
-                                            </h3>
-                                            <p className="text-sm text-gray-600 text-balance">
-                                                {step.description}
-                                            </p>
-                                        </div>
+                                    </div>
+                                </div>
+                                <div className="p-5 border-t border-zinc-50">
+                                    <div className="flex items-center justify-between">
+                                        <h4 className="font-bold text-zinc-900 text-sm tracking-tight">{item.title}</h4>
+                                        <span className="text-[10px] font-black text-orange-600 uppercase bg-orange-50 px-2 py-0.5 rounded-md">
+                                            {item.step}
+                                        </span>
                                     </div>
                                 </div>
                             </div>
                         ))}
                     </div>
 
-                    {/* Grid de imágenes con zoom */}
-                    <div className="mb-12">
-                        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-                            {[
-                                {
-                                    title: "Configuración URL",
-                                    image: "/images/1.png",
-                                    step: "Paso 1",
-                                },
-                                {
-                                    title: "Personalización",
-                                    image: "/images/2.png",
-                                    step: "Paso 2",
-                                },
-                                {
-                                    title: "Catálogo de Productos",
-                                    image: "/images/3.png",
-                                    step: "Paso 3",
-                                },
-                                {
-                                    title: "Tienda Lista",
-                                    image: "/images/main.png",
-                                    step: "Resultado",
-                                },
-                            ].map((item, index) => (
-                                <div
-                                    key={index}
-                                    className="bg-white rounded-lg border shadow-sm overflow-hidden hover:shadow-lg transition-shadow cursor-pointer"
-                                    onClick={() => setSelectedImage(item.image)}
-                                >
-                                    <div className="relative">
-                                        <img
-                                            src={
-                                                item.image || "/placeholder.svg"
-                                            }
-                                            alt={item.title}
-                                            className="w-full h-48 object-cover hover:scale-105 transition-transform duration-300"
-                                        />
-                                        <div className="absolute top-2 left-2 bg-orange-600 text-white px-2 py-1 rounded text-xs font-medium">
-                                            {item.step}
-                                        </div>
-                                        <div className="absolute inset-0 bg-black/0 hover:bg-black/10 transition-colors flex items-center justify-center">
-                                            <div className="opacity-0 hover:opacity-100 transition-opacity bg-white/90 rounded-full p-2">
-                                                <svg
-                                                    className="h-5 w-5 text-gray-700"
-                                                    fill="none"
-                                                    stroke="currentColor"
-                                                    viewBox="0 0 24 24"
-                                                >
-                                                    <path
-                                                        strokeLinecap="round"
-                                                        strokeLinejoin="round"
-                                                        strokeWidth={2}
-                                                        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"
-                                                    />
-                                                </svg>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="p-4">
-                                        <h4 className="font-semibold text-center text-gray-900">
-                                            {item.title}
-                                        </h4>
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-
-                    <div className="text-center">
+                    <div className="flex justify-center">
                         <a
-                            href={`${NEXT_PUBLIC_APP_URL}`}
+                            href={APP_URLS.dashboard}
                             target="_blank"
-                            className="inline-flex items-center mx-auto bg-[#FCD535] text-zinc-800 text-base font-bold rounded-xl py-3.5 px-8 focus:outline-none transform transition hover:scale-105 duration-300 ease-in-out"
+                            className="group relative inline-flex items-center justify-center bg-[#FCD535] text-zinc-950 text-lg font-black rounded-2xl py-4 px-12 transition-all hover:scale-[1.05] hover:shadow-2xl hover:shadow-[#FCD535]/20 active:scale-95 overflow-hidden"
                         >
-                            Crear Mi Tienda Gratis
-                            <ArrowRight className="ml-2 h-5 w-5" />
+                            <span className="relative z-10 flex items-center gap-2">
+                                Crear mi tienda gratis
+                                <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
+                            </span>
+                            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:animate-shimmer" />
                         </a>
                     </div>
                 </div>

@@ -1,60 +1,67 @@
 import { Whatsapp } from "@/icons/whatsapp"
-import { CircleDollarSign, Lock, SendHorizonal } from "lucide-react"
+import { LayoutGrid, MousePointerClick, Share2, ShoppingBag } from "lucide-react"
 
 export default function Services() {
-    return (
-        <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-0 py-16">
-            <section className="grid grid-cols-1 lg:grid-cols-3 gap-10 place-items-center ">
-                <div className="flex flex-col w-full text-center lg:text-left">
-                    <h3 className="font-bold mb-2 text-lg">
-                        Enlace personalizado
-                    </h3>
-                    <p className="font-light pb-4 text-pretty">
-                        Generalmente el nombre de tu Negocio, puedes compartirlo
-                        en tus redes sociales
-                    </p>
-                    <span className="flex w-fit gap-1 items-center self-center lg:self-start border rounded-lg py-1 px-3">
-                        <Lock size={16} />
-                        https://izimport.com/<strong>izimport</strong>
-                    </span>
-                </div>
-                <div className="flex flex-col w-full text-center lg:text-left">
-                    <h3 className="font-bold mb-2 text-lg">
-                        Recibe pedidos por WhatsApp
-                    </h3>
-                    <p className="font-light text-pretty">
-                        Los clientes pueden completar el pedido del carrito de
-                        compras via WhatsApp.
-                    </p>
-                    <div className="flex self-center lg:self-start w-fit mt-auto -ml-3  gap-3 items-center rounded-lg py-1 px-3 text-green-500 text-lg  font-semibold">
-                        <span className="flex">
-                            <Whatsapp className="w-7"></Whatsapp>
-                            WhatsApp
-                        </span>
-                        <span className="bg-green-500 w-7 h-7 rounded-full p-1 text-white">
-                            <SendHorizonal size={20} className=" text-white" />
-                        </span>
-                    </div>
-                </div>
-                <div className="flex flex-col w-full text-center lg:text-left">
-                    <h3 className="font-bold mb-2 text-lg">
-                        ¿Importas tus productos?{" "}
-                    </h3>
-                    <p className="font-light text-pretty">
-                        Utilidades para mantenerte informado sobre el tipo de
-                        cambio actual y seguimiento de envíos por DHL.
-                    </p>
-                    <div className="flex self-center lg:self-start w-fit mt-auto -ml-3  gap-3 items-center rounded-lg py-1 px-3  text-lg  font-semibold">
-                        <img
-                            src="/images/dhl.webp"
-                            className="h-7 w-auto rounded-md"
-                            alt="Logog Dhl"
-                        />
+    const features = [
+        {
+            title: "Catálogo Interactivo",
+            description: "Tus clientes pueden navegar por tus productos con fotos de alta calidad, precios y descripciones detalladas.",
+            icon: <LayoutGrid className="h-6 w-6 text-zinc-900" />,
+            color: "bg-blue-50"
+        },
+        {
+            title: "Carrito de Compras",
+            description: "Selección de múltiples productos con cálculo automático de totales antes de enviar el pedido.",
+            icon: <ShoppingBag className="h-6 w-6 text-zinc-900" />,
+            color: "bg-orange-50"
+        },
+        {
+            title: "Venta por WhatsApp",
+            description: "Recibe el detalle exacto de la compra directamente en tu chat de WhatsApp para cerrar la venta.",
+            icon: <Whatsapp className="h-6 w-6 text-[#25D366]" />,
+            color: "bg-green-50"
+        },
+        {
+            title: "URL Personalizada",
+            description: "Un enlace profesional con el nombre de tu marca (izimport.com/tu-tienda) listo para compartir.",
+            icon: <Share2 className="h-6 w-6 text-zinc-900" />,
+            color: "bg-purple-50"
+        }
+    ]
 
-                        <CircleDollarSign size={24} />
-                    </div>
+    return (
+        <section className="py-24 bg-white">
+            <div className="max-w-7xl mx-auto px-6">
+                <div className="text-center mb-16 space-y-4">
+                    <h2 className="text-3xl md:text-5xl font-black text-zinc-950 tracking-tight">
+                        Todo lo que necesitas para <br/>
+                        <span className="text-orange-600">vender más</span> por WhatsApp
+                    </h2>
+                    <p className="text-zinc-500 text-lg max-w-2xl mx-auto font-medium">
+                        Olvídate de enviar listas de precios en PDF o fotos sueltas. 
+                        Profesionaliza tu proceso de venta hoy mismo.
+                    </p>
                 </div>
-            </section>
-        </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    {features.map((feature, index) => (
+                        <div 
+                            key={index} 
+                            className="group p-8 rounded-3xl border border-zinc-100 bg-zinc-50/50 transition-all hover:bg-white hover:shadow-xl hover:shadow-zinc-200/50 hover:-translate-y-1"
+                        >
+                            <div className={`w-12 h-12 ${feature.color} rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform`}>
+                                {feature.icon}
+                            </div>
+                            <h3 className="text-xl font-bold text-zinc-950 mb-3 tracking-tight">
+                                {feature.title}
+                            </h3>
+                            <p className="text-zinc-500 leading-relaxed text-sm font-medium">
+                                {feature.description}
+                            </p>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </section>
     )
 }

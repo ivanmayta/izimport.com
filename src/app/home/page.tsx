@@ -1,25 +1,23 @@
-import { Lexend } from "next/font/google"
+import { Sora, Inter } from "next/font/google"
 import Header from "./_components/header"
 import Hero from "./_components/hero"
 import Services from "./_components/services"
 import Footer from "./_components/footer"
-import Soluciones from "./_components/solutions"
 import Timeline from "./_components/timeline"
-const lexend = Lexend({ subsets: ["latin"] })
+
+const sora = Sora({ subsets: ["latin"], variable: "--font-sora" })
+const inter = Inter({ subsets: ["latin"], variable: "--font-inter" })
+
 export default function Home() {
     return (
-        <>
-            <div className={`${lexend.className} `}>
-                <Header />
+        <div className={`${sora.variable} ${inter.variable} font-sans selection:bg-[#25D366]/30`}>
+            <Header />
+            <main>
                 <Hero />
                 <Services />
                 <Timeline />
-                {/*                    
-                    <Steps />
-                    */}
-                <Soluciones />
-                <Footer />
-            </div>
-        </>
+            </main>
+            <Footer />
+        </div>
     )
 }

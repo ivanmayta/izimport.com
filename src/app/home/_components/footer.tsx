@@ -2,9 +2,9 @@ import { Button } from "@/components/ui/button"
 import { Whatsapp } from "@/icons/whatsapp"
 import { Facebook, Github, Globe, Instagram, Youtube } from "lucide-react"
 import Link from "next/link"
+import { APP_URLS, SOCIAL_URLS } from "@/config"
 
 function Footer() {
-    const appUrl = process.env.NEXT_PUBLIC_APP_URL
     return (
         <>
             <footer className="bg-black text-white py-12 px-6">
@@ -26,7 +26,7 @@ function Footer() {
                             </Link>
                             <div className="flex justify-center">
                                 <Link
-                                    href="https://wa.me/51972677175"
+                                    href={SOCIAL_URLS.whatsapp}
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     className="h-12 w-12 bg-transparent"
@@ -34,7 +34,7 @@ function Footer() {
                                     <Whatsapp className="h-5 w-5 " />
                                 </Link>
                                 <Link
-                                    href="https://www.instagram.com/_izimport"
+                                    href={SOCIAL_URLS.instagram}
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     className="h-12 w-12 bg-transparent"
@@ -42,7 +42,7 @@ function Footer() {
                                     <Instagram className="h-5 w-5 " />
                                 </Link>
                                 <Link
-                                    href="https://www.facebook.com/izimportcom"
+                                    href={SOCIAL_URLS.facebook}
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     className="h-12 w-12 bg-transparent"
@@ -51,7 +51,7 @@ function Footer() {
                                 </Link>
 
                                 <Link
-                                    href="https://www.youtube.com/@izimport"
+                                    href={SOCIAL_URLS.youtube}
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     className="h-12 w-12 bg-transparent"
@@ -78,7 +78,7 @@ function Footer() {
                                 <li>
                                     <Link
                                         className="hover:border-b-2 hover:border-white py-2 font-medium text-white"
-                                        href="https://track.izimport.com"
+                                        href={APP_URLS.tracking}
                                         target="_blank"
                                     >
                                         Rastrea
@@ -87,7 +87,7 @@ function Footer() {
                                 <li>
                                     <Link
                                         className="hover:border-b-2 hover:border-white py-2 font-medium text-white"
-                                        href="https://quotes.izimport.com"
+                                        href={APP_URLS.quotes}
                                         target="_blank"
                                     >
                                         Cotiza
@@ -104,8 +104,7 @@ function Footer() {
                             <ul className="space-y-2">
                                 <li>
                                     <a
-                                        href={`${appUrl}/terminos-y-condiciones`}
-                                        target="_blank"
+                                        href={`${APP_URLS.base}/terminos-y-condiciones`}
                                         className="text-gray-300 hover:text-white transition-colors"
                                     >
                                         Términos y Condiciones
@@ -114,9 +113,7 @@ function Footer() {
 
                                 <li>
                                     <a
-                                        href={`${appUrl}/politicas-de-cambios-devoluciones`}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
+                                        href={`${APP_URLS.base}/politicas-de-cambios-devoluciones`}
                                         className="text-gray-300 hover:text-white transition-colors"
                                     >
                                         Políticas de Cambios y Devoluciones
@@ -133,9 +130,7 @@ function Footer() {
                             <ul className="space-y-2">
                                 <li>
                                     <a
-                                        href={`${appUrl}/libro-de-reclamaciones`}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
+                                        href={`${APP_URLS.base}/libro-de-reclamaciones`}
                                         className="text-gray-300 hover:text-white transition-colors"
                                     >
                                         <img
